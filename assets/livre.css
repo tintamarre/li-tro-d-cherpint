@@ -12,7 +12,7 @@
 html,body{height:100%}
 body{
   background:var(--papier-fonce); color:var(--encre); font-family:var(--serif);
-  font-size:17px; line-height:1.6; overflow:hidden;
+  font-size:18px; line-height:1.6; overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -32,7 +32,7 @@ body{
 @keyframes entre{from{opacity:0;transform:translateX(var(--sens,26px))}to{opacity:1;transform:none}}
 
 .entete{flex:0 0 auto;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
-.titre-page{font-style:italic;color:var(--ocre);font-size:clamp(13px,1.6vh,16px)}
+.titre-page{font-style:italic;color:var(--ocre);font-size:clamp(14px,1.75vh,17.5px)}
 .titre-page span{color:var(--encre-douce);font-style:normal}
 .folio{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--ocre);white-space:nowrap}
 
@@ -41,12 +41,12 @@ body{
 
 .textes{flex:0 0 auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
 .filet{background:linear-gradient(var(--papier),var(--papier-bord) 18%,var(--papier-bord) 82%,var(--papier))}
-.langue{font:600 10px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px}
-.wa{font-size:clamp(15px,1.95vh,18.5px);line-height:1.6}
-.fr{font-size:clamp(14px,1.8vh,16.5px);line-height:1.58;color:var(--encre-douce)}
+.langue{font:600 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px}
+.wa{font-size:clamp(16.5px,2.2vh,20.5px);line-height:1.58}
+.fr{font-size:clamp(15.5px,2.05vh,18.5px);line-height:1.57;color:var(--encre-douce)}
 .citation .corps{font-style:italic;padding-left:14px;border-left:2px solid var(--ocre-clair)}
 sup{font-size:.62em;color:var(--ocre);padding-left:1px}
-.notes{grid-column:1/-1;padding-top:12px;font-size:12.5px;color:var(--ocre);font-style:italic}
+.notes{grid-column:1/-1;padding-top:13px;font-size:13.5px;color:var(--ocre);font-style:italic}
 .notes p{margin-top:3px}
 
 /* un seul idiome à la fois */
@@ -60,7 +60,7 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
 .serie{font:600 10px/1.5 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);max-width:68ch}
 .grand-titre{font-size:clamp(34px,6.4vh,64px);line-height:1.04;font-weight:400;letter-spacing:.005em;margin:clamp(8px,1.4vh,16px) 0 4px}
 .sous-titre{font-size:clamp(17px,2.4vh,24px);font-style:italic;color:var(--encre-douce)}
-.credit{margin-top:clamp(12px,2vh,22px);font-size:clamp(13px,1.7vh,15.5px);color:var(--encre-douce);max-width:56ch}
+.credit{margin-top:clamp(12px,2vh,22px);font-size:clamp(14px,1.85vh,17px);color:var(--encre-douce);max-width:56ch}
 .credit b{font-weight:600;color:var(--encre)}
 .ouvrir{margin-top:clamp(14px,2.2vh,24px);font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
   background:none;border:1px solid var(--ocre-clair);color:var(--ocre);padding:12px 22px;border-radius:2px;cursor:pointer;transition:.2s}
@@ -69,8 +69,8 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
 .colophon{align-items:stretch;text-align:left;overflow-y:auto;padding-right:6px}
 .colophon h2{font-size:clamp(22px,3.2vh,30px);font-weight:400;margin-bottom:4px}
 .colophon-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(18px,2.4vw,34px);margin-top:clamp(12px,2vh,20px)}
-.colophon h3{font:600 10px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:9px}
-.colophon p{font-size:14.2px;line-height:1.62;color:var(--encre-douce);margin-bottom:9px}
+.colophon h3{font:600 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:9px}
+.colophon p{font-size:15.2px;line-height:1.62;color:var(--encre-douce);margin-bottom:9px}
 .colophon b{color:var(--encre);font-weight:600}
 .colophon a{color:var(--ocre);text-decoration:none;border-bottom:1px solid var(--papier-bord)}
 .colophon a:hover{border-color:var(--ocre)}
@@ -100,7 +100,7 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
   .filet{height:1px;width:64px;background:var(--ocre-clair);margin:2px 0}
   .page:not(.couverture):not(.colophon){overflow-y:auto}
   .planche{flex:0 0 auto}
-  .planche img{max-height:46vh}
+  .planche img{max-height:42vh}
   #barre{gap:10px}
   .fleche span{display:none}
 }

@@ -52,7 +52,7 @@
       '<div class="planche"><img src="illustrations/00-couverture.svg" alt=""></div>' +
       '<p class="credit">Légende recueillie par <b>' + M.auteur_fr + "</b><br>" +
       "Traduction wallonne de <b>" + M.auteur_wa + "</b></p>" +
-      '<button class="ouvrir" type="button">Drovi l’ live — Ouvrir le livre</button>';
+      '<button class="ouvrir" type="button">Ouvrir le livre</button>';
     a.querySelector(".ouvrir").addEventListener("click", function (e) {
       e.stopPropagation(); va(1);
     });

@@ -54,13 +54,18 @@ def trou(s, cx, cy, rx, ry, pierres=True, herbe=True):
             s.touffe(cx + math.cos(a) * rx * 1.04, cy + math.sin(a) * ry * 1.26 + 4, .65, s.C("herbe2"))
 
 
-def interieur(s, sol=430, mur_h=0):
-    """Une salle : le sol, et un appareil de pierre leger au fond."""
-    s.wash(blob(LW * .5, LH * .42, LW * .56, LH * .42, 71, 15, .14), s.C("terre"), .22, "wc2")
-    s.mur(-40, -20, LW + 40, sol - 40, h=62, w=128, color=s.C("pierre"), op=.17)
+def interieur(s, sol=430, torche_a=None):
+    """Une salle : l'appareil de pierre, l'ombre au pied du mur, le sol."""
+    s.wash(blob(LW * .5, LH * .40, LW * .56, LH * .40, 71, 15, .14), s.C("terre"), .2, "wc2")
+    s.mur(-40, -20, LW + 40, sol - 38, h=62, w=128, color=s.C("pierre"), op=.2)
+    s.wash(smooth([(-40, sol - 44), (LW * .4, sol - 34), (LW + 40, sol - 46),
+                   (LW + 40, sol + 4), (-40, sol + 8)], True), s.C("nuit"), .12, "wc2")
     s.wash(smooth([(-40, sol), (LW * .3, sol - 10), (LW * .7, sol + 8), (LW + 40, sol - 6),
                    (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("terre"), .34, "wc2")
     s.ink(smooth(wave(-30, sol, LW + 30, sol - 6, 4, 2, 24)), 1.5, None, op=.4)
+    if torche_a:
+        for tx in torche_a:
+            s.torche(tx, 180, 1.0)
 
 
 def serpent_lointain(s, bx, by, l=70, sc=1.0, col=None):
@@ -90,7 +95,9 @@ def p00_couverture():
     pre(s, 352)
     trou(s, 640, 452, 178, 50)
     pts = [(352, 108), (470, 86), (582, 140), (628, 248), (586, 352), (636, 430)]
+    s.add('<g%s>' % s.cls("souffle", 11.0))
     s.serpent(pts, 54, 8, s.C("serpent"), s.C("serpent2"))
+    s.add('</g>')
     for (x, y, r) in ((196, 128, 11), (892, 150, 12), (1066, 262, 9), (170, 318, 8),
                       (1004, 96, 10), (766, 70, 8), (1156, 170, 9)):
         s.eclat(x, y, r, s.rnd.uniform(0, 3))
@@ -203,7 +210,7 @@ def p03_les_tchesseus():
 
 def p04_deus_condanes():
     s = S("p04", "Les deux condamnes dans leur cachot, la veille du supplice", 19)
-    interieur(s, 404)
+    interieur(s, 404, torche_a=(196,))
     # la lucarne et la lune
     s.aplat(blob(1004, 176, 86, 92, 80, 13, .07), s.C("nuit"), .9)
     s.ink(blob(1004, 176, 86, 92, 80, 13, .07), 3.0)
@@ -220,12 +227,14 @@ def p04_deus_condanes():
         x, y = s.rnd.uniform(60, 1220), s.rnd.uniform(462, 516)
         s.ink("M %.1f %.1f l %.1f %.1f" % (x, y, s.rnd.uniform(-16, 16), s.rnd.uniform(-5, 5)), 1.1, s.C("terre"), op=.6)
     # les deux
-    s.personnage(368, 480, 1.9, bouche="droite", bras="croises")
-    s.personnage(548, 486, 1.85, s.C("accent"), bouche="droite", bras="bas")
+    s.personnage(392, 484, 2.25, bouche="droite", bras="croises")
+    s.personnage(600, 492, 2.15, s.C("accent"), bouche="droite", bras="bas")
+    s.add('<path d="%s" fill="%s" opacity="0.8"/>' % (blob(748, 500, 30, 12, 191, 11, .22), s.C("pierre")))
+    s.ink(blob(748, 500, 30, 12, 191, 11, .22), 1.5, None, op=.8)
     # la chaine
-    s.ink("M 300 452 Q 220 468 150 456", 2.4, None, op=.75)
+    s.ink("M 318 454 Q 232 472 150 458", 2.4, None, op=.75)
     for i in range(6):
-        s.cercle(286 - i * 26, 456 + math.sin(i) * 5, 6.5, "none", s.st["encre"], 2.0)
+        s.cercle(300 - i * 28, 460 + math.sin(i) * 5, 7.0, "none", s.st["encre"], 2.2)
     # la souris
     s.personnage(1130, 510, .3, s.C("pierre"), cheveux=s.C("pierre"))
     s.ink("M 1142 500 Q 1166 494 1180 506", 1.4, None, op=.7)
@@ -245,8 +254,10 @@ def p05_pindards_fotches():
     s.ink("M 160 112 L 412 108", 7.0, None)
     s.ink("M 168 116 L 286 142 M 404 114 L 286 142", 2.0, None, op=.55)
     for hx in (226, 346):
+        s.add('<g%s>' % s.cls("balance", 5.6))
         s.ink("M %.1f 112 L %.1f 166" % (hx, hx), 2.4, None)
         s.add('<ellipse cx="%.1f" cy="176" rx="12" ry="15" fill="none" stroke="%s" stroke-width="2.4"/>' % (hx, s.st["encre"]))
+        s.add('</g>')
     for x, y, sc in ((146, 84, 1.0), (436, 74, .85), (240, 54, .7)):
         s.oiseau(x, y, sc, s.st["encre"], .9)
     s.add('<path d="M 392 98 q 10 -8 20 0 q 8 10 -4 16 q -14 4 -16 -8 Z" fill="%s" opacity="0.9"/>' % s.st["encre"])
@@ -269,7 +280,7 @@ def p06_l_ideye():
     interieur(s, 392)
     s.wash_blob(640, 316, 300, 180, s.C("soleil"), .32, f="wc2")
     # les juges, debout derriere la table
-    for x, sc in ((206, 1.55), (396, 1.46), (884, 1.46), (1050, 1.55), (700, 1.34)):
+    for x, sc in ((200, 1.68), (398, 1.58), (890, 1.58), (1062, 1.68), (702, 1.44)):
         s.personnage(x, 452, sc, chapeau="juge", bouche="droite", bras="croises")
     # la table, posee par-dessus : elle cache les jambes
     s.aplat("M 96 442 Q 640 424 1184 442 L 1184 540 L 96 540 Z", s.C("terre"), .92)
@@ -294,7 +305,7 @@ def p06_l_ideye():
 
 def p07_l_offe():
     s = S("p07", "Le magistrat offre la vie sauve aux prisonniers a travers les barreaux", 31)
-    interieur(s, 430)
+    interieur(s, 430, torche_a=(1148,))
     s.wash(blob(300, 260, 340, 290, 141, 15, .16), s.C("soleil"), .32, "wc2")
     s.wash(blob(1000, 280, 340, 300, 142, 15, .16), s.C("nuit"), .2, "wc2")
     # la grille, du sol au plafond
@@ -307,12 +318,12 @@ def p07_l_offe():
     s.ink(smooth(corde), 3.2, s.C("terre"), op=.95)
     s.add('<ellipse cx="392" cy="248" rx="25" ry="31" fill="none" stroke="%s" stroke-width="3.2"/>' % s.C("terre"))
     # le magistrat, qui parle au travers
-    s.personnage(486, 486, 2.0, s.C("accent"), chapeau="juge", bras="avant", bouche="o")
+    s.personnage(470, 492, 2.2, s.C("accent"), chapeau="juge", bras="avant", bouche="o")
     s.add('<path d="%s" fill="%s" opacity="0.95"/>' % (blob(392, 400, 48, 28, 150, 11, .16), PAPER))
     s.ink(blob(392, 400, 48, 28, 150, 11, .16), 1.5, None, op=.85)
     # les prisonniers, derriere la grille
-    s.personnage(968, 492, 1.78, bouche="droite", bras="bas")
-    s.personnage(1106, 498, 1.66, s.C("herbe2"), bouche="droite", bras="croises")
+    s.personnage(960, 496, 1.98, bouche="droite", bras="bas")
+    s.personnage(1106, 502, 1.86, s.C("herbe2"), bouche="droite", bras="croises")
     for k, rr in enumerate((7, 4.6)):
         s.cregle = None
         s.cercle(1040 + k * 18, 508 + k * 7, rr, "none", s.st["encre"], 2.0)
@@ -357,9 +368,9 @@ def p08_li_drossart():
 
 def p09_l_armure():
     s = S("p09", "La nuit passee a tailler les miroirs et a coudre l'armure", 41)
-    interieur(s, 420)
-    s.wash(blob(640, 250, 560, 240, 171, 15, .16), s.C("nuit"), .22, "wc2")
-    s.wash_blob(640, 280, 300, 220, s.C("soleil"), .32, f="wc2")
+    interieur(s, 420, torche_a=(146,))
+    s.wash(blob(640, 262, 470, 170, 171, 15, .14), s.C("nuit"), .11, "wc2")
+    s.wash_blob(640, 300, 330, 230, s.C("soleil"), .34, f="wc2")
     # la chandelle
     s.chandelle(1079, 386, 56, 18, 44)
     # le mannequin, et l'armure en cours
@@ -367,8 +378,14 @@ def p09_l_armure():
     s.ink("M 604 470 q 36 16 72 0", 3.6, None)
     s.armure_miroirs(640, 408, 1.9, n=s.n(44), corps_col=s.C("eau"))
     # les deux tailleurs de miroirs
-    s.personnage(276, 470, 1.6, s.C("accent"), bras="avant", bouche="droite")
-    s.personnage(944, 476, 1.55, s.C("herbe2"), bras="avant", bouche="droite")
+    s.personnage(286, 476, 1.82, s.C("accent"), bras="avant", bouche="droite")
+    s.personnage(958, 482, 1.76, s.C("herbe2"), bras="avant", bouche="droite")
+    # l'etabli, et les miroirs qu'on y debite
+    s.aplat("M 196 486 Q 300 478 404 486 L 404 540 L 196 540 Z", s.C("terre"), .9)
+    s.ink("M 196 486 Q 300 478 404 486", 2.2)
+    for i in range(s.n(9)):
+        s.eclat(220 + i * 22, 478 + s.rnd.uniform(-4, 4), s.rnd.uniform(4, 8), s.rnd.uniform(0, 3),
+                anim="scintille" if i % 3 == 0 else None)
     for x, y, sc in ((372, 420, 10), (856, 426, 9)):
         s.eclat(x, y, sc, 1.2)
         s.etoile(x, y, sc * .6, "#FFFDF6", .9, anim="scintille")
@@ -423,9 +440,11 @@ def p11_li_combat():
     s.wash_blob(880, 300, 230, 220, s.C("soleil"), .3, f="wc2")
     for i in range(s.n(14)):
         a = 2 * math.pi * i / max(1, s.n(14))
+        s.add('<g%s>' % s.cls("rayon"))
         s.ink("M %.1f %.1f L %.1f %.1f" % (880 + math.cos(a) * 112, 300 + math.sin(a) * 112,
                                            880 + math.cos(a) * 236, 300 + math.sin(a) * 236),
-              1.3, s.C("soleil"), op=.4)
+              1.3, s.C("soleil"), op=.5)
+        s.add('</g>')
     # le serpent, en gros plan
     pts = [(626, 250), (470, 212), (300, 254), (216, 362), (298, 466), (482, 500), (690, 486), (900, 512)]
     s.serpent(pts, 84, 13, s.C("serpent"), s.C("serpent2"))
@@ -464,17 +483,17 @@ def p12_li_rivnowe():
     # le banc des juges
     s.aplat(blob(640, 500, 600, 58, 214, 17, .06), s.C("terre"), .9)
     s.ink(blob(640, 500, 600, 58, 214, 17, .06), 2.4)
-    for i, (x, sc) in enumerate(((176, 1.28), (334, 1.2), (946, 1.2), (1104, 1.28))):
-        s.personnage(x, 470, sc, bouche="o", bras="haut")
-        hy = 470 - 66 * sc - 26 - (i % 2) * 12          # le chapeau qui saute
+    for i, (x, sc) in enumerate(((168, 1.42), (330, 1.34), (952, 1.34), (1114, 1.42))):
+        s.personnage(x, 476, sc, bouche="o", bras="haut")
+        hy = 476 - 66 * sc - 26 - (i % 2) * 12          # le chapeau qui saute
         s.add('<path d="M %.1f %.1f q %.1f %.1f %.1f 0 q %.1f %.1f %.1f %.1f Z" fill="%s" opacity="0.92" transform="rotate(%.1f %.1f %.1f)"/>'
               % (x - 21 * sc, hy, 21 * sc, -20 * sc, 42 * sc, -3 * sc, 11 * sc, -42 * sc, 0,
                  s.st["encre"], -20 + i * 13, x, hy))
         for k in range(3):
             s.ink("M %.1f %.1f l %.1f %.1f" % (x - 15 + k * 15, hy + 18, -5 + k * 5, 17), 1.5, None, op=.55)
     # les deux revenants, a contre-jour
-    for (x, y, sc) in ((562, 486, 1.9), (722, 492, 2.0)):
-        s.armure_miroirs(x, y, sc, n=s.n(26), corps_col=s.C("nuit"))
+    for (x, y, sc) in ((556, 492, 2.05), (728, 498, 2.15)):
+        s.armure_miroirs(x, y, sc, n=s.n(34), corps_col="#C8D2D6")
         s.ink("M %.1f %.1f L %.1f %.1f" % (x + 20 * sc, y - 60 * sc, x + 30 * sc, y - 116 * sc), 2.6, None)
         s.ink("M %.1f %.1f L %.1f %.1f" % (x + 30 * sc, y - 116 * sc, x + 36 * sc, y - 146 * sc), 4.0, SILVER)
         for i in range(s.n(6)):
@@ -509,8 +528,9 @@ def p13_li_pus_vude():
             a = s.rnd.uniform(0, 6.3); rr = s.rnd.uniform(0, 1) ** .5
             s.eclat(x + math.cos(a) * rr * 16 * sc, y - 44 * sc + math.sin(a) * rr * 20 * sc,
                     s.rnd.uniform(2.4, 4.6), a, anim="scintille" if i % 3 == 0 else None)
-    for x, y, sc in ((920, 118, 1.0), (1024, 92, .85), (820, 76, .75), (460, 104, .95)):
-        s.oiseau(x, y, sc)
+    for x, y, sc, a in ((920, 118, 1.0, "glisse"), (1024, 92, .85, "derive"),
+                       (820, 76, .75, "glisse"), (460, 104, .95, "derive")):
+        s.oiseau(x, y, sc, anim=a)
     s.semis(420, 1220, 480, 528, 18, s.C("fleur"), s.C("herbe2"))
     return s
 

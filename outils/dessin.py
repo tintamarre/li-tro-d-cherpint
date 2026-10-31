@@ -190,20 +190,34 @@ class Scene:
         if stroke:
             self.ink(d, 0.9, INK_SOFT, op=.5)
 
-    def mur(self, x0, y0, x1, y1, h=46, w=92, color=PIERRE, op=0.3):
-        """Appareil de pierre en assises decalees."""
-        r = 0
-        y = y0
+    def mur(self, x0, y0, x1, y1, h=46, w=92, color=PIERRE, op=0.3, plinthe=True):
+        """Appareil de pierre en assises décalées, chaque pierre d'un ton un peu à elle."""
+        r, y = 0, y0
         while y < y1:
             c = x0 - (w // 2 if r % 2 else 0)
             while c < x1:
+                k = self.rnd.uniform(.62, 1.5)
                 d = ("M %.1f %.1f q %.1f -3 %.1f 0 q 3 %.1f 0 %.1f q %.1f 3 %.1f 0 q -3 %.1f 0 %.1f Z"
                      % (c + 4, y + h - 4, w * .5, w - 8, h * .5, h - 8, -w * .5, -(w - 8), -h * .5, -(h - 8)))
-                self.add('<path d="%s" fill="%s" opacity="%.2f" style="mix-blend-mode:multiply"/>' % (d, color, op))
-                self.ink(d, 1.3, INK_SOFT, op=.3)
+                self.add('<path d="%s" fill="%s" opacity="%.2f" style="mix-blend-mode:multiply"/>'
+                         % (d, color, min(.62, op * k)))
+                self.ink(d, 1.3, None, op=.3)
                 c += w
             y += h
             r += 1
+        if plinthe:
+            self.ink(smooth(wave(x0 - 10, y1, x1 + 10, y1 - 5, 4, 2, 22)), 2.2, None, op=.5)
+
+    def torche(self, x, y, s=1.0, halo=56):
+        """Une torche fichée au mur : la douille, la flamme qui danse, la lueur."""
+        self.ink("M %.1f %.1f l %.1f %.1f" % (x - 14 * s, y + 12 * s, 14 * s, -12 * s), 4.0 * s, None)
+        self.add('<path d="M %.1f %.1f l %.1f %.1f l %.1f %.1f Z" fill="%s" opacity="0.9"/>'
+                 % (x - 7 * s, y + 2 * s, 14 * s, 0, -7 * s, -13 * s, INK_SOFT))
+        self.add('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" opacity="0.28"%s/>'
+                 % (x, y - 20 * s, halo * s, halo * s * .95, self.C("soleil", "#F0E0B4"), self.cls("lueur")))
+        self.add('<path d="M %.1f %.1f q %.1f %.1f %.1f %.1f q %.1f %.1f %.1f %.1f Z" fill="%s"%s/>'
+                 % (x, y - 36 * s, 15 * s, 17 * s, 2 * s, 27 * s, -15 * s, -9 * s, -2 * s, -27 * s,
+                    self.C("soleil", "#F0E0B4"), self.cls("flamme")))
 
     def maison(self, x, y, s=1.0, mur=SAND, toit=TERRA):
         w, h = 28 * s, 22 * s
@@ -230,7 +244,9 @@ class Scene:
                 self.ink("M %.1f %.1f q %.1f %.1f %.1f %.1f"
                          % (fx, fy + h, self.rnd.uniform(-3, 3), -h * .5, self.rnd.uniform(-2, 2), -h),
                          1.1, tige or DEEPGRN, op=.7)
+                self.add('<g%s>' % self.cls("souffle"))
                 self.etoile(fx, fy, self.rnd.uniform(3.0, 5.0), fleur or ROSE, .85)
+                self.add('</g>')
 
     def procession(self, x0, x1, y, n=12, ech=(.40, .58), ondule=8, **kw):
         """Une file de villageois, par grappes et a des tailles variees."""
@@ -247,9 +263,9 @@ class Scene:
                 k += 1
             i += grappe
 
-    def oiseau(self, x, y, s=1.0, color=None, op=0.85, anim=True):
+    def oiseau(self, x, y, s=1.0, color=None, op=0.85, anim="derive"):
         if anim:
-            self.add('<g%s>' % self.cls("derive"))
+            self.add('<g%s>' % self.cls(anim))
         self.ink("M %.1f %.1f Q %.1f %.1f %.1f %.1f Q %.1f %.1f %.1f %.1f"
                  % (x - 10 * s, y, x - 5 * s, y - 7 * s, x, y - 1.5 * s,
                     x + 5 * s, y - 7 * s, x + 10 * s, y), 1.6 * s, color or INK_SOFT, op=op)
@@ -334,31 +350,38 @@ class Scene:
                                               x - px * 11 * s, y - py * 11 * s), 4.0 * s, INK_SOFT)
         self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, x - math.cos(a) * 15 * s, y - math.sin(a) * 15 * s), 5.0 * s, BROWN)
 
-    def armure_miroirs(self, x, y, s=1.0, n=46, tete=True, corps_col=SLATE):
-        """Le costume fantastique : une silhouette pavee d'eclats de miroir."""
-        corps = blob(x, y - 46 * s, 22 * s, 30 * s, int(abs(x) + abs(y)), 15, .09)
-        self.aplat(corps, corps_col, .55)
-        self.ink(corps, 2.4 * s, INK)
+    def armure_miroirs(self, x, y, s=1.0, n=46, tete=True, corps_col=SILVER, anim=True):
+        """Le costume fantastique : une silhouette pavée d'éclats qui accrochent le jour."""
+        # jambes
+        for k in (-1, 1):
+            self.ink("M %.1f %.1f L %.1f %.1f" % (x + k * 8 * s, y - 20 * s, x + k * 10 * s, y - 3 * s), 4.4 * s, INK)
+            self.ink("M %.1f %.1f q %.1f 0 %.1f -1" % (x + k * 8.5 * s, y - 2 * s, k * 9 * s, k * 9 * s), 4.0 * s, INK)
+        corps = blob(x, y - 50 * s, 23 * s, 31 * s, int(abs(x) + abs(y)), 15, .09)
+        self.aplat(corps, corps_col, .9)
+        self.ink(corps, 2.6 * s, INK)
+        # bras
+        for k in (-1, 1):
+            d = ("M %.1f %.1f Q %.1f %.1f %.1f %.1f"
+                 % (x + k * 18 * s, y - 66 * s, x + k * 32 * s, y - 50 * s, x + k * 28 * s, y - 28 * s))
+            self.ink(d, 6.6 * s, INK)
+            self.add('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" stroke-linecap="round" '
+                     'filter="url(#%s-ink)"/>' % (d, corps_col, 4.2 * s, self.slug))
         for i in range(n):
             a = self.rnd.uniform(0, 6.3)
             rr = self.rnd.uniform(0, 1) ** .5
-            self.eclat(x + math.cos(a) * rr * 20 * s, y - 46 * s + math.sin(a) * rr * 28 * s,
-                       self.rnd.uniform(2.6, 5.4) * s, a,
-                       anim="scintille" if i % 5 == 0 else None)
+            self.eclat(x + math.cos(a) * rr * 20 * s, y - 50 * s + math.sin(a) * rr * 28 * s,
+                       self.rnd.uniform(2.8, 6.0) * s, a, SILVER, .95,
+                       anim="scintille" if (anim and i % 4 == 0) else None)
         if tete:
-            self.cercle(x, y - 86 * s, 11 * s, SLATE, INK, 2.3 * s, .6)
-            for i in range(max(4, n // 5)):
+            # le heaume, avec sa fente de visée
+            self.cercle(x, y - 94 * s, 13 * s, corps_col, INK, 2.5 * s, .92)
+            self.ink("M %.1f %.1f l %.1f 0" % (x - 8 * s, y - 96 * s, 16 * s), 2.2 * s, INK, op=.7)
+            for i in range(max(4, n // 6)):
                 a = self.rnd.uniform(0, 6.3)
                 rr = self.rnd.uniform(0, 1) ** .5
-                self.eclat(x + math.cos(a) * rr * 9 * s, y - 86 * s + math.sin(a) * rr * 9 * s,
-                           self.rnd.uniform(2.2, 4.0) * s, a)
-        for k in (-1, 1):
-            self.ink("M %.1f %.1f L %.1f %.1f" % (x + k * 8 * s, y - 18 * s, x + k * 9 * s, y - 2 * s), 3.6 * s, INK_SOFT)
-            d = ("M %.1f %.1f Q %.1f %.1f %.1f %.1f"
-                 % (x + k * 17 * s, y - 62 * s, x + k * 30 * s, y - 48 * s, x + k * 26 * s, y - 26 * s))
-            self.ink(d, 6.2 * s, INK)
-            self.add('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" stroke-linecap="round" '
-                     'filter="url(#%s-ink)"/>' % (d, corps_col, 3.8 * s, self.slug))
+                self.eclat(x + math.cos(a) * rr * 10 * s, y - 94 * s + math.sin(a) * rr * 10 * s,
+                           self.rnd.uniform(2.2, 4.2) * s, a, SILVER, .95,
+                           anim="scintille" if (anim and i % 3 == 0) else None)
 
     # ---- le serpent ---------------------------------------------------------
     def serpent(self, pts, w_max=46, w_min=5, couleur=MOSS, ombre=DEEPGRN,
@@ -402,7 +425,8 @@ class Scene:
                  % self.cls("scintille"))
         self.add('<circle cx="47" cy="-7" r="1.9" fill="%s" opacity="0.7"/>' % enc)
         if langue:
-            self.add('<path d="M 55 3 Q 74 5 82 -5 M 74 5 Q 82 10 86 19" fill="none" stroke="%s" stroke-width="2.4" stroke-linecap="round"/>' % OXBLOOD)
+            self.add('<path d="M 55 3 Q 74 5 82 -5 M 74 5 Q 82 10 86 19" fill="none" stroke="%s" '
+                     'stroke-width="2.4" stroke-linecap="round"%s/>' % (OXBLOOD, self.cls("dardille")))
         self.add("</g>")
 
     CSS = """<style>
@@ -414,6 +438,11 @@ class Scene:
   @keyframes derive{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   @keyframes onde{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
   @keyframes respire{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+  @keyframes balance{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(2.6deg)}}
+  @keyframes souffle{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2.4deg)}}
+  @keyframes dardille{0%,74%,100%{opacity:0;transform:scaleX(.45)}80%,92%{opacity:1;transform:scaleX(1)}}
+  @keyframes glisse{0%{transform:translate(0,0)}50%{transform:translate(14px,-7px)}100%{transform:translate(0,0)}}
+  @keyframes rayon{0%,100%{opacity:.18}50%{opacity:.48}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -421,8 +450,14 @@ class Scene:
   .derive{animation:derive 6.5s ease-in-out infinite;transform-box:fill-box}
   .onde{animation:onde 7.5s ease-in-out infinite;transform-box:fill-box}
   .respire{animation:respire 9s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  .balance{animation:balance 4.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  .souffle{animation:souffle 5.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .dardille{animation:dardille 3.8s ease-in-out infinite;transform-box:fill-box;transform-origin:0 50%}
+  .glisse{animation:glisse 13s ease-in-out infinite;transform-box:fill-box}
+  .rayon{animation:rayon 5.5s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){
-    .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire{animation:none}}
+    .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
+    .balance,.souffle,.dardille,.glisse,.rayon{animation:none}}
 </style>"""
 
     def cls(self, nom, duree=None):
