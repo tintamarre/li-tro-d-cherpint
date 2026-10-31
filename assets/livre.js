@@ -56,7 +56,7 @@
     });
   }
 
-  var bulle, courant = null;
+  var bulle, courant = null, tactile = false;
   function montrer(el) {
     var texte = el.getAttribute("data-glose");
     if (!texte) return;
@@ -214,21 +214,31 @@
     bulle.id = "glose";
     bulle.setAttribute("role", "tooltip");
     document.body.appendChild(bulle);
+    /* Au doigt, un tap émet mouseover PUIS click : la bulle s'ouvrirait et se
+       refermerait aussitôt. On laisse donc le clic seul maître sur tactile. */
+    livre.addEventListener("pointerdown", function (e) { tactile = e.pointerType === "touch"; });
     livre.addEventListener("mouseover", function (e) {
+      if (tactile) return;
       var m = e.target.closest(".mot"); if (m && m !== courant) montrer(m);
     });
     livre.addEventListener("mouseout", function (e) {
+      if (tactile) return;
       if (e.target.closest(".mot")) cacher();
     });
     livre.addEventListener("focusin", function (e) {
       var m = e.target.closest(".mot"); if (m) montrer(m);
     });
     livre.addEventListener("focusout", cacher);
-    livre.addEventListener("click", function (e) {
+    var feuille = document.querySelector(".feuille");
+    feuille.addEventListener("click", function (e) {
       var m = e.target.closest(".mot");
-      if (!m) return;
-      e.stopPropagation();                     // ne pas tourner la page sur un mot
-      courant === m ? cacher() : montrer(m);
+      if (m) { courant === m ? cacher() : montrer(m); return; }   // un mot s'explique
+      if (e.target.closest("button, a, input, select")) return;   // une commande agit
+      var sel = window.getSelection && String(window.getSelection());
+      if (sel && sel.length > 2) return;                          // on lit, on sélectionne
+      cacher();
+      var r = feuille.getBoundingClientRect();
+      ((e.clientX - r.left) / r.width < 0.3) ? prec() : suiv();
     });
     addEventListener("keydown", function (e) { if (e.key === "Escape") cacher(); });
 
@@ -238,8 +248,6 @@
     tete = document.getElementById("tete");
     bPrec.addEventListener("click", prec);
     bSuiv.addEventListener("click", suiv);
-    document.querySelector(".zone.prec").addEventListener("click", prec);
-    document.querySelector(".zone.suiv").addEventListener("click", suiv);
 
     document.querySelectorAll(".idiomes button").forEach(function (b) {
       b.addEventListener("click", function () {

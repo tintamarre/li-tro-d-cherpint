@@ -95,10 +95,11 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
   background:var(--papier);color:var(--ocre);padding:8px 11px;transition:.2s}
 .idiomes button[aria-pressed=true]{background:var(--ocre);color:var(--papier)}
 
-/* zones de clic : tourner la page comme on tourne un feuillet */
-.zone{position:absolute;top:0;bottom:0;width:36%;cursor:pointer;z-index:2;border:0;background:none;-webkit-tap-highlight-color:transparent}
-.zone.prec{left:0} .zone.suiv{right:0;width:64%}
-.zone:focus-visible{outline:2px solid var(--ocre-clair);outline-offset:-4px}
+/* On tourne la page en cliquant la feuille : pas de calque par-dessus le
+   texte, sinon les mots ne reçoivent ni le survol ni le clic. */
+.feuille{cursor:default}
+.planche,.entete{cursor:pointer}
+.corps{cursor:text}
 
 /* ------------------------------------------------------------- petit écran */
 @media (max-width:860px), (max-aspect-ratio:1/1){
