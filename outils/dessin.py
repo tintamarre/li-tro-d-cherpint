@@ -365,14 +365,15 @@ class Scene:
         for i in range(3):
             self.cercle(x - 14 * s + i * 14 * s, y + 2 * s, 5.2 * s, "none", self.st["encre"], 2.4 * s)
 
-    def epee(self, x, y, ang, L=90, s=1.0, estoc=None):
+    def epee(self, x, y, ang, L=90, s=1.0, balance=None):
         """Une epee bien effilee, tenue a la main."""
         a = math.radians(ang)
-        if estoc:                      # le coup part dans l'axe de la lame
-            self.add('<g class="estoc" style="--dx:%.1fpx;--dy:%.1fpx;'
-                     'animation-delay:-%.2fs;animation-duration:%.2fs">'
-                     % (math.cos(a) * estoc, math.sin(a) * estoc,
-                        self.rnd.uniform(0, 3.4), self.rnd.uniform(3.1, 4.0)))
+        if balance:
+            # la lame va et vient autour de la garde : le pivot est la main même
+            self.add('<g class="brandit" style="transform-origin:%.1fpx %.1fpx;'
+                     '--a0:%.1fdeg;--a1:%.1fdeg;animation-delay:-%.2fs;animation-duration:%.2fs">'
+                     % (x, y, -balance, balance,
+                        self.rnd.uniform(0, 3.6), self.rnd.uniform(3.2, 4.4)))
         ex, ey = x + math.cos(a) * L, y + math.sin(a) * L
         self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, ex, ey), 6.0 * s, SILVER)
         self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, ex, ey), 1.9 * s, INK, op=.9)
@@ -384,7 +385,7 @@ class Scene:
         self.add('<g%s>' % self.cls("scintille", 4.4))
         self.etoile(gx, gy, 7 * s, "#FFFDF6", .95)
         self.add('</g>')
-        if estoc:
+        if balance:
             self.add('</g>')
 
     def armure_miroirs(self, x, y, s=1.0, n=46, tete=True, corps_col=SILVER, anim=True):
@@ -493,9 +494,7 @@ class Scene:
   @keyframes bascule{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
   @keyframes file{to{stroke-dashoffset:-34}}
   @keyframes gigote{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.6deg) translateY(-3px)}}
-  @keyframes estoc{0%,46%,100%{transform:translate(0,0)}
-    66%{transform:translate(var(--dx,-10px),var(--dy,-8px))}
-    82%{transform:translate(calc(var(--dx,-10px)*.35),calc(var(--dy,-8px)*.35))}}
+  @keyframes brandit{0%,100%{transform:rotate(var(--a0,-6deg))}50%{transform:rotate(var(--a1,6deg))}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -511,10 +510,10 @@ class Scene:
   .bascule{animation:bascule 7.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
   .file{animation:file 2.6s linear infinite}
   .gigote{animation:gigote 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
-  .estoc{animation:estoc 3.4s ease-in-out infinite}
+  .brandit{animation:brandit 3.6s ease-in-out infinite;transform-box:view-box}
   @media (prefers-reduced-motion:reduce){
     .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
-    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote,.estoc{animation:none}}
+    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote,.brandit{animation:none}}
 </style>"""
 
     def cls(self, nom, duree=None):
