@@ -14,6 +14,9 @@
   @keyframes dardille{0%,74%,100%{opacity:0;transform:scaleX(.45)}80%,92%{opacity:1;transform:scaleX(1)}}
   @keyframes glisse{0%{transform:translate(0,0)}50%{transform:translate(14px,-7px)}100%{transform:translate(0,0)}}
   @keyframes rayon{0%,100%{opacity:.18}50%{opacity:.48}}
+  @keyframes bascule{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+  @keyframes file{to{stroke-dashoffset:-34}}
+  @keyframes gigote{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.6deg) translateY(-3px)}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -26,9 +29,12 @@
   .dardille{animation:dardille 3.8s ease-in-out infinite;transform-box:fill-box;transform-origin:0 50%}
   .glisse{animation:glisse 13s ease-in-out infinite;transform-box:fill-box}
   .rayon{animation:rayon 5.5s ease-in-out infinite}
+  .bascule{animation:bascule 7.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  .file{animation:file 2.6s linear infinite}
+  .gigote{animation:gigote 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
   @media (prefers-reduced-motion:reduce){
     .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
-    .balance,.souffle,.dardille,.glisse,.rayon{animation:none}}
+    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote{animation:none}}
 </style>
 <defs>
   <filter id="p06-wc" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
@@ -370,17 +376,19 @@
 <path d="M 1045.6 225.0 a 4.4 4.4 0 1 1 8.8 0 a 4.4 4.4 0 1 1 -8.8 0" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.68" filter="url(#p06-ink)"/>
 <circle cx="1030.0" cy="262.5" r="2.9" fill="#F6F0E4" opacity="0.92"/>
 <path d="M 1027.1 262.5 a 2.9 2.9 0 1 1 5.8 0 a 2.9 2.9 0 1 1 -5.8 0" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.68" filter="url(#p06-ink)"/>
+<g class="gigote" style="animation-delay:-1.51s">
 <path d="M 1025.2 170.7 C 1026.4 171.4 1029.9 173.6 1032.4 174.8 C 1034.9 175.9 1037.5 177.2 1040.2 177.8 C 1042.9 178.4 1045.8 178.6 1048.4 178.3 C 1051.1 178.0 1053.8 177.0 1056.3 175.9 C 1058.7 174.7 1060.9 173.0 1063.1 171.3 C 1065.3 169.6 1067.3 167.6 1069.3 165.9 C 1071.3 164.2 1073.2 162.3 1075.0 160.9 C 1076.9 159.5 1078.6 158.3 1080.4 157.5 C 1082.2 156.7 1083.8 156.3 1085.6 156.1 C 1087.4 156.0 1089.2 156.3 1091.2 156.9 C 1093.2 157.4 1095.3 158.5 1097.5 159.6 C 1099.7 160.7 1102.0 162.2 1104.3 163.5 C 1106.6 164.7 1110.1 166.6 1111.2 167.2 L 1113.5 163.3 C 1112.4 162.6 1109.1 160.6 1106.9 159.2 C 1104.7 157.7 1102.4 156.1 1100.1 154.7 C 1097.8 153.4 1095.4 152.0 1093.0 151.1 C 1090.6 150.3 1088.0 149.7 1085.4 149.6 C 1082.9 149.6 1080.3 150.1 1077.8 151.0 C 1075.4 151.9 1073.0 153.3 1070.8 154.8 C 1068.5 156.2 1066.3 158.1 1064.2 159.7 C 1062.1 161.3 1060.1 163.1 1058.1 164.4 C 1056.2 165.8 1054.3 166.9 1052.5 167.7 C 1050.8 168.4 1049.2 168.8 1047.6 168.9 C 1046.0 168.9 1044.5 168.7 1042.8 168.1 C 1041.0 167.5 1039.2 166.6 1037.2 165.4 C 1035.2 164.3 1031.9 162.0 1030.8 161.3 Z" fill="#8D9C70" opacity="0.92" filter="url(#p06-wc)"/>
 <path d="M 1028.0 166.0 C 1029.1 166.7 1032.5 168.9 1034.8 170.1 C 1037.0 171.2 1039.3 172.3 1041.5 172.9 C 1043.7 173.5 1045.9 173.8 1048.0 173.6 C 1050.2 173.4 1052.3 172.7 1054.4 171.8 C 1056.5 170.8 1058.5 169.4 1060.6 167.9 C 1062.7 166.4 1064.7 164.5 1066.7 162.8 C 1068.8 161.1 1070.8 159.3 1072.9 157.8 C 1074.9 156.4 1077.0 155.1 1079.1 154.3 C 1081.2 153.4 1083.4 152.9 1085.5 152.9 C 1087.7 152.8 1089.9 153.3 1092.1 154.0 C 1094.3 154.7 1096.6 155.9 1098.8 157.1 C 1101.1 158.4 1103.3 160.0 1105.6 161.3 C 1107.9 162.7 1111.2 164.6 1112.4 165.3" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p06-ink)"/>
 <circle cx="1028.0" cy="164.0" r="2.0" fill="#8C7B66" opacity="1.00"/>
+</g>
 <path d="M 1145.2 128.0 L 1127.4 139.5 L 1127.7 117.1 Z" fill="#D4DEE1" opacity="0.90"/>
 <path d="M 1145.2 128.0 L 1127.4 139.5 L 1127.7 117.1 Z" fill="none" stroke="#8C7B66" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#p06-ink)"/>
-<path d="M 1134.0 123.0 Q 1134.9 127.1 1139.0 128.0 Q 1134.9 128.9 1134.0 133.0 Q 1133.1 128.9 1129.0 128.0 Q 1133.1 127.1 1134.0 123.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-1.51s"/>
+<path d="M 1134.0 123.0 Q 1134.9 127.1 1139.0 128.0 Q 1134.9 128.9 1134.0 133.0 Q 1133.1 128.9 1129.0 128.0 Q 1133.1 127.1 1134.0 123.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-0.89s"/>
 <path d="M 1115.2 122.1 L 1102.5 118.8 L 1105.2 106.5 L 1117.6 109.1 Z" fill="#D4DEE1" opacity="0.90"/>
 <path d="M 1115.2 122.1 L 1102.5 118.8 L 1105.2 106.5 L 1117.6 109.1 Z" fill="none" stroke="#8C7B66" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#p06-ink)"/>
-<path d="M 1110.0 110.0 Q 1110.7 113.3 1114.0 114.0 Q 1110.7 114.7 1110.0 118.0 Q 1109.3 114.7 1106.0 114.0 Q 1109.3 113.3 1110.0 110.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-0.89s"/>
+<path d="M 1110.0 110.0 Q 1110.7 113.3 1114.0 114.0 Q 1110.7 114.7 1110.0 118.0 Q 1109.3 114.7 1106.0 114.0 Q 1109.3 113.3 1110.0 110.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-0.81s"/>
 <path d="M 1147.2 154.1 L 1144.2 145.3 L 1153.0 141.5 L 1156.7 151.1 Z" fill="#D4DEE1" opacity="0.90"/>
 <path d="M 1147.2 154.1 L 1144.2 145.3 L 1153.0 141.5 L 1156.7 151.1 Z" fill="none" stroke="#8C7B66" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#p06-ink)"/>
-<path d="M 1150.0 145.0 Q 1150.5 147.5 1153.0 148.0 Q 1150.5 148.5 1150.0 151.0 Q 1149.5 148.5 1147.0 148.0 Q 1149.5 147.5 1150.0 145.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-0.81s"/>
+<path d="M 1150.0 145.0 Q 1150.5 147.5 1153.0 148.0 Q 1150.5 148.5 1150.0 151.0 Q 1149.5 148.5 1147.0 148.0 Q 1149.5 147.5 1150.0 145.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-3.47s"/>
 <rect width="1280" height="540" filter="url(#p06-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
 </svg>

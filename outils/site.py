@@ -5,7 +5,8 @@ import json, os
 
 R = os.path.join(os.path.dirname(__file__), "..")
 d = json.load(open(os.path.join(R, "texte", "pages.json"), encoding="utf-8"))
+d["glossaire"] = json.load(open(os.path.join(R, "texte", "glossaire.json"), encoding="utf-8"))
 js = "// Fichier engendré par outils/site.py — ne pas modifier à la main.\n" \
      "// La source du texte est texte/pages.json.\nwindow.LIVRE = %s;\n" % json.dumps(d, ensure_ascii=False, indent=1)
 open(os.path.join(R, "assets", "livre-data.js"), "w", encoding="utf-8").write(js)
-print("assets/livre-data.js : %d pages" % len(d["pages"]))
+print("assets/livre-data.js : %d pages, %d mots glosés" % (len(d["pages"]), len(d["glossaire"])))

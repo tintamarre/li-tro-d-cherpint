@@ -403,7 +403,7 @@ class Scene:
         if tete:
             self.tete_serpent(pts[0], pts[1], widths[0] * 2.5, couleur, oeil)
 
-    def tete_serpent(self, p, q, taille, couleur=MOSS, oeil=OCHRE, langue=True):
+    def tete_serpent(self, p, q, taille, couleur=MOSS, oeil=OCHRE, langue=True, vivant=True):
         a = math.degrees(math.atan2(p[1] - q[1], p[0] - q[0]))
         k = max(taille, 26) / 46.0
         self.add('<g transform="translate(%.1f,%.1f) rotate(%.1f) scale(%.2f)">' % (p[0], p[1], a, k))
@@ -420,9 +420,10 @@ class Scene:
         # oeil
         self.add('<circle cx="14" cy="-9" r="10.5" fill="%s"/>' % oeil)
         self.add('<circle cx="14" cy="-9" r="10.5" fill="none" stroke="%s" stroke-width="%.1f"/>' % (enc, 2.2 * ew))
-        self.add('<ellipse cx="15" cy="-9" rx="2.9" ry="7.6" fill="%s"%s/>' % (enc, self.cls("oeil")))
+        self.add('<ellipse cx="15" cy="-9" rx="2.9" ry="7.6" fill="%s"%s/>'
+                 % (enc, self.cls("oeil") if vivant else ""))
         self.add('<circle cx="10.2" cy="-12.8" r="2.7" fill="#FFFDF6" opacity="0.95"%s/>'
-                 % self.cls("scintille"))
+                 % (self.cls("scintille") if vivant else ""))
         self.add('<circle cx="47" cy="-7" r="1.9" fill="%s" opacity="0.7"/>' % enc)
         if langue:
             self.add('<path d="M 55 3 Q 74 5 82 -5 M 74 5 Q 82 10 86 19" fill="none" stroke="%s" '
@@ -443,6 +444,9 @@ class Scene:
   @keyframes dardille{0%,74%,100%{opacity:0;transform:scaleX(.45)}80%,92%{opacity:1;transform:scaleX(1)}}
   @keyframes glisse{0%{transform:translate(0,0)}50%{transform:translate(14px,-7px)}100%{transform:translate(0,0)}}
   @keyframes rayon{0%,100%{opacity:.18}50%{opacity:.48}}
+  @keyframes bascule{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+  @keyframes file{to{stroke-dashoffset:-34}}
+  @keyframes gigote{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.6deg) translateY(-3px)}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -455,9 +459,12 @@ class Scene:
   .dardille{animation:dardille 3.8s ease-in-out infinite;transform-box:fill-box;transform-origin:0 50%}
   .glisse{animation:glisse 13s ease-in-out infinite;transform-box:fill-box}
   .rayon{animation:rayon 5.5s ease-in-out infinite}
+  .bascule{animation:bascule 7.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  .file{animation:file 2.6s linear infinite}
+  .gigote{animation:gigote 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
   @media (prefers-reduced-motion:reduce){
     .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
-    .balance,.souffle,.dardille,.glisse,.rayon{animation:none}}
+    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote{animation:none}}
 </style>"""
 
     def cls(self, nom, duree=None):

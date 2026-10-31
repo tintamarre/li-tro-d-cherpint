@@ -26,20 +26,25 @@ body{
 }
 
 /* -------------------------------------------------------------- les pages */
+/* #pages doit être lui-même une boîte flexible de la hauteur de la feuille :
+   sinon les pages grandissent jusqu'à leur contenu et le bas est coupé. */
+#pages{flex:1;min-height:0;display:flex;flex-direction:column}
 .page{flex:1;min-height:0;display:none;flex-direction:column}
 .page.actuelle{display:flex}
 .page.entre{animation:entre var(--t) both}
 @keyframes entre{from{opacity:0;transform:translateX(var(--sens,26px))}to{opacity:1;transform:none}}
 
-.entete{flex:0 0 auto;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
+.entete{flex:0 0 auto;width:100%;max-width:var(--mesure,100%);margin-inline:auto;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
 .titre-page{font-style:italic;color:var(--ocre);font-size:clamp(14px,1.75vh,17.5px)}
 .titre-page span{color:var(--encre-douce);font-style:normal}
 .folio{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--ocre);white-space:nowrap}
 
-.planche{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
-.planche img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:2px}
+/* hauteur fixe : toutes les planches s'affichent exactement à la même taille,
+   quelle que soit la longueur du texte de la page. */
+.planche{flex:0 0 52%;min-height:0;display:flex;align-items:center;justify-content:center}
+.planche img{height:100%;width:auto;max-width:100%;object-fit:contain;display:block;border-radius:2px}
 
-.textes{flex:0 0 auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
+.textes{flex:1 1 auto;width:100%;max-width:var(--mesure,100%);margin-inline:auto;min-height:0;overflow-y:auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
 .filet{background:linear-gradient(var(--papier),var(--papier-bord) 18%,var(--papier-bord) 82%,var(--papier))}
 .langue{font:600 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px}
 .wa{font-size:clamp(16.5px,2.2vh,20.5px);line-height:1.58}
@@ -56,7 +61,8 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
 
 /* ------------------------------------------------- couverture et colophon */
 .couverture,.colophon{justify-content:center;align-items:center;text-align:center}
-.couverture .planche{width:100%}
+.couverture .planche{width:100%;flex:1 1 auto}
+.couverture .planche img{height:auto;max-height:100%}
 .serie{font:600 10px/1.5 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);max-width:68ch}
 .grand-titre{font-size:clamp(34px,6.4vh,64px);line-height:1.04;font-weight:400;letter-spacing:.005em;margin:clamp(8px,1.4vh,16px) 0 4px}
 .sous-titre{font-size:clamp(17px,2.4vh,24px);font-style:italic;color:var(--encre-douce)}
@@ -104,7 +110,40 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
   #barre{gap:10px}
   .fleche span{display:none}
 }
+/* fenêtre très basse : plutôt défiler que rogner */
+@media (max-height:620px){
+  .page:not(.couverture){overflow-y:auto}
+  .planche img{max-height:52vh}
+}
 @media (prefers-reduced-motion:reduce){
   .page.entre{animation:none}
   #parcouru,#tete{transition:none}
 }
+
+/* ------------------------------------------------- les mots qu'on explique */
+.mot{
+  border-bottom:1px dotted var(--ocre-clair);cursor:help;border-radius:2px;
+  transition:background .15s;
+}
+.mot:hover,.mot:focus-visible{background:rgba(201,168,107,.2);outline:none}
+.mot:focus-visible{box-shadow:0 0 0 2px var(--ocre-clair)}
+sup.mot{border-bottom:0;padding:0 3px;cursor:help}
+sup.mot:hover,sup.mot:focus-visible{background:rgba(201,168,107,.3)}
+
+.glose{
+  position:fixed;z-index:60;left:0;top:0;max-width:min(320px,calc(100vw - 24px));
+  background:var(--papier);color:var(--encre);
+  border:1px solid var(--papier-bord);border-left:3px solid var(--ocre-clair);
+  border-radius:3px;box-shadow:0 8px 28px rgba(60,45,25,.24);
+  padding:11px 15px;font-size:14.5px;line-height:1.52;
+  opacity:0;transform:translateY(5px);pointer-events:none;
+  transition:opacity .17s ease,transform .17s ease;
+}
+.glose.visible{opacity:1;transform:none}
+.glose::after{
+  content:"";position:absolute;left:var(--fleche,50%);margin-left:-6px;
+  border:6px solid transparent;border-top-color:var(--papier);bottom:-12px;
+  filter:drop-shadow(0 1px 0 var(--papier-bord));
+}
+.glose.dessous::after{bottom:auto;top:-12px;border-top-color:transparent;border-bottom-color:var(--papier)}
+@media (prefers-reduced-motion:reduce){.glose{transition:none}}
