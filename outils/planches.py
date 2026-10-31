@@ -171,7 +171,9 @@ def p02_li_cherpint():
     # le serpent love, en spirale aplatie
     pts = [(452, 268), (620, 238), (812, 272), (886, 346), (812, 424), (624, 452),
            (452, 424), (392, 348), (470, 306), (640, 300), (730, 346), (662, 392)]
+    s.add('<g%s>' % s.cls("respire", 14.0))
     s.serpent(pts, 58, 9, s.C("serpent"), s.C("serpent2"))
+    s.add('</g>')
     for i in range(s.n(14)):
         s.eclat(s.rnd.uniform(120, 1160), s.rnd.uniform(240, 480), s.rnd.uniform(2.4, 4.6),
                 0, s.C("soleil"), .4, stroke=False, anim="scintille")
@@ -196,9 +198,11 @@ def p03_les_tchesseus():
         s.personnage(x, y, sc, bras="bas", dos=True, bouche=None)
         s.ink("M %.1f %.1f L %.1f %.1f" % (x + 15 * sc, y - 34 * sc, x + 24 * sc, y - 82 * sc), 2.0 * sc, None)
         lx, ly = x - 20 * sc, y - 36 * sc
+        s.add('<g%s>' % s.cls("balance", 4.8))
         s.ink("M %.1f %.1f L %.1f %.1f" % (x - 16 * sc, y - 36 * sc, lx, ly - 2), 1.6 * sc, None)
         s.cercle(lx, ly + 10 * sc, 7 * sc, s.C("soleil"), s.st["encre"], 1.5 * sc, .95)
         s.etoile(lx, ly + 10 * sc, 13 * sc, s.C("soleil"), .35, anim="lueur")
+        s.add('</g>')
     # les lueurs qui s'eteignent dans le noir
     for t in (0, .26, .5, .7, .86):
         a = t * 5.0
@@ -220,7 +224,9 @@ def p04_deus_condanes():
     # la lucarne et la lune
     s.aplat(blob(1004, 176, 86, 92, 80, 13, .07), s.C("nuit"), .9)
     s.ink(blob(1004, 176, 86, 92, 80, 13, .07), 3.0)
+    s.add('<g%s>' % s.cls("respire", 11.0))
     ciel(s, soleil=None, nuage=None, lune=(982, 150))
+    s.add('</g>')
     for x, y, r in ((1046, 128, 5.5), (1056, 206, 4.5), (952, 216, 4)):
         s.etoile(x, y, r, s.C("soleil"), .9, anim="scintille")
     for bx in (974, 1004, 1034):
@@ -238,9 +244,11 @@ def p04_deus_condanes():
     s.add('<path d="%s" fill="%s" opacity="0.8"/>' % (blob(748, 500, 30, 12, 191, 11, .22), s.C("pierre")))
     s.ink(blob(748, 500, 30, 12, 191, 11, .22), 1.5, None, op=.8)
     # la chaine
+    s.add('<g%s>' % s.cls("onde", 9.0))
     s.ink("M 318 454 Q 232 472 150 458", 2.4, None, op=.75)
     for i in range(6):
         s.cercle(300 - i * 28, 460 + math.sin(i) * 5, 7.0, "none", s.st["encre"], 2.2)
+    s.add('</g>')
     # la souris
     s.personnage(1130, 510, .3, s.C("pierre"), cheveux=s.C("pierre"))
     s.ink("M 1142 500 Q 1166 494 1180 506", 1.4, None, op=.7)
@@ -271,7 +279,7 @@ def p05_pindards_fotches():
     # les manants, et le serpent qui leur trotte en tete
     gens = [(606, 468, 1.0), (714, 482, 1.1), (826, 470, 1.02), (936, 486, 1.12), (1046, 472, 1.04)]
     for x, y, sc in gens:
-        s.personnage(x, y, sc, bouche="droite")
+        s.personnage(x, y, sc, bouche="droite", cligne=True)
     for i, (x, y, sc) in enumerate(gens):
         if i % 2:
             continue
@@ -286,7 +294,9 @@ def p05_pindards_fotches():
 def p06_l_ideye():
     s = S("p06", "Les juges autour de la table, et l'idee qui vient a l'un d'eux", 29)
     interieur(s, 392)
+    s.add('<g%s>' % s.cls("lueur", 3.4))
     s.wash_blob(640, 316, 300, 180, s.C("soleil"), .32, f="wc2")
+    s.add('</g>')
     # les juges, debout derriere la table
     for x, sc in ((200, 1.68), (398, 1.58), (890, 1.58), (1062, 1.68), (702, 1.44)):
         s.personnage(x, 452, sc, chapeau="juge", bouche="droite", bras="croises")
@@ -354,9 +364,12 @@ def p08_li_drossart():
     s.ink(blob(286, 196, 112, 126, 163, 15, .08), 2.4)
     s.add('<path d="M 182 136 q 104 -80 208 0 q -10 20 -208 0 Z" fill="%s" opacity="0.92"/>' % s.st["encre"])
     s.ink("M 182 136 q 104 -80 208 0", 1.8)
+    s.add('<g%s>' % s.cls("oeil", 7.2))
     for ex in (250, 330):
         s.cercle(ex, 188, 10.5, PAPER, s.st["encre"], 2.0)
         s.dot(ex + 1, 190, 5.0, s.st["encre"])
+    s.add('</g>')
+    for ex in (250, 330):
         s.ink("M %.1f 170 q 11 -8 22 0" % (ex - 11), 1.8)
     s.ink("M 258 250 q 28 13 56 -2", 2.2, None, op=.9)
     # le buste, pour que la tete ne flotte pas
@@ -388,7 +401,9 @@ def p09_l_armure():
     s = S("p09", "La nuit passee a tailler les miroirs et a coudre l'armure", 41)
     interieur(s, 420, torche_a=(146,))
     s.wash(blob(640, 262, 470, 170, 171, 15, .14), s.C("nuit"), .11, "wc2")
+    s.add('<g%s>' % s.cls("lueur", 3.1))
     s.wash_blob(640, 300, 330, 230, s.C("soleil"), .34, f="wc2")
+    s.add('</g>')
     # la chandelle
     s.chandelle(1079, 386, 56, 18, 44)
     # le mannequin, et l'armure en cours
@@ -546,7 +561,9 @@ def p13_li_pus_vude():
     # les deux liberes, au premier plan, sans chaines
     for fx, sc in ((.135, 1.3), (.255, 1.4)):
         x, y = LW * fx, LH - 6
+        s.add('<g%s>' % s.cls("gigote", 3.8))
         s.personnage(x, y, sc, s.C("mur"), bras="haut", bouche="o")
+        s.add('</g>')
         for i in range(s.n(12)):
             a = s.rnd.uniform(0, 6.3); rr = s.rnd.uniform(0, 1) ** .5
             s.eclat(x + math.cos(a) * rr * 16 * sc, y - 44 * sc + math.sin(a) * rr * 20 * sc,

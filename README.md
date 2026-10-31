@@ -46,7 +46,7 @@ Les planches n'ont pas de bord franc : un masque en déplacement de bruit puis f
 
 Les filtres sont en `filterUnits="userSpaceOnUse"`. **C'est nécessaire** : avec le défaut en pourcentage de la boîte englobante, un trait parfaitement vertical a une boîte de largeur nulle, donc une région de filtre nulle, et disparaît purement et simplement.
 
-Les planches s'animent discrètement — flamme de chandelle, clignement du serpent, scintillement des miroirs, lanternes, dérive des oiseaux. L'animation est en CSS *à l'intérieur* de chaque SVG, ce qui la conserve même quand le fichier est chargé via `<img>`, et la désactive sous `prefers-reduced-motion`.
+Les planches s'animent discrètement : flammes de chandelle et de torche, lueurs qui respirent, yeux qui clignent — chacun à son rythme propre —, éclats de miroir, langue du serpent, cordes du gibet qui se balancent, fleurs au vent, reflets qui courent sur les lames, oiseaux qui s'éloignent. Le serpent mort de la dernière planche, lui, ne bouge plus : son œil est fixe. L'animation est en CSS *à l'intérieur* de chaque SVG, ce qui la conserve même quand le fichier est chargé via `<img>`, et la désactive sous `prefers-reduced-motion`.
 
 ## Droits
 

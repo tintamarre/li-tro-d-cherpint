@@ -281,7 +281,7 @@ class Scene:
 
     # ---- personnages --------------------------------------------------------
     def personnage(self, x, y, s=1.0, robe=None, peau=PEAU, cheveux=None, chapeau=None,
-                   bras="bas", regard=(0, 0), bouche="sourire", dos=False, op=1.0):
+                   bras="bas", regard=(0, 0), bouche="sourire", dos=False, op=1.0, cligne=None):
         """Une petite personne ronde : jambes, tunique, bras, tete, joues.
 
         y est au sol. La silhouette fait environ 76*s de haut.
@@ -324,8 +324,14 @@ class Scene:
                     -4 * s, 4 * s, -2 * hr + 10 * s, 0, ch))
         if not dos:
             dx, dy = regard
+            # au loin, les yeux restent tranquilles : seuls les gros plans clignent
+            cl = (s >= 1.15) if cligne is None else cligne
+            if cl:
+                self.add('<g%s>' % self.cls("oeil", self.rnd.uniform(5.5, 9.0)))
             for k in (-1, 1):
                 self.dot(hx + k * 4.6 * s + dx * s, hy - 1 * s + dy * s, 1.7 * s, INK)
+            if cl:
+                self.add('</g>')
             if self.st["joues"]:
                 for k in (-1, 1):
                     self.dot(hx + k * 8.4 * s, hy + 4 * s, 3.2 * s, ROSE, .55)
@@ -356,6 +362,10 @@ class Scene:
         self.ink("M %.1f %.1f L %.1f %.1f" % (x + px * 11 * s, y + py * 11 * s,
                                               x - px * 11 * s, y - py * 11 * s), 4.0 * s, INK_SOFT)
         self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, x - math.cos(a) * 15 * s, y - math.sin(a) * 15 * s), 5.0 * s, BROWN)
+        gx, gy = x + math.cos(a) * L * .62, y + math.sin(a) * L * .62     # le reflet qui court sur la lame
+        self.add('<g%s>' % self.cls("scintille", 4.4))
+        self.etoile(gx, gy, 7 * s, "#FFFDF6", .95)
+        self.add('</g>')
 
     def armure_miroirs(self, x, y, s=1.0, n=46, tete=True, corps_col=SILVER, anim=True):
         """Le costume fantastique : une silhouette pavée d'éclats qui accrochent le jour."""
@@ -476,8 +486,10 @@ class Scene:
 
     def cls(self, nom, duree=None):
         """Attribut de classe animee, avec un dephasage propre a chaque element."""
+        # le déphasage couvre tout le cycle : sinon les clignements se groupent
         d = ' style="animation-delay:-%.2fs%s"' % (
-            self.rnd.uniform(0, 4), ";animation-duration:%.2fs" % duree if duree else "")
+            self.rnd.uniform(0, duree if duree else 4),
+            ";animation-duration:%.2fs" % duree if duree else "")
         return ' class="%s"%s' % (nom, d)
 
     def chandelle(self, x, y, h=58, w=19, halo=38):
