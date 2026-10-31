@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Li trô d' chèrpint — Le trou du serpent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:'EB Garamond','Iowan Old Style',Palatino,Georgia,serif;color:#2E2419}
+.feuillet{
+  width:297mm;height:210mm;padding:13mm 15mm 11mm;background:#F6F0E4;
+  display:flex;flex-direction:column;overflow:hidden;page-break-after:always;position:relative;
+}
+.feuillet:last-child{page-break-after:auto}
+.entete{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4mm;flex:0 0 auto}
+.titre-page{font-style:italic;color:#A07A4E;font-size:11pt}
+.titre-page span{color:#5B4A38;font-style:normal}
+.folio{font-size:8.5pt;letter-spacing:.12em;color:#A07A4E;font-weight:600}
+.planche{flex:0 0 auto;text-align:center}
+.planche img{width:264mm;height:auto;display:block;margin:0 auto}
+.textes{flex:1 1 auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:9mm;padding-top:6mm;min-height:0}
+.filet{background:#D9CDB4}
+.langue{font-size:7pt;letter-spacing:.17em;text-transform:uppercase;color:#A07A4E;font-weight:600;margin-bottom:2mm;
+  font-family:ui-sans-serif,system-ui,sans-serif}
+.wa{font-size:10.5pt;line-height:1.5}
+.fr{font-size:10pt;line-height:1.48;color:#5B4A38}
+.citation .wa,.citation .fr{font-style:italic;padding-left:3mm;border-left:.6mm solid #C9A86B}
+sup{font-size:.62em;color:#A07A4E}
+.notes{grid-column:1/-1;padding-top:3mm;font-size:8pt;color:#A07A4E;font-style:italic}
+.notes p{margin-top:.8mm}
+
+.couv{align-items:center;justify-content:center;text-align:center}
+.serie{font-family:ui-sans-serif,system-ui,sans-serif;font-size:7.5pt;letter-spacing:.19em;
+  text-transform:uppercase;color:#A07A4E;max-width:150mm;line-height:1.6}
+.grand-titre{font-size:40pt;font-weight:400;line-height:1.05;margin:4mm 0 1mm}
+.sous-titre{font-size:16pt;font-style:italic;color:#5B4A38}
+.credit{margin-top:6mm;font-size:11pt;color:#5B4A38;line-height:1.6}
+.credit b{font-weight:600;color:#2E2419}
+.couv .planche{margin-top:5mm}
+.couv .planche img{width:215mm}
+
+.colo h2{font-size:21pt;font-weight:400}
+.colo>.sub{font-style:italic;color:#A07A4E;font-size:11pt;margin-bottom:5mm}
+.grille{display:grid;grid-template-columns:repeat(4,1fr);gap:6mm 9mm}
+.grille h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:7pt;letter-spacing:.16em;
+  text-transform:uppercase;color:#A07A4E;font-weight:600;margin-bottom:2mm}
+.grille p{font-size:8.6pt;line-height:1.5;color:#5B4A38;margin-bottom:2mm}
+.grille b{color:#2E2419;font-weight:600}
+.pied{position:absolute;left:15mm;right:15mm;bottom:6mm;display:flex;justify-content:space-between;
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:6.5pt;letter-spacing:.1em;color:#C0B296}
+</style>
+</head>
+<body>
+<script src="assets/livre-data.js"></script>
+<script>
+(function(){
+  var D=window.LIVRE,M=D.meta,P=D.pages,N={};
+  D.notes.forEach(function(n){N[String(n.n)]=n.texte});
+  var out=[];
+  function pied(t){return '<div class="pied"><span>'+M.titre_wa+' · '+M.titre_fr+'</span><span>'+t+'</span></div>'}
+
+  out.push('<section class="feuillet couv">'
+    +'<div class="serie">'+M.serie+'</div>'
+    +'<h1 class="grand-titre" lang="wa">'+M.titre_wa+'</h1>'
+    +'<p class="sous-titre">'+M.titre_fr+'</p>'
+    +'<div class="planche"><img src="illustrations/00-couverture.svg" alt=""></div>'
+    +'<p class="credit">Légende recueillie par <b>'+M.auteur_fr+'</b><br>'
+    +'Traduction wallonne de <b>'+M.auteur_wa+'</b></p></section>');
+
+  P.forEach(function(p){
+    var ids=[],re=/data-note="(\d+)"/g,m;
+    while((m=re.exec(p.wa)))ids.push(m[1]);
+    var notes=ids.length?'<div class="notes">'+ids.map(function(i){return '<p>'+i+'. '+N[i]+'</p>'}).join('')+'</div>':'';
+    out.push('<section class="feuillet'+(p.citation?' citation':'')+'">'
+      +'<div class="entete"><span class="titre-page">'+p.titre_wa+' &nbsp;·&nbsp; <span>'+p.titre_fr+'</span></span>'
+      +'<span class="folio">'+p.n+' / '+P.length+'</span></div>'
+      +'<div class="planche"><img src="illustrations/'+p.illus+'.svg" alt=""></div>'
+      +'<div class="textes"><div><div class="langue">Wallon</div><p class="wa" lang="wa">'+p.wa+'</p></div>'
+      +'<div class="filet"></div>'
+      +'<div><div class="langue">Français</div><p class="fr" lang="fr">'+p.fr+'</p></div>'
+      +notes+'</div>'+pied(p.n+' / '+P.length)+'</section>');
+  });
+
+  out.push('<section class="feuillet colo"><h2>'+M.titre_wa+'</h2><p class="sub">'+M.titre_fr+'</p>'
+    +'<div class="grille">'
+    +'<div><h3>Le texte</h3><p>Légende recueillie et mise en français par <b>'+M.auteur_fr+'</b>, traduite en wallon par <b>'+M.auteur_wa+'</b>.</p>'
+    +'<p>Paru dans <b>'+M.source+'</b>, sous le titre de série « '+M.serie+' ».</p>'
+    +'<p>La légende a sûrement été contée en wallon. Laport l’a fixée en français, comme le faisaient les folkloristes de son temps ; la traduction d’Henri Grandry la ramène, quatre-vingts ans plus tard, dans la langue où on la racontait.</p></div>'
+    +'<div><h3>Georges Laport</h3><p>Né à Fraiture en 1898, mort au camp de Dachau en 1945. Homme de lettres, critique d’art et historien des traditions populaires, il fut l’un des pionniers de l’enquête orale en Wallonie et recueillit des récits qui, sans lui, auraient disparu.</p>'
+    +'<p>On lui doit notamment <i>Le folklore des paysages de Wallonie</i> (1929) et <i>Les contes populaires wallons</i> (1932). Membre de la Société de littérature wallonne et de la Commission nationale de folklore, il entra en résistance dès le début de la guerre, fut arrêté le 4 juin 1942 et déporté.</p>'
+    +'<p>Son œuvre est dans le domaine public depuis 2016.</p></div>'
+    +'<div><h3>Henri Grandry</h3><p>Auteur de la traduction wallonne, parue en 2026. Le texte wallon de ce livre lui appartient.</p>'
+    +'<p>Le bulletin imprime « Henry » en tête d’article et « Henri » sous la colonne wallonne : c’est Henri.</p>'
+    +'<h3 style="margin-top:4mm">Le lieu</h3><p><b>Xhignez</b> est un hameau de Sprimont. Un <b>chantoir</b> est une cavité où un ruisseau se perd sous terre — le calcaire de Sprimont en est criblé.</p></div>'
+    +'<div><h3>Les notes du texte</h3>'+D.notes.map(function(n){return '<p>'+n.n+'. '+n.texte+'</p>'}).join('')
+    +'<p>Dans le bulletin, la liste imprimée intervertit les notes 3 et 4 par rapport aux appels du texte. Elles sont rétablies ici en regard de l’appel auquel elles répondent.</p>'
+    +'<h3 style="margin-top:4mm">Les images</h3><p>Les quatorze planches sont dessinées en SVG. Rien n’est photographié ni emprunté. Dans la version en ligne, elles s’animent discrètement et les mots difficiles s’expliquent au survol.</p></div>'
+    +'</div>'+pied('Colophon')+'</section>');
+
+  document.body.insertAdjacentHTML('beforeend',out.join(''));
+})();
+</script>
+</body>
+</html>
