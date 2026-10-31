@@ -179,35 +179,29 @@
     p.classList.add("actuelle", "entre");
     p.scrollTop = 0;
     majBarre();
-    mesurer();
     ajusterColophon();
     history.replaceState(null, "", idx === 0 ? location.pathname : "#" + idx);
   }
   function suiv() { va(idx + 1, 1); }
   function prec() { va(idx - 1, -1); }
 
-  /* L'en-tête et les colonnes de texte se calent sur la largeur réelle de la
-     planche, pour que tout s'aligne sur une même justification. */
-  function mesurer() {
-    var p = pages[idx];
-    if (!p) return;
-    var img = p.querySelector(".planche img");
-    if (!img) { document.documentElement.style.removeProperty("--mesure"); return; }
-    var l = img.getBoundingClientRect().width;
-    document.documentElement.style.setProperty("--mesure", l > 40 ? Math.round(l) + "px" : "100%");
-  }
-
-  /* Le colophon doit tenir d'un seul bloc : on réduit son échelle jusqu'à ce
-     qu'il ne déborde plus, plutôt que de le faire défiler. */
-  function ajusterColophon() {
-    var c = pages[pages.length - 1];
-    if (!c || !c.classList.contains("actuelle")) return;
-    var e = 1;
-    c.style.setProperty("--echelle", "1");
-    while (c.scrollHeight > c.clientHeight + 1 && e > 0.66) {
-      e -= 0.02;
-      c.style.setProperty("--echelle", e.toFixed(2));
-    }
+  /* Toutes les pages partagent la hauteur de texte qu'exige la plus bavarde.
+     L'illustration prend tout le reste : identique partout, et aussi grande
+     que le livre le permet. On mesure chaque page montée hors champ. */
+  function calibrer() {
+    var max = 0;
+    pages.forEach(function (p) {
+      var t = p.querySelector(".textes");
+      if (!t) return;
+      var cache = !p.classList.contains("actuelle");
+      if (cache) p.classList.add("mesure");
+      t.style.flex = "0 0 auto";
+      var h = t.scrollHeight;
+      t.style.flex = "";
+      if (cache) p.classList.remove("mesure");
+      if (h > max) max = h;
+    });
+    if (max) document.documentElement.style.setProperty("--texte-h", Math.ceil(max) + "px");
   }
 
   var bPrec, bSuiv, parcouru, tete;
@@ -300,16 +294,25 @@
       x0 = y0 = null;
     }, { passive: true });
 
-    function replacer() { mesurer(); ajusterColophon(); }
+    var tmp;
+    function replacer() {
+      document.documentElement.style.removeProperty("--texte-h");
+      calibrer(); ajusterColophon();
+    }
     addEventListener("resize", replacer);
     if (window.ResizeObserver) new ResizeObserver(replacer).observe(livre);
     livre.querySelectorAll(".planche img").forEach(function (im) {
-      im.addEventListener("load", mesurer);
+      im.addEventListener("load", function () { clearTimeout(tmp); tmp = setTimeout(replacer, 60); });
     });
+    calibrer();
+
+    /* La police se charge après coup : calibrer avant elle donnerait une
+       hauteur de texte fausse, et des planches de tailles différentes. */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(replacer);
 
     var d = parseInt((location.hash || "").slice(1), 10);
     va(isNaN(d) ? 0 : d, 1);
-    setTimeout(replacer, 120);
+    setTimeout(replacer, 140);
   }
 
   document.readyState === "loading"

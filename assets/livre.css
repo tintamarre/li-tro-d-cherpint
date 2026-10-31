@@ -17,41 +17,44 @@ body{
 }
 
 /* ---------------------------------------------------------------- ossature */
-#livre{position:fixed;inset:0;display:flex;flex-direction:column;padding:clamp(10px,1.8vh,26px) clamp(12px,3vw,44px) 0}
+#livre{position:fixed;inset:0;display:flex;flex-direction:column;padding:clamp(8px,1.4vh,16px) clamp(10px,1.8vw,26px) 0}
 .feuille{
   flex:1;min-height:0;background:var(--papier);border-radius:3px;
   box-shadow:0 2px 22px rgba(60,45,25,.14),0 0 0 1px rgba(120,100,70,.07);
-  padding:clamp(14px,2.2vh,22px) clamp(18px,3.2vw,40px) clamp(16px,2.4vh,26px);
+  padding:clamp(12px,1.8vh,18px) clamp(14px,2.2vw,30px) clamp(12px,1.8vh,18px);
   display:flex;flex-direction:column;position:relative;overflow:hidden;
 }
 
 /* -------------------------------------------------------------- les pages */
 /* #pages doit être lui-même une boîte flexible de la hauteur de la feuille :
    sinon les pages grandissent jusqu'à leur contenu et le bas est coupé. */
-#pages{flex:1;min-height:0;display:flex;flex-direction:column}
+#pages{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+/* page montée hors champ, le temps de mesurer la hauteur de son texte */
+.page.mesure{display:flex;visibility:hidden;position:absolute;inset:0;pointer-events:none}
 .page{flex:1;min-height:0;display:none;flex-direction:column}
 .page.actuelle{display:flex}
 .page.entre{animation:entre var(--t) both}
 @keyframes entre{from{opacity:0;transform:translateX(var(--sens,26px))}to{opacity:1;transform:none}}
 
-.entete{flex:0 0 auto;width:100%;max-width:var(--mesure,100%);margin-inline:auto;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
-.titre-page{font-style:italic;color:var(--ocre);font-size:clamp(14px,1.75vh,17.5px)}
+.entete{flex:0 0 auto;width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
+.titre-page{font-style:italic;color:var(--ocre);font-size:clamp(14px,1.85vh,19px)}
 .titre-page span{color:var(--encre-douce);font-style:normal}
 .folio{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--ocre);white-space:nowrap}
 
 /* hauteur fixe : toutes les planches s'affichent exactement à la même taille,
    quelle que soit la longueur du texte de la page. */
-.planche{flex:0 0 52%;min-height:0;display:flex;align-items:center;justify-content:center}
+.planche{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
 .planche img{height:100%;width:auto;max-width:100%;object-fit:contain;display:block;border-radius:2px}
 
-.textes{flex:1 1 auto;width:100%;max-width:var(--mesure,100%);margin-inline:auto;min-height:0;overflow-y:auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
+/* hauteur commune à toutes les pages : celle qu'exige la plus bavarde */
+.textes{flex:0 0 var(--texte-h,auto);width:100%;min-height:0;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
 .filet{background:linear-gradient(var(--papier),var(--papier-bord) 18%,var(--papier-bord) 82%,var(--papier))}
 .langue{font:600 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px}
-.wa{font-size:clamp(16.5px,2.2vh,20.5px);line-height:1.58}
-.fr{font-size:clamp(15.5px,2.05vh,18.5px);line-height:1.57;color:var(--encre-douce)}
+.wa{font-size:clamp(17px,2.4vh,23px);line-height:1.56}
+.fr{font-size:clamp(16px,2.25vh,21px);line-height:1.55;color:var(--encre-douce)}
 .citation .corps{font-style:italic;padding-left:14px;border-left:2px solid var(--ocre-clair)}
 sup{font-size:.62em;color:var(--ocre);padding-left:1px}
-.notes{grid-column:1/-1;padding-top:13px;font-size:13.5px;color:var(--ocre);font-style:italic}
+.notes{grid-column:1/-1;padding-top:13px;font-size:clamp(13px,1.6vh,15px);color:var(--ocre);font-style:italic}
 .notes p{margin-top:3px}
 
 /* un seul idiome à la fois */
@@ -114,9 +117,11 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
 
 /* ------------------------------------------------------------- petit écran */
 @media (max-width:860px), (max-aspect-ratio:1/1){
-  .textes{grid-template-columns:minmax(0,1fr);gap:16px}
+  .textes{flex:0 0 auto;grid-template-columns:minmax(0,1fr);gap:16px}
+  .planche{flex:0 0 auto}
   .filet{height:1px;width:64px;background:var(--ocre-clair);margin:2px 0}
   .page:not(.couverture):not(.colophon){overflow-y:auto}
+  .textes{flex:0 0 auto}
   .planche{flex:0 0 auto}
   .planche img{max-height:42vh}
   #barre{gap:10px}
