@@ -175,5 +175,5 @@ window.LIVRE = {
   "antique": "Très, très ancienne.",
   "monstrueuse": "Énorme et effrayante, comme un monstre."
  },
- "version": "45d33e93a0"
+ "version": "eaa2fb0f77"
 };

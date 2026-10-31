@@ -353,14 +353,17 @@ class Scene:
         return (hx, hy, hr)
 
     def fers(self, x, y, s=1.0):
-        """Une paire de fers ouverts, jetée dans l'herbe."""
-        r = 13 * s
+        """Une paire de fers ouverts, jetée dans l'herbe : deux anneaux brisés
+        que relient quelques maillons."""
+        r, ry = 14 * s, 11 * s
         for k in (-1, 1):
-            cx = x + k * 30 * s
-            self.ink("M %.1f %.1f a %.1f %.1f 0 1 1 %.1f %.1f"
-                     % (cx - r, y, r, r * .82, 1.85 * r, -r * .42), 3.2 * s)
-        for i in range(4):
-            self.cercle(x - 13 * s + i * 9 * s, y + 3 * s, 3.6 * s, "none", self.st["encre"], 2.1 * s)
+            cx = x + k * 34 * s
+            a1, a2 = math.radians(28), math.radians(-46)      # un anneau presque fermé
+            self.ink("M %.1f %.1f A %.1f %.1f 0 1 1 %.1f %.1f"
+                     % (cx + math.cos(a1) * r, y + math.sin(a1) * ry, r, ry,
+                        cx + math.cos(a2) * r, y + math.sin(a2) * ry), 3.4 * s)
+        for i in range(3):
+            self.cercle(x - 14 * s + i * 14 * s, y + 2 * s, 5.2 * s, "none", self.st["encre"], 2.4 * s)
 
     def epee(self, x, y, ang, L=90, s=1.0):
         """Une epee bien effilee, tenue a la main."""

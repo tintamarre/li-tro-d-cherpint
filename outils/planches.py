@@ -27,13 +27,20 @@ def ciel(s, soleil=(.145, .24), nuage=(.72, .17), lune=None):
         s.cercle(cx + 11, cy - 7, 26, PAPER, None, op=1.0)
 
 
+def bande_sol(haut, bas=LH + 70):
+    """Un sol : le bord supérieur est dessiné, puis on ferme droit sous le cadre.
+    Fermer la courbe par Catmull-Rom la fait passer *par* les coins au lieu de
+    s'y arrêter : le remplissage laisse des trous sur les côtés."""
+    return smooth(haut) + " L %.1f %.1f L %.1f %.1f Z" % (LW + 70, bas, -70, bas)
+
+
 def pre(s, hz, bandes=2, ligne=True):
     """Le plateau : une ligne d'horizon tracee, deux bandes de pre."""
-    s.wash(smooth([(-40, hz + 26), (LW * .22, hz - 22), (LW * .48, hz + 12), (LW * .74, hz - 26),
-                   (LW + 40, hz + 8), (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("herbe"), .42, "wc2")
+    s.wash(bande_sol([(-40, hz + 26), (LW * .22, hz - 22), (LW * .48, hz + 12),
+                      (LW * .74, hz - 26), (LW + 40, hz + 8)]), s.C("herbe"), .42, "wc2")
     if bandes > 1:
-        s.wash(smooth([(-40, hz + 92), (LW * .32, hz + 56), (LW * .64, hz + 104), (LW + 40, hz + 62),
-                       (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("herbe2"), .3, "wc2")
+        s.wash(bande_sol([(-40, hz + 92), (LW * .32, hz + 56), (LW * .64, hz + 104),
+                          (LW + 40, hz + 62)]), s.C("herbe2"), .3, "wc2")
     if ligne:
         s.ink(smooth(wave(-30, hz + 2, LW + 30, hz - 10, 5, 2.2, 26)), 1.5, None, op=.45)
 
@@ -60,8 +67,8 @@ def interieur(s, sol=430, torche_a=None):
     s.mur(-40, -20, LW + 40, sol - 38, h=62, w=128, color=s.C("pierre"), op=.2)
     s.wash(smooth([(-40, sol - 44), (LW * .4, sol - 34), (LW + 40, sol - 46),
                    (LW + 40, sol + 4), (-40, sol + 8)], True), s.C("nuit"), .12, "wc2")
-    s.wash(smooth([(-40, sol), (LW * .3, sol - 10), (LW * .7, sol + 8), (LW + 40, sol - 6),
-                   (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("terre"), .34, "wc2")
+    s.wash(bande_sol([(-40, sol), (LW * .3, sol - 10), (LW * .7, sol + 8),
+                      (LW + 40, sol - 6)]), s.C("terre"), .34, "wc2")
     s.ink(smooth(wave(-30, sol, LW + 30, sol - 6, 4, 2, 24)), 1.5, None, op=.4)
     if torche_a:
         for tx in torche_a:
@@ -199,8 +206,8 @@ def p03_les_tchesseus():
     s.wash(blob(640, 120, 620, 120, 61, 13, .22), s.C("nuit"), .14, "wc2")
     s.add('</g>')
     pre(s, 296)
-    s.wash(smooth([(-40, 330), (LW * .3, 372), (LW * .62, 428), (LW + 40, 470),
-                   (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("terre"), .24, "wc2")
+    s.wash(bande_sol([(-40, 330), (LW * .3, 372), (LW * .62, 428), (LW + 40, 470)]),
+           s.C("terre"), .24, "wc2")
     trou(s, 912, 452, 168, 48)
     # la file qui descend
     for i, (x, y, sc) in enumerate([(132, 352, .58), (248, 368, .63), (372, 390, .68),
@@ -268,8 +275,8 @@ def p04_deus_condanes():
 def p05_pindards_fotches():
     s = S("p05", "Les fourches patibulaires, et les manants qui ne pensent qu'au serpent", 23)
     ciel(s, soleil=(.90, .17), nuage=(.42, .13))
-    s.wash(smooth([(-40, 300), (LW * .16, 244), (LW * .34, 292), (LW + 40, 318),
-                   (LW + 40, LH + 40), (-40, LH + 40)], True), s.C("terre"), .26, "wc2")
+    s.wash(bande_sol([(-40, 300), (LW * .16, 244), (LW * .34, 292), (LW + 40, 318)]),
+           s.C("terre"), .26, "wc2")
     pre(s, 352)
     # le gibet a plusieurs potences
     base = 300
@@ -572,20 +579,20 @@ def p13_li_pus_vude():
     s.procession(170, 760, 360, 11, (.40, .52))
     # les deux libérés : leurs habits retrouvés, les fers ouverts à leurs pieds,
     # et l'armure de miroirs abandonnée dans l'herbe
-    for i, (fx, sc) in enumerate(((.195, 1.3), (.315, 1.4))):
-        x, y = LW * fx, LH - 6
+    for i, (fx, sc) in enumerate(((.195, 1.25), (.315, 1.34))):
+        x, y = LW * fx, LH - 38
         s.add('<g%s>' % s.cls("gigote", 3.8))
         brigand(s, x, y, sc, i, bras="haut", bouche="o")
         s.add('</g>')
-    s.fers(306, 528, 1.05)
-    s.fers(486, 534, .92)
+    s.fers(312, 500, 1.0)
+    s.fers(492, 508, .88)
     for i in range(s.n(12)):
-        s.eclat(s.rnd.uniform(380, 560), s.rnd.uniform(510, 536), s.rnd.uniform(3, 6),
+        s.eclat(s.rnd.uniform(380, 580), s.rnd.uniform(486, 512), s.rnd.uniform(3, 6),
                 s.rnd.uniform(0, 3), anim="scintille" if i % 3 == 0 else None)
     for x, y, sc, a in ((920, 118, 1.0, "glisse"), (1024, 92, .85, "derive"),
                        (820, 76, .75, "glisse"), (460, 104, .95, "derive")):
         s.oiseau(x, y, sc, anim=a)
-    s.semis(420, 1220, 480, 528, 18, s.C("fleur"), s.C("herbe2"))
+    s.semis(620, 1220, 476, 510, 16, s.C("fleur"), s.C("herbe2"))
     return s
 
 
