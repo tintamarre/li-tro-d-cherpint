@@ -177,6 +177,7 @@
     p.scrollTop = 0;
     majBarre();
     mesurer();
+    ajusterColophon();
     history.replaceState(null, "", idx === 0 ? location.pathname : "#" + idx);
   }
   function suiv() { va(idx + 1, 1); }
@@ -191,6 +192,19 @@
     if (!img) { document.documentElement.style.removeProperty("--mesure"); return; }
     var l = img.getBoundingClientRect().width;
     document.documentElement.style.setProperty("--mesure", l > 40 ? Math.round(l) + "px" : "100%");
+  }
+
+  /* Le colophon doit tenir d'un seul bloc : on réduit son échelle jusqu'à ce
+     qu'il ne déborde plus, plutôt que de le faire défiler. */
+  function ajusterColophon() {
+    var c = pages[pages.length - 1];
+    if (!c || !c.classList.contains("actuelle")) return;
+    var e = 1;
+    c.style.setProperty("--echelle", "1");
+    while (c.scrollHeight > c.clientHeight + 1 && e > 0.66) {
+      e -= 0.02;
+      c.style.setProperty("--echelle", e.toFixed(2));
+    }
   }
 
   var bPrec, bSuiv, parcouru, tete;
@@ -283,15 +297,16 @@
       x0 = y0 = null;
     }, { passive: true });
 
-    addEventListener("resize", mesurer);
-    if (window.ResizeObserver) new ResizeObserver(mesurer).observe(livre);
+    function replacer() { mesurer(); ajusterColophon(); }
+    addEventListener("resize", replacer);
+    if (window.ResizeObserver) new ResizeObserver(replacer).observe(livre);
     livre.querySelectorAll(".planche img").forEach(function (im) {
       im.addEventListener("load", mesurer);
     });
 
     var d = parseInt((location.hash || "").slice(1), 10);
     va(isNaN(d) ? 0 : d, 1);
-    setTimeout(mesurer, 120);
+    setTimeout(replacer, 120);
   }
 
   document.readyState === "loading"

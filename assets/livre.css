@@ -72,11 +72,22 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
   background:none;border:1px solid var(--ocre-clair);color:var(--ocre);padding:12px 22px;border-radius:2px;cursor:pointer;transition:.2s}
 .ouvrir:hover{background:var(--ocre);border-color:var(--ocre);color:var(--papier)}
 
-.colophon{align-items:stretch;text-align:left;overflow-y:auto;padding-right:6px}
-.colophon h2{font-size:clamp(22px,3.2vh,30px);font-weight:400;margin-bottom:4px}
-.colophon-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(18px,2.4vw,34px);margin-top:clamp(12px,2vh,20px)}
-.colophon h3{font:600 10.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:9px}
-.colophon p{font-size:15.2px;line-height:1.62;color:var(--encre-douce);margin-bottom:9px}
+.colophon{--echelle:1;align-items:stretch;text-align:left;overflow:hidden;padding-right:4px}
+.colophon h2{font-size:calc(clamp(20px,3vh,29px) * var(--echelle));font-weight:400;margin-bottom:3px}
+.colophon > p{font-size:calc(15px * var(--echelle));font-style:italic;color:var(--ocre)}
+.colophon-grille{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(calc(228px * var(--echelle)),1fr));
+  gap:calc(clamp(16px,2.1vw,30px) * var(--echelle)) calc(clamp(18px,2.3vw,34px) * var(--echelle));
+  margin-top:calc(clamp(10px,1.8vh,18px) * var(--echelle));
+}
+.colophon h3{
+  font:600 calc(10.5px * var(--echelle))/1 var(--sans);letter-spacing:.17em;text-transform:uppercase;
+  color:var(--ocre);margin-bottom:calc(8px * var(--echelle));
+}
+.colophon-grille p{
+  font-size:calc(14.6px * var(--echelle));line-height:1.56;color:var(--encre-douce);
+  margin-bottom:calc(8px * var(--echelle));
+}
 .colophon b{color:var(--encre);font-weight:600}
 .colophon a{color:var(--ocre);text-decoration:none;border-bottom:1px solid var(--papier-bord)}
 .colophon a:hover{border-color:var(--ocre)}
@@ -113,7 +124,7 @@ body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns
 }
 /* fenêtre très basse : plutôt défiler que rogner */
 @media (max-height:620px){
-  .page:not(.couverture){overflow-y:auto}
+  .page:not(.couverture):not(.colophon){overflow-y:auto}
   .planche img{max-height:52vh}
 }
 @media (prefers-reduced-motion:reduce){
