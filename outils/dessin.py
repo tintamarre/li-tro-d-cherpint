@@ -96,10 +96,11 @@ class Scene:
                         couleur="lavis", lavis_op=1.0, lavis_f="wc2", densite=1.0,
                         ciel_plein=True, contour_perso=True, joues=True, pal={})
 
-    # Bord mouillé : le lavis s'arrête où le pinceau s'est levé, plutôt que
-    # net au cadre. (déplacement du bord, flou, retrait) — (0, 26, 40) pour un
-    # estompage droit, (0, 0.01, -2) pour revenir au bord franc.
-    BORD = (46, 13, 36)
+    # Bord mouillé : le lavis s'arrête où le pinceau s'est levé, plutôt que net
+    # au cadre — mais sur une vingtaine de pixels, pas davantage, sinon le fondu
+    # mange le dessin. (déplacement du bord, flou, retrait) ; (7, 2.5, 5) est
+    # plus discret encore, (0, 0.01, -2) revient au bord franc.
+    BORD = (12, 4, 9)
 
     def __init__(self, slug, titre, seed=1, w=W, h=H, style=None, bord=None):
         self.slug, self.titre = slug, titre

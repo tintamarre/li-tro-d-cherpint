@@ -42,7 +42,7 @@ python3 outils/site.py       # regénère assets/livre-data.js depuis texte/page
 
 Tout est engendré par du Python qui écrit du SVG — pas d'image matricielle, pas d'emprunt. Le dessin repose sur trois filtres SVG : un déplacement par bruit fractal qui ronge les bords des lavis, un autre plus large pour les fonds, et un troisième, très léger, qui fait trembler le trait.
 
-Les planches n'ont pas de bord franc : un masque en déplacement de bruit puis flou gaussien fait que le lavis s'arrête là où le pinceau se serait levé, et se fond dans le papier de la page. Le réglage est la constante `BORD` de `outils/dessin.py` — `(0, 26, 40)` donne un estompage droit, `(0, 0.01, -2)` revient au bord net.
+Les planches n'ont pas de bord franc : un masque en déplacement de bruit puis flou gaussien fait que le lavis s'arrête là où le pinceau se serait levé, et se fond dans le papier de la page. Le fondu tient sur une vingtaine de pixels : au-delà il mange le dessin. Le réglage est la constante `BORD` de `outils/dessin.py` — `(7, 2.5, 5)` est plus discret encore, `(0, 0.01, -2)` revient au bord net.
 
 Les filtres sont en `filterUnits="userSpaceOnUse"`. **C'est nécessaire** : avec le défaut en pourcentage de la boîte englobante, un trait parfaitement vertical a une boîte de largeur nulle, donc une région de filtre nulle, et disparaît purement et simplement.
 

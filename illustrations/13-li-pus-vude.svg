@@ -53,11 +53,11 @@
   </filter>
   <filter id="p13-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="91" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
-    <feGaussianBlur in="d" stdDeviation="13"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="4"/>
   </filter>
   <mask id="p13-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
-    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#p13-bord)"/>
+    <rect x="9" y="7" width="1262" height="526" fill="#fff" filter="url(#p13-bord)"/>
   </mask>
   <filter id="p13-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="91" result="t"/>
