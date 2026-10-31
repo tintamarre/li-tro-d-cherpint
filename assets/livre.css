@@ -1,0 +1,110 @@
+/* « Li trô d' chèrpint » — feuille de style du livre */
+
+:root{
+  --papier:#F6F0E4; --papier-fonce:#EDE4D2; --papier-bord:#E2D7C0;
+  --encre:#2E2419; --encre-douce:#5B4A38; --ocre:#A07A4E; --ocre-clair:#C9A86B;
+  --vert:#6E7D58; --nuit:#464F60;
+  --serif:'EB Garamond','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  --sans:ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t:.52s cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--papier-fonce); color:var(--encre); font-family:var(--serif);
+  font-size:17px; line-height:1.6; overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------------------------------------------------------------- ossature */
+#livre{position:fixed;inset:0;display:flex;flex-direction:column;padding:clamp(10px,1.8vh,26px) clamp(12px,3vw,44px) 0}
+.feuille{
+  flex:1;min-height:0;background:var(--papier);border-radius:3px;
+  box-shadow:0 2px 22px rgba(60,45,25,.14),0 0 0 1px rgba(120,100,70,.07);
+  padding:clamp(14px,2.2vh,22px) clamp(18px,3.2vw,40px) clamp(16px,2.4vh,26px);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+
+/* -------------------------------------------------------------- les pages */
+.page{flex:1;min-height:0;display:none;flex-direction:column}
+.page.actuelle{display:flex}
+.page.entre{animation:entre var(--t) both}
+@keyframes entre{from{opacity:0;transform:translateX(var(--sens,26px))}to{opacity:1;transform:none}}
+
+.entete{flex:0 0 auto;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
+.titre-page{font-style:italic;color:var(--ocre);font-size:clamp(13px,1.6vh,16px)}
+.titre-page span{color:var(--encre-douce);font-style:normal}
+.folio{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--ocre);white-space:nowrap}
+
+.planche{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.planche img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:2px}
+
+.textes{flex:0 0 auto;display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(20px,2.8vw,38px);padding-top:clamp(12px,2vh,22px)}
+.filet{background:linear-gradient(var(--papier),var(--papier-bord) 18%,var(--papier-bord) 82%,var(--papier))}
+.langue{font:600 10px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px}
+.wa{font-size:clamp(15px,1.95vh,18.5px);line-height:1.6}
+.fr{font-size:clamp(14px,1.8vh,16.5px);line-height:1.58;color:var(--encre-douce)}
+.citation .corps{font-style:italic;padding-left:14px;border-left:2px solid var(--ocre-clair)}
+sup{font-size:.62em;color:var(--ocre);padding-left:1px}
+.notes{grid-column:1/-1;padding-top:12px;font-size:12.5px;color:var(--ocre);font-style:italic}
+.notes p{margin-top:3px}
+
+/* un seul idiome à la fois */
+body[data-langue=wa] .col-fr, body[data-langue=wa] .filet,
+body[data-langue=fr] .col-wa, body[data-langue=fr] .filet{display:none}
+body[data-langue=wa] .textes, body[data-langue=fr] .textes{grid-template-columns:minmax(0,78ch);justify-content:center}
+
+/* ------------------------------------------------- couverture et colophon */
+.couverture,.colophon{justify-content:center;align-items:center;text-align:center}
+.couverture .planche{width:100%}
+.serie{font:600 10px/1.5 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);max-width:68ch}
+.grand-titre{font-size:clamp(34px,6.4vh,64px);line-height:1.04;font-weight:400;letter-spacing:.005em;margin:clamp(8px,1.4vh,16px) 0 4px}
+.sous-titre{font-size:clamp(17px,2.4vh,24px);font-style:italic;color:var(--encre-douce)}
+.credit{margin-top:clamp(12px,2vh,22px);font-size:clamp(13px,1.7vh,15.5px);color:var(--encre-douce);max-width:56ch}
+.credit b{font-weight:600;color:var(--encre)}
+.ouvrir{margin-top:clamp(14px,2.2vh,24px);font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  background:none;border:1px solid var(--ocre-clair);color:var(--ocre);padding:12px 22px;border-radius:2px;cursor:pointer;transition:.2s}
+.ouvrir:hover{background:var(--ocre);border-color:var(--ocre);color:var(--papier)}
+
+.colophon{align-items:stretch;text-align:left;overflow-y:auto;padding-right:6px}
+.colophon h2{font-size:clamp(22px,3.2vh,30px);font-weight:400;margin-bottom:4px}
+.colophon-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(18px,2.4vw,34px);margin-top:clamp(12px,2vh,20px)}
+.colophon h3{font:600 10px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);margin-bottom:9px}
+.colophon p{font-size:14.2px;line-height:1.62;color:var(--encre-douce);margin-bottom:9px}
+.colophon b{color:var(--encre);font-weight:600}
+.colophon a{color:var(--ocre);text-decoration:none;border-bottom:1px solid var(--papier-bord)}
+.colophon a:hover{border-color:var(--ocre)}
+
+/* -------------------------------------------------------------- barre basse */
+#barre{flex:0 0 auto;display:flex;align-items:center;gap:clamp(10px,2vw,20px);padding:clamp(7px,1.3vh,13px) 6px clamp(8px,1.4vh,14px)}
+.fleche{font:600 11px/1 var(--sans);letter-spacing:.1em;color:var(--ocre);background:none;border:0;cursor:pointer;padding:7px 3px;transition:.2s;white-space:nowrap}
+.fleche:hover{color:var(--encre)}
+.fleche[disabled]{opacity:.26;cursor:default}
+#piste{flex:1;position:relative;height:16px}
+#rail{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--papier-bord)}
+#parcouru{position:absolute;left:0;top:50%;height:1px;background:var(--ocre-clair);transition:width var(--t)}
+#tete{position:absolute;top:50%;width:21px;height:12px;margin:-6px 0 0 -11px;transition:left var(--t)}
+.idiomes{display:flex;gap:1px;background:var(--papier-bord);border-radius:2px;overflow:hidden}
+.idiomes button{font:600 10px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;border:0;cursor:pointer;
+  background:var(--papier);color:var(--ocre);padding:8px 11px;transition:.2s}
+.idiomes button[aria-pressed=true]{background:var(--ocre);color:var(--papier)}
+
+/* zones de clic : tourner la page comme on tourne un feuillet */
+.zone{position:absolute;top:0;bottom:0;width:36%;cursor:pointer;z-index:2;border:0;background:none;-webkit-tap-highlight-color:transparent}
+.zone.prec{left:0} .zone.suiv{right:0;width:64%}
+.zone:focus-visible{outline:2px solid var(--ocre-clair);outline-offset:-4px}
+
+/* ------------------------------------------------------------- petit écran */
+@media (max-width:860px), (max-aspect-ratio:1/1){
+  .textes{grid-template-columns:minmax(0,1fr);gap:16px}
+  .filet{height:1px;width:64px;background:var(--ocre-clair);margin:2px 0}
+  .page:not(.couverture):not(.colophon){overflow-y:auto}
+  .planche{flex:0 0 auto}
+  .planche img{max-height:46vh}
+  #barre{gap:10px}
+  .fleche span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .page.entre{animation:none}
+  #parcouru,#tete{transition:none}
+}

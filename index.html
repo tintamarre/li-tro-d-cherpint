@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Li trô d' chèrpint — Le trou du serpent</title>
+<meta name="description" content="Une légende du pays d'Ourthe-Amblève, en wallon et en français : le serpent du chantoir de Xhignez, à Sprimont. Livre illustré, page à page.">
+<meta name="author" content="Georges Laport, Henri Grandry">
+<meta property="og:title" content="Li trô d' chèrpint — Le trou du serpent">
+<meta property="og:description" content="Une légende du pays d'Ourthe-Amblève, en wallon et en français.">
+<meta property="og:type" content="book">
+<link rel="icon" href="illustrations/00-couverture.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/livre.css">
+</head>
+<body data-langue="deux">
+
+<div id="livre">
+  <div class="feuille">
+    <button class="zone prec" type="button" aria-label="Page précédente"></button>
+    <button class="zone suiv" type="button" aria-label="Page suivante"></button>
+    <div id="pages"></div>
+  </div>
+
+  <nav id="barre" aria-label="Navigation dans le livre">
+    <button class="fleche" id="prec" type="button">‹ <span>Précédente</span></button>
+    <div id="piste">
+      <div id="rail"></div>
+      <div id="parcouru"></div>
+      <svg id="tete" viewBox="0 0 42 24" aria-hidden="true">
+        <path d="M2 12 Q 10 3 22 7 Q 33 10 36 12 Q 33 14 22 17 Q 10 21 2 12 Z" fill="#6E7D58"/>
+        <circle cx="26" cy="10.5" r="3.4" fill="#F0E0B4"/>
+        <circle cx="26" cy="10.5" r="1.4" fill="#2E2419"/>
+        <path d="M36 12 l 6 -2 M36 12 l 6 2" stroke="#B4634A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="idiomes" role="group" aria-label="Langues affichées">
+      <button type="button" data-langue="deux" aria-pressed="true">Les deux</button>
+      <button type="button" data-langue="wa" aria-pressed="false">Wallon</button>
+      <button type="button" data-langue="fr" aria-pressed="false">Français</button>
+    </div>
+    <button class="fleche" id="suiv" type="button"><span>Suivante</span> ›</button>
+  </nav>
+</div>
+
+<noscript>
+  <p style="padding:40px;font-family:Georgia,serif">
+    Ce livre se feuillette avec JavaScript. Le texte intégral, en wallon et en français,
+    reste lisible dans <a href="texte/transcription.md">texte/transcription.md</a>.
+  </p>
+</noscript>
+
+<script src="assets/livre-data.js"></script>
+<script src="assets/livre.js"></script>
+</body>
+</html>
