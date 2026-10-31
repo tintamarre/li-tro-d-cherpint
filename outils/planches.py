@@ -68,6 +68,14 @@ def interieur(s, sol=430, torche_a=None):
             s.torche(tx, 180, 1.0)
 
 
+def brigand(s, x, y, sc, lequel, **kw):
+    """Les deux rin-n'-vâts. Même habit et mêmes cheveux d'une planche à l'autre,
+    sinon on ne les reconnaît pas : le gauche en terre cuite, le droit en vert."""
+    robe = s.C("accent") if lequel == 0 else s.C("herbe2")
+    chev = "#4A3728" if lequel == 0 else "#7A5A3A"
+    s.personnage(x, y, sc, robe, cheveux=chev, **kw)
+
+
 def serpent_lointain(s, bx, by, l=70, sc=1.0, col=None):
     """Un petit serpent, pour les bulles de pensee et les plateaux de balance."""
     mini = wave(bx - l * .5, by + 4 * sc, bx + l * .5, by - 2 * sc, 9 * sc, 2.2, 14)
@@ -241,8 +249,8 @@ def p04_deus_condanes():
         x, y = s.rnd.uniform(60, 1220), s.rnd.uniform(462, 516)
         s.ink("M %.1f %.1f l %.1f %.1f" % (x, y, s.rnd.uniform(-16, 16), s.rnd.uniform(-5, 5)), 1.1, s.C("terre"), op=.6)
     # les deux
-    s.personnage(392, 484, 2.25, bouche="droite", bras="croises")
-    s.personnage(600, 492, 2.15, s.C("accent"), bouche="droite", bras="bas")
+    brigand(s, 392, 484, 2.25, 0, bouche="droite", bras="croises")
+    brigand(s, 600, 492, 2.15, 1, bouche="droite", bras="bas")
     s.add('<path d="%s" fill="%s" opacity="0.8"/>' % (blob(748, 500, 30, 12, 191, 11, .22), s.C("pierre")))
     s.ink(blob(748, 500, 30, 12, 191, 11, .22), 1.5, None, op=.8)
     # la chaine
@@ -342,12 +350,12 @@ def p07_l_offe():
     s.add('<ellipse cx="392" cy="248" rx="25" ry="31" fill="none" stroke="%s" stroke-width="3.2"/>' % s.C("terre"))
     s.add('</g>')
     # le magistrat, qui parle au travers
-    s.personnage(470, 492, 2.2, s.C("accent"), chapeau="juge", bras="avant", bouche="o")
+    s.personnage(470, 492, 2.2, s.C("nuit"), chapeau="juge", bras="avant", bouche="o")
     s.add('<path d="%s" fill="%s" opacity="0.95"/>' % (blob(392, 400, 48, 28, 150, 11, .16), PAPER))
     s.ink(blob(392, 400, 48, 28, 150, 11, .16), 1.5, None, op=.85)
     # les prisonniers, derriere la grille
-    s.personnage(960, 496, 1.98, bouche="droite", bras="bas")
-    s.personnage(1106, 502, 1.86, s.C("herbe2"), bouche="droite", bras="croises")
+    brigand(s, 960, 496, 1.98, 0, bouche="droite", bras="bas")
+    brigand(s, 1106, 502, 1.86, 1, bouche="droite", bras="croises")
     for k, rr in enumerate((7, 4.6)):
         s.cregle = None
         s.cercle(1040 + k * 18, 508 + k * 7, rr, "none", s.st["encre"], 2.0)
@@ -415,8 +423,8 @@ def p09_l_armure():
     s.armure_miroirs(640, 408, 1.9, n=s.n(44), corps_col=s.C("eau"))
     s.add('</g>')
     # les deux tailleurs de miroirs
-    s.personnage(286, 476, 1.82, s.C("accent"), bras="avant", bouche="droite")
-    s.personnage(958, 482, 1.76, s.C("herbe2"), bras="avant", bouche="droite")
+    brigand(s, 286, 476, 1.82, 0, bras="avant", bouche="droite")
+    brigand(s, 958, 482, 1.76, 1, bras="avant", bouche="droite")
     # l'etabli, et les miroirs qu'on y debite
     s.aplat("M 196 486 Q 300 478 404 486 L 404 540 L 196 540 Z", s.C("terre"), .9)
     s.ink("M 196 486 Q 300 478 404 486", 2.2)
@@ -485,21 +493,23 @@ def p11_li_combat():
     # le serpent, en gros plan
     pts = [(626, 250), (470, 212), (300, 254), (216, 362), (298, 466), (482, 500), (690, 486), (900, 512)]
     s.serpent(pts, 84, 13, s.C("serpent"), s.C("serpent2"))
-    # l'homme-miroir
-    s.armure_miroirs(898, 468, 2.3, n=s.n(48), corps_col=s.C("eau"))
-    # dans plusieurs facettes, la tete du serpent reflechie
+    # les deux chasseurs : celui de derrière d'abord, pour qu'il passe sous l'autre
+    s.armure_miroirs(1012, 472, 1.75, n=s.n(30), corps_col=s.C("eau"))
+    s.epee(1061, 423, 225, 172, 1.4)                   # l'un brandit la sienne
+    s.armure_miroirs(790, 440, 2.05, n=s.n(42), corps_col=s.C("eau"))
+    s.epee(733, 383, 240.5, 152, 1.5)                  # l'autre l'enfonce
+    # dans plusieurs facettes, la tête du serpent réfléchie
     for i in range(s.n(9)):
         a = s.rnd.uniform(0, 6.3); rr = s.rnd.uniform(.25, 1) ** .5
-        ex, ey = 898 + math.cos(a) * rr * 44, 362 + math.sin(a) * rr * 62
+        ex, ey = 790 + math.cos(a) * rr * 40, 338 + math.sin(a) * rr * 56
         s.add('<g transform="translate(%.1f,%.1f) scale(0.21)" opacity="0.75">' % (ex, ey))
         s.add('<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="%s"/>' % s.C("serpent2"))
         s.add('<circle cx="14" cy="-9" r="10" fill="%s"/>' % s.C("soleil"))
         s.add("</g>")
-    # les epees
-    for (x0, y0, ang) in ((846, 418, 206), (862, 468, 196)):
-        s.epee(x0, y0, ang, 190, 1.0)
-    for x, y in ((700, 330), (646, 372), (742, 300)):
-        s.add('<path d="M %.1f %.1f q 5 9 0 14 q -6 -5 0 -14 Z" fill="%s" opacity="0.75"/>' % (x, y, s.C("accent")))
+    # les deux pointes entrent dans la bête, et le sang perle
+    for x, y in ((652, 270), (672, 258), (636, 284)):
+        s.add('<path d="M %.1f %.1f q 5 9 0 14 q -6 -5 0 -14 Z" fill="%s" opacity="0.8"/>' % (x, y, s.C("accent")))
+        s.ink("M %.1f %.1f l %.1f %.1f" % (x - 5, y - 9, 10, 16), 2.0, s.C("accent"), op=.6)
     for i in range(s.n(12)):
         s.etoile(s.rnd.uniform(760, 1200), s.rnd.uniform(140, 470), s.rnd.uniform(3, 7),
                  "#FFFDF6", .7, anim="scintille")
@@ -550,26 +560,28 @@ def p13_li_pus_vude():
     trou(s, 838, 392, 78, 26)
     # le serpent etendu, d'un bord a l'autre
     ys = 452
-    pts = [(64, ys + 8), (282, ys - 30), (512, ys + 5), (742, ys - 28), (972, ys + 3), (1228, ys - 22)]
-    s.serpent(pts, 52, 9, s.C("serpent"), s.C("serpent2"), tete=False, op=.86)
-    s.tete_serpent((64, ys + 8), (282, ys - 30), 50, s.C("serpent"), s.C("pierre"),
-                   langue=False, vivant=False)
-    s.ink("M 26 446 l 20 13 M 26 459 l 20 -13", 2.2)
+    pts = [(152, ys + 6), (336, ys - 28), (546, ys + 5), (756, ys - 26), (964, ys + 3), (1198, ys - 20)]
+    MORT, MORT2 = "#A3AB95", "#848C74"          # la couleur s'en est allée avec la vie
+    s.serpent(pts, 52, 9, MORT, MORT2, tete=False, op=.74)
+    s.tete_serpent((152, ys + 6), (336, ys - 28), 50, MORT, s.C("pierre"),
+                   langue=False, vivant=False, mort=True)
     for fx in (.30, .40, .50, .62, .72, .84):
         x, y = LW * fx, ys - 13
         s.ink("M %.1f %.1f l %.1f %.1f" % (x - 6, y - 10, 12, 20), 2.0, s.C("accent"), op=.7)
     # la procession
-    s.procession(120, 700, 360, 11, (.40, .52))
-    # les deux liberes, au premier plan, sans chaines
-    for fx, sc in ((.135, 1.3), (.255, 1.4)):
+    s.procession(170, 760, 360, 11, (.40, .52))
+    # les deux libérés : leurs habits retrouvés, les fers ouverts à leurs pieds,
+    # et l'armure de miroirs abandonnée dans l'herbe
+    for i, (fx, sc) in enumerate(((.195, 1.3), (.315, 1.4))):
         x, y = LW * fx, LH - 6
         s.add('<g%s>' % s.cls("gigote", 3.8))
-        s.personnage(x, y, sc, s.C("mur"), bras="haut", bouche="o")
+        brigand(s, x, y, sc, i, bras="haut", bouche="o")
         s.add('</g>')
-        for i in range(s.n(12)):
-            a = s.rnd.uniform(0, 6.3); rr = s.rnd.uniform(0, 1) ** .5
-            s.eclat(x + math.cos(a) * rr * 16 * sc, y - 44 * sc + math.sin(a) * rr * 20 * sc,
-                    s.rnd.uniform(2.4, 4.6), a, anim="scintille" if i % 3 == 0 else None)
+    s.fers(306, 528, 1.05)
+    s.fers(486, 534, .92)
+    for i in range(s.n(12)):
+        s.eclat(s.rnd.uniform(380, 560), s.rnd.uniform(510, 536), s.rnd.uniform(3, 6),
+                s.rnd.uniform(0, 3), anim="scintille" if i % 3 == 0 else None)
     for x, y, sc, a in ((920, 118, 1.0, "glisse"), (1024, 92, .85, "derive"),
                        (820, 76, .75, "glisse"), (460, 104, .95, "derive")):
         s.oiseau(x, y, sc, anim=a)

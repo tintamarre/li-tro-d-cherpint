@@ -352,12 +352,22 @@ class Scene:
         self.add("</g>")
         return (hx, hy, hr)
 
+    def fers(self, x, y, s=1.0):
+        """Une paire de fers ouverts, jetée dans l'herbe."""
+        r = 13 * s
+        for k in (-1, 1):
+            cx = x + k * 30 * s
+            self.ink("M %.1f %.1f a %.1f %.1f 0 1 1 %.1f %.1f"
+                     % (cx - r, y, r, r * .82, 1.85 * r, -r * .42), 3.2 * s)
+        for i in range(4):
+            self.cercle(x - 13 * s + i * 9 * s, y + 3 * s, 3.6 * s, "none", self.st["encre"], 2.1 * s)
+
     def epee(self, x, y, ang, L=90, s=1.0):
         """Une epee bien effilee, tenue a la main."""
         a = math.radians(ang)
         ex, ey = x + math.cos(a) * L, y + math.sin(a) * L
         self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, ex, ey), 6.0 * s, SILVER)
-        self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, ex, ey), 1.6 * s, INK, op=.65)
+        self.ink("M %.1f %.1f L %.1f %.1f" % (x, y, ex, ey), 1.9 * s, INK, op=.9)
         px, py = -math.sin(a), math.cos(a)
         self.ink("M %.1f %.1f L %.1f %.1f" % (x + px * 11 * s, y + py * 11 * s,
                                               x - px * 11 * s, y - py * 11 * s), 4.0 * s, INK_SOFT)
@@ -420,7 +430,7 @@ class Scene:
         if tete:
             self.tete_serpent(pts[0], pts[1], widths[0] * 2.5, couleur, oeil)
 
-    def tete_serpent(self, p, q, taille, couleur=MOSS, oeil=OCHRE, langue=True, vivant=True):
+    def tete_serpent(self, p, q, taille, couleur=MOSS, oeil=OCHRE, langue=True, vivant=True, mort=False):
         a = math.degrees(math.atan2(p[1] - q[1], p[0] - q[0]))
         k = max(taille, 26) / 46.0
         self.add('<g transform="translate(%.1f,%.1f) rotate(%.1f) scale(%.2f)">' % (p[0], p[1], a, k))
@@ -435,12 +445,21 @@ class Scene:
         self.add('<path d="M 52 4 Q 20 15 -26 17" fill="none" stroke="%s" stroke-width="%.1f" opacity="0.55" stroke-linecap="round"/>' % (enc, 1.7 * ew))
         self.add('<path d="M 30 -24 Q 14 -30 -4 -27" fill="none" stroke="%s" stroke-width="%.1f" opacity="0.4" stroke-linecap="round"/>' % (enc, 1.5 * ew))
         # oeil
-        self.add('<circle cx="14" cy="-9" r="10.5" fill="%s"/>' % oeil)
-        self.add('<circle cx="14" cy="-9" r="10.5" fill="none" stroke="%s" stroke-width="%.1f"/>' % (enc, 2.2 * ew))
-        self.add('<ellipse cx="15" cy="-9" rx="2.9" ry="7.6" fill="%s"%s/>'
-                 % (enc, self.cls("oeil") if vivant else ""))
-        self.add('<circle cx="10.2" cy="-12.8" r="2.7" fill="#FFFDF6" opacity="0.95"%s/>'
-                 % (self.cls("scintille") if vivant else ""))
+        if mort:
+            # l'oeil est éteint et barré, la gueule pend
+            self.add('<circle cx="14" cy="-9" r="10.5" fill="#D6D3C8"/>')
+            self.add('<circle cx="14" cy="-9" r="10.5" fill="none" stroke="%s" stroke-width="%.1f"/>' % (enc, 2.2 * ew))
+            self.add('<path d="M 7.5 -16 L 20.5 -2 M 7.5 -2 L 20.5 -16" fill="none" stroke="%s" '
+                     'stroke-width="%.1f" stroke-linecap="round"/>' % (enc, 2.8 * ew))
+            self.add('<path d="M 55 6 Q 40 20 22 20" fill="none" stroke="%s" stroke-width="%.1f" '
+                     'stroke-linecap="round" opacity="0.8"/>' % (enc, 2.0 * ew))
+        else:
+            self.add('<circle cx="14" cy="-9" r="10.5" fill="%s"/>' % oeil)
+            self.add('<circle cx="14" cy="-9" r="10.5" fill="none" stroke="%s" stroke-width="%.1f"/>' % (enc, 2.2 * ew))
+            self.add('<ellipse cx="15" cy="-9" rx="2.9" ry="7.6" fill="%s"%s/>'
+                     % (enc, self.cls("oeil") if vivant else ""))
+            self.add('<circle cx="10.2" cy="-12.8" r="2.7" fill="#FFFDF6" opacity="0.95"%s/>'
+                     % (self.cls("scintille") if vivant else ""))
         self.add('<circle cx="47" cy="-7" r="1.9" fill="%s" opacity="0.7"/>' % enc)
         if langue:
             self.add('<path d="M 55 3 Q 74 5 82 -5 M 74 5 Q 82 10 86 19" fill="none" stroke="%s" '

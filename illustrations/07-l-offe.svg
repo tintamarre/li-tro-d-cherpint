@@ -38,32 +38,32 @@
 </style>
 <defs>
   <filter id="p07-wc" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="89" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="93" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
     <feGaussianBlur in="d" stdDeviation="0.7"/>
   </filter>
   <filter id="p07-wc2" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="4" seed="64" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="4" seed="78" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="15" xChannelSelector="R" yChannelSelector="G" result="d"/>
     <feGaussianBlur in="d" stdDeviation="2.4"/>
   </filter>
   <filter id="p07-ink" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="99" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="89" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <!-- Variantes en unités de boîte : à l'intérieur d'un groupe transformé, une
        région en coordonnées utilisateur est tournée et décalée avec lui, et rogne. -->
   <filter id="p07-wcb" x="-30%" y="-30%" width="160%" height="160%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="89" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="93" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
     <feGaussianBlur in="d" stdDeviation="0.7"/>
   </filter>
   <filter id="p07-inkb" x="-25%" y="-25%" width="150%" height="150%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="89" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="93" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <filter id="p07-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="89" result="n"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="93" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G" result="d"/>
     <feGaussianBlur in="d" stdDeviation="4"/>
   </filter>
@@ -71,7 +71,7 @@
     <rect x="9" y="7" width="1262" height="526" fill="#fff" filter="url(#p07-bord)"/>
   </mask>
   <filter id="p07-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="99" result="t"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="89" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
@@ -263,14 +263,14 @@
 <path d="M 457.9 487.6 q -17.6 0 -17.6 -1" fill="none" stroke="#8C7B66" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 483.2 454.6 L 485.4 485.4" fill="none" stroke="#8C7B66" stroke-width="5.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 482.1 487.6 q 17.6 0 17.6 -1" fill="none" stroke="#8C7B66" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 430.4 463.4 C 424.9 455.0 434.1 433.0 437.0 421.6 C 439.9 410.2 442.5 400.3 448.0 395.2 C 453.5 390.1 462.7 390.8 470.0 390.8 C 477.3 390.8 486.5 390.1 492.0 395.2 C 497.5 400.3 500.1 410.2 503.0 421.6 C 505.9 433.0 515.1 455.0 509.6 463.4 C 504.1 471.8 483.2 472.2 470.0 472.2 C 456.8 472.2 435.9 471.8 430.4 463.4 Z" fill="#B4634A" opacity="0.95" filter="url(#p07-wc)"/>
+<path d="M 430.4 463.4 C 424.9 455.0 434.1 433.0 437.0 421.6 C 439.9 410.2 442.5 400.3 448.0 395.2 C 453.5 390.1 462.7 390.8 470.0 390.8 C 477.3 390.8 486.5 390.1 492.0 395.2 C 497.5 400.3 500.1 410.2 503.0 421.6 C 505.9 433.0 515.1 455.0 509.6 463.4 C 504.1 471.8 483.2 472.2 470.0 472.2 C 456.8 472.2 435.9 471.8 430.4 463.4 Z" fill="#464F60" opacity="0.95" filter="url(#p07-wc)"/>
 <path d="M 430.4 463.4 C 424.9 455.0 434.1 433.0 437.0 421.6 C 439.9 410.2 442.5 400.3 448.0 395.2 C 453.5 390.1 462.7 390.8 470.0 390.8 C 477.3 390.8 486.5 390.1 492.0 395.2 C 497.5 400.3 500.1 410.2 503.0 421.6 C 505.9 433.0 515.1 455.0 509.6 463.4 C 504.1 471.8 483.2 472.2 470.0 472.2 C 456.8 472.2 435.9 471.8 430.4 463.4 Z" fill="none" stroke="#8C7B66" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round" opacity="0.81" filter="url(#p07-ink)"/>
 <path d="M 439.2 408.4 Q 412.8 417.2 395.2 439.2" fill="none" stroke="#8C7B66" stroke-width="9.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 439.2 408.4 Q 412.8 417.2 395.2 439.2" fill="none" stroke="#B4634A" stroke-width="8.8" stroke-linecap="round" filter="url(#p07-ink)"/>
+<path d="M 439.2 408.4 Q 412.8 417.2 395.2 439.2" fill="none" stroke="#464F60" stroke-width="8.8" stroke-linecap="round" filter="url(#p07-ink)"/>
 <circle cx="395.2" cy="439.2" r="8.8" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 386.4 439.2 a 8.8 8.8 0 1 1 17.6 0 a 8.8 8.8 0 1 1 -17.6 0" fill="none" stroke="#8C7B66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 500.8 408.4 Q 527.2 417.2 544.8 439.2" fill="none" stroke="#8C7B66" stroke-width="9.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 500.8 408.4 Q 527.2 417.2 544.8 439.2" fill="none" stroke="#B4634A" stroke-width="8.8" stroke-linecap="round" filter="url(#p07-ink)"/>
+<path d="M 500.8 408.4 Q 527.2 417.2 544.8 439.2" fill="none" stroke="#464F60" stroke-width="8.8" stroke-linecap="round" filter="url(#p07-ink)"/>
 <circle cx="544.8" cy="439.2" r="8.8" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 536.0 439.2 a 8.8 8.8 0 1 1 17.6 0 a 8.8 8.8 0 1 1 -17.6 0" fill="none" stroke="#8C7B66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <circle cx="470.0" cy="368.8" r="28.6" fill="#F0D2B0" opacity="1.00"/>
@@ -293,20 +293,20 @@
 <path d="M 949.1 492.0 q -15.8 0 -15.8 -1" fill="none" stroke="#8C7B66" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 971.9 462.3 L 973.9 490.1" fill="none" stroke="#8C7B66" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 970.9 492.0 q 15.8 0 15.8 -1" fill="none" stroke="#8C7B66" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 924.4 470.3 C 919.4 462.7 927.7 442.9 930.3 432.6 C 932.9 422.4 935.2 413.5 940.2 408.9 C 945.2 404.3 953.4 404.9 960.0 404.9 C 966.6 404.9 974.8 404.3 979.8 408.9 C 984.8 413.5 987.1 422.4 989.7 432.6 C 992.3 442.9 1000.6 462.7 995.6 470.3 C 990.7 477.9 971.9 478.2 960.0 478.2 C 948.1 478.2 929.3 477.9 924.4 470.3 Z" fill="#9A3F33" opacity="0.95" filter="url(#p07-wc)"/>
+<path d="M 924.4 470.3 C 919.4 462.7 927.7 442.9 930.3 432.6 C 932.9 422.4 935.2 413.5 940.2 408.9 C 945.2 404.3 953.4 404.9 960.0 404.9 C 966.6 404.9 974.8 404.3 979.8 408.9 C 984.8 413.5 987.1 422.4 989.7 432.6 C 992.3 442.9 1000.6 462.7 995.6 470.3 C 990.7 477.9 971.9 478.2 960.0 478.2 C 948.1 478.2 929.3 477.9 924.4 470.3 Z" fill="#B4634A" opacity="0.95" filter="url(#p07-wc)"/>
 <path d="M 924.4 470.3 C 919.4 462.7 927.7 442.9 930.3 432.6 C 932.9 422.4 935.2 413.5 940.2 408.9 C 945.2 404.3 953.4 404.9 960.0 404.9 C 966.6 404.9 974.8 404.3 979.8 408.9 C 984.8 413.5 987.1 422.4 989.7 432.6 C 992.3 442.9 1000.6 462.7 995.6 470.3 C 990.7 477.9 971.9 478.2 960.0 478.2 C 948.1 478.2 929.3 477.9 924.4 470.3 Z" fill="none" stroke="#8C7B66" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" opacity="0.81" filter="url(#p07-ink)"/>
 <path d="M 932.3 420.8 Q 912.5 440.6 920.4 472.2" fill="none" stroke="#8C7B66" stroke-width="8.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 932.3 420.8 Q 912.5 440.6 920.4 472.2" fill="none" stroke="#9A3F33" stroke-width="7.9" stroke-linecap="round" filter="url(#p07-ink)"/>
+<path d="M 932.3 420.8 Q 912.5 440.6 920.4 472.2" fill="none" stroke="#B4634A" stroke-width="7.9" stroke-linecap="round" filter="url(#p07-ink)"/>
 <circle cx="920.4" cy="472.2" r="7.9" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 912.5 472.2 a 7.9 7.9 0 1 1 15.8 0 a 7.9 7.9 0 1 1 -15.8 0" fill="none" stroke="#8C7B66" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <path d="M 987.7 420.8 Q 1007.5 440.6 999.6 472.2" fill="none" stroke="#8C7B66" stroke-width="8.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 987.7 420.8 Q 1007.5 440.6 999.6 472.2" fill="none" stroke="#9A3F33" stroke-width="7.9" stroke-linecap="round" filter="url(#p07-ink)"/>
+<path d="M 987.7 420.8 Q 1007.5 440.6 999.6 472.2" fill="none" stroke="#B4634A" stroke-width="7.9" stroke-linecap="round" filter="url(#p07-ink)"/>
 <circle cx="999.6" cy="472.2" r="7.9" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 991.7 472.2 a 7.9 7.9 0 1 1 15.8 0 a 7.9 7.9 0 1 1 -15.8 0" fill="none" stroke="#8C7B66" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <circle cx="960.0" cy="385.1" r="25.7" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 934.3 385.1 a 25.7 25.7 0 1 1 51.5 0 a 25.7 25.7 0 1 1 -51.5 0" fill="none" stroke="#8C7B66" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 934.3 383.1 a 25.7 25.7 0 0 1 51.5 0 q -4.0 -5.9 -9.9 -2.0 q -7.9 7.9 -31.7 0.0 Z" fill="#6B4A2E" opacity="0.95"/>
-<g class="oeil" style="animation-delay:-8.35s;animation-duration:8.51s">
+<path d="M 934.3 383.1 a 25.7 25.7 0 0 1 51.5 0 q -4.0 -5.9 -9.9 -2.0 q -7.9 7.9 -31.7 0.0 Z" fill="#4A3728" opacity="0.95"/>
+<g class="oeil" style="animation-delay:-6.27s;animation-duration:7.29s">
 <circle cx="950.9" cy="383.1" r="3.4" fill="#2E2419" opacity="1.00"/>
 <circle cx="969.1" cy="383.1" r="3.4" fill="#2E2419" opacity="1.00"/>
 </g>
@@ -331,8 +331,8 @@
 <path d="M 1087.4 453.6 a 7.4 7.4 0 1 1 14.9 0 a 7.4 7.4 0 1 1 -14.9 0" fill="none" stroke="#8C7B66" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <circle cx="1106.0" cy="397.8" r="24.2" fill="#F0D2B0" opacity="1.00"/>
 <path d="M 1081.8 397.8 a 24.2 24.2 0 1 1 48.4 0 a 24.2 24.2 0 1 1 -48.4 0" fill="none" stroke="#8C7B66" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 1081.8 396.0 a 24.2 24.2 0 0 1 48.4 0 q -3.7 -5.6 -9.3 -1.9 q -7.4 7.4 -29.8 0.0 Z" fill="#8A6A47" opacity="0.95"/>
-<g class="oeil" style="animation-delay:-0.29s;animation-duration:7.73s">
+<path d="M 1081.8 396.0 a 24.2 24.2 0 0 1 48.4 0 q -3.7 -5.6 -9.3 -1.9 q -7.4 7.4 -29.8 0.0 Z" fill="#7A5A3A" opacity="0.95"/>
+<g class="oeil" style="animation-delay:-4.38s;animation-duration:8.94s">
 <circle cx="1097.4" cy="396.0" r="3.2" fill="#2E2419" opacity="1.00"/>
 <circle cx="1114.6" cy="396.0" r="3.2" fill="#2E2419" opacity="1.00"/>
 </g>
@@ -344,9 +344,9 @@
 <path d="M 1033.0 508.0 a 7.0 7.0 0 1 1 14.0 0 a 7.0 7.0 0 1 1 -14.0 0" fill="none" stroke="#8C7B66" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
 <circle cx="1058.0" cy="515.0" r="4.6" fill="none" opacity="1.00"/>
 <path d="M 1053.4 515.0 a 4.6 4.6 0 1 1 9.2 0 a 4.6 4.6 0 1 1 -9.2 0" fill="none" stroke="#8C7B66" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p07-ink)"/>
-<path d="M 170.0 113.0 Q 171.6 120.4 179.0 122.0 Q 171.6 123.6 170.0 131.0 Q 168.4 123.6 161.0 122.0 Q 168.4 120.4 170.0 113.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-0.45s"/>
-<path d="M 300.0 79.0 Q 301.3 84.7 307.0 86.0 Q 301.3 87.3 300.0 93.0 Q 298.7 87.3 293.0 86.0 Q 298.7 84.7 300.0 79.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-0.55s"/>
-<path d="M 120.0 244.0 Q 121.1 248.9 126.0 250.0 Q 121.1 251.1 120.0 256.0 Q 118.9 251.1 114.0 250.0 Q 118.9 248.9 120.0 244.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-2.90s"/>
+<path d="M 170.0 113.0 Q 171.6 120.4 179.0 122.0 Q 171.6 123.6 170.0 131.0 Q 168.4 123.6 161.0 122.0 Q 168.4 120.4 170.0 113.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-2.36s"/>
+<path d="M 300.0 79.0 Q 301.3 84.7 307.0 86.0 Q 301.3 87.3 300.0 93.0 Q 298.7 87.3 293.0 86.0 Q 298.7 84.7 300.0 79.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-3.42s"/>
+<path d="M 120.0 244.0 Q 121.1 248.9 126.0 250.0 Q 121.1 251.1 120.0 256.0 Q 118.9 251.1 114.0 250.0 Q 118.9 248.9 120.0 244.0 Z" fill="#F0E0B4" opacity="0.55" class="scintille" style="animation-delay:-1.94s"/>
 <rect width="1280" height="540" filter="url(#p07-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
 </g>
 </svg>
