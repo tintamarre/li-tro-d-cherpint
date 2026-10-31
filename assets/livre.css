@@ -38,7 +38,7 @@ body{
 
 .entete{flex:0 0 auto;width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:clamp(8px,1.4vh,14px)}
 .titre-page{font-style:italic;color:var(--ocre);font-size:clamp(14px,1.85vh,19px)}
-.titre-page span{color:var(--encre-douce);font-style:normal}
+.titre-page .tp-fr{color:var(--encre-douce);font-style:normal}
 .folio{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--ocre);white-space:nowrap}
 
 /* hauteur fixe : toutes les planches s'affichent exactement à la même taille,
@@ -54,6 +54,8 @@ body{
 .fr{font-size:clamp(16px,2.25vh,21px);line-height:1.55;color:var(--encre-douce)}
 .citation .corps{font-style:italic;padding-left:14px;border-left:2px solid var(--ocre-clair)}
 sup{font-size:.62em;color:var(--ocre);padding-left:1px}
+/* élision wallonne : l'apostrophe est tirée vers le mot suivant */
+.el{margin-right:-.13em}
 .notes{grid-column:1/-1;padding-top:13px;font-size:clamp(13px,1.6vh,15px);color:var(--ocre);font-style:italic}
 .notes p{margin-top:3px}
 

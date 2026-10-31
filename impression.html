@@ -17,7 +17,7 @@ body{background:#fff;font-family:'EB Garamond','Iowan Old Style',Palatino,Georgi
 .feuillet:last-child{page-break-after:auto}
 .entete{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4mm;flex:0 0 auto}
 .titre-page{font-style:italic;color:#A07A4E;font-size:11pt}
-.titre-page span{color:#5B4A38;font-style:normal}
+.titre-page .tp-fr{color:#5B4A38;font-style:normal}
 .folio{font-size:8.5pt;letter-spacing:.12em;color:#A07A4E;font-weight:600}
 .planche{flex:0 0 auto;text-align:center}
 .planche img{width:264mm;height:auto;display:block;margin:0 auto}
@@ -29,6 +29,7 @@ body{background:#fff;font-family:'EB Garamond','Iowan Old Style',Palatino,Georgi
 .fr{font-size:10pt;line-height:1.48;color:#5B4A38}
 .citation .wa,.citation .fr{font-style:italic;padding-left:3mm;border-left:.6mm solid #C9A86B}
 sup{font-size:.62em;color:#A07A4E}
+.el{margin-right:-.13em}
 .notes{grid-column:1/-1;padding-top:3mm;font-size:8pt;color:#A07A4E;font-style:italic}
 .notes p{margin-top:.8mm}
 
@@ -75,7 +76,7 @@ sup{font-size:.62em;color:#A07A4E}
     while((m=re.exec(p.wa)))ids.push(m[1]);
     var notes=ids.length?'<div class="notes">'+ids.map(function(i){return '<p>'+i+'. '+N[i]+'</p>'}).join('')+'</div>':'';
     out.push('<section class="feuillet'+(p.citation?' citation':'')+'">'
-      +'<div class="entete"><span class="titre-page">'+p.titre_wa+' &nbsp;·&nbsp; <span>'+p.titre_fr+'</span></span>'
+      +'<div class="entete"><span class="titre-page"><span lang="wa">'+p.titre_wa+'</span> &nbsp;·&nbsp; <span class="tp-fr">'+p.titre_fr+'</span></span>'
       +'<span class="folio">'+p.n+' / '+P.length+'</span></div>'
       +'<div class="planche"><img src="illustrations/'+p.illus+'.svg'+V+'" alt=""></div>'
       +'<div class="textes"><div><div class="langue">Wallon</div><p class="wa" lang="wa">'+p.wa+'</p></div>'
@@ -103,6 +104,24 @@ sup{font-size:.62em;color:#A07A4E}
     +'</div>'+pied('Colophon')+'</section>');
 
   document.body.insertAdjacentHTML('beforeend',out.join(''));
+  // resserrer les élisions wallonnes, comme dans le livre à l'écran
+  var RE=/(^|[\s(«"\u2019])([A-Za-zÀ-ÿ]{1,2})'(?=\s)/g;
+  document.querySelectorAll('[lang="wa"]').forEach(function(el){
+    var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false),t,lot=[];
+    while((t=tw.nextNode()))lot.push(t);
+    lot.forEach(function(n){
+      var txt=n.nodeValue,m,fin=0,frag=null; RE.lastIndex=0;
+      while((m=RE.exec(txt))){
+        frag=frag||document.createDocumentFragment();
+        var ap=m.index+m[1].length+m[2].length;
+        if(ap>fin)frag.appendChild(document.createTextNode(txt.slice(fin,ap)));
+        var sp=document.createElement('span'); sp.className='el'; sp.textContent="'";
+        frag.appendChild(sp); fin=ap+1;
+      }
+      if(frag){ if(fin<txt.length)frag.appendChild(document.createTextNode(txt.slice(fin)));
+        n.parentNode.replaceChild(frag,n); }
+    });
+  });
 })();
 </script>
 </body>

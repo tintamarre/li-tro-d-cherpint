@@ -50,6 +50,15 @@ Les filtres existent en deux jeux. Ceux en `filterUnits="userSpaceOnUse"` serven
 
 Les planches s'animent discrètement : flammes de chandelle et de torche, lueurs qui respirent, yeux qui clignent — chacun à son rythme propre —, éclats de miroir, langue du serpent, cordes du gibet qui se balancent, épées qui se balancent au poing des chasseurs, fleurs au vent, reflets qui courent sur les lames, oiseaux qui s'éloignent. Le serpent mort de la dernière planche, lui, ne bouge plus : son œil est fixe. L'animation est en CSS *à l'intérieur* de chaque SVG, ce qui la conserve même quand le fichier est chargé via `<img>`, et la désactive sous `prefers-reduced-motion`.
 
+## Une note sur les apostrophes wallonnes
+
+Le texte wallon mêle deux usages de l'apostrophe, et les deux sont voulus.
+
+- **Élision suivie d'une espace** — `li trô d' chèrpint`, `l' intrèye`, `s' trô`. L'apostrophe remplace la voyelle tombée et le mot suivant reste séparé. 47 occurrences.
+- **Apostrophe lettre du mot** — `on pus'`, `li song'`, `tote li nut'`, `li lodjis'`. Elle note une consonne finale prononcée, à la manière du système Feller ; l'espace qui suit est une espace-mot ordinaire. Les supprimer souderait deux mots.
+
+Le livre **ne touche donc à aucune espace**. Il resserre seulement de 0,13 cadratin le blanc après les élisions d'une ou deux lettres, en enveloppant l'apostrophe dans un `span`. Le texte reste identique au caractère près : vérifié en comparant le `textContent` rendu à `texte/pages.json` pour les treize pages.
+
 ## Droits
 
 Quatre régimes cohabitent ; ils ne se confondent pas.

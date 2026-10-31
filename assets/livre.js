@@ -57,6 +57,39 @@
     });
   }
 
+  /* Dans « d' chèrpint », l'apostrophe a déjà de l'air à sa droite, et vient
+     ensuite l'espace-mot : le mot suivant semble détaché. On resserre d'un
+     dixième de cadratin, sans toucher au texte — l'apostrophe est seulement
+     enveloppée. Seules les élisions d'une ou deux lettres sont concernées :
+     dans « pus' », « song' », « lodjis' », l'apostrophe est une lettre du mot
+     et l'espace qui suit est une vraie espace-mot. */
+  var ELISION = /(^|[\s(«"\u2019])([A-Za-zÀ-ÿ]{1,2})'(?=\s)/g;
+
+  function resserrer(racine) {
+    racine.querySelectorAll('[lang="wa"]').forEach(function (el) {
+      var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false), t, lot = [];
+      while ((t = tw.nextNode())) lot.push(t);
+      lot.forEach(function (n) {
+        var txt = n.nodeValue, m, fin = 0, frag = null;
+        ELISION.lastIndex = 0;
+        while ((m = ELISION.exec(txt))) {
+          frag = frag || document.createDocumentFragment();
+          var ap = m.index + m[1].length + m[2].length;      // l'apostrophe elle-même
+          if (ap > fin) frag.appendChild(document.createTextNode(txt.slice(fin, ap)));
+          var sp = document.createElement("span");
+          sp.className = "el";
+          sp.textContent = "'";
+          frag.appendChild(sp);
+          fin = ap + 1;
+        }
+        if (frag) {
+          if (fin < txt.length) frag.appendChild(document.createTextNode(txt.slice(fin)));
+          n.parentNode.replaceChild(frag, n);
+        }
+      });
+    });
+  }
+
   var bulle, courant = null, tactile = false;
   function montrer(el) {
     var texte = el.getAttribute("data-glose");
@@ -99,8 +132,8 @@
   function pageConte(p) {
     var a = el("article", "page" + (p.citation ? " citation" : ""));
     a.innerHTML =
-      '<div class="entete"><span class="titre-page">' + p.titre_wa +
-      ' &nbsp;·&nbsp; <span>' + p.titre_fr + '</span></span>' +
+      '<div class="entete"><span class="titre-page"><span lang="wa">' + p.titre_wa + '</span>' +
+      ' &nbsp;·&nbsp; <span class="tp-fr">' + p.titre_fr + '</span></span>' +
       '<span class="folio">' + p.n + " / " + P.length + "</span></div>" +
       '<div class="planche"><img src="illustrations/' + p.illus + '.svg' + V + '" alt="" loading="lazy"></div>' +
       '<div class="textes">' +
@@ -219,7 +252,7 @@
     pages.push(couverture());
     P.forEach(function (p) { pages.push(pageConte(p)); });
     pages.push(colophon());
-    pages.forEach(function (p) { livre.appendChild(p); gloser(p); });
+    pages.forEach(function (p) { livre.appendChild(p); gloser(p); resserrer(p); });
 
     bulle = document.createElement("div");
     bulle.className = "glose";
