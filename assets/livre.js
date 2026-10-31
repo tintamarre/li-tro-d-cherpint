@@ -156,6 +156,9 @@
         "<div><h3>Les mots difficiles</h3>" +
           "<p>Le français de 1930 ne se laisse pas lire tout seul à huit ans. Les mots soulignés de pointillés — <i>chantoir</i>, <i>fourches patibulaires</i>, <i>occire</i>, <i>miroir aux alouettes</i> — s’expliquent quand on passe la souris dessus, ou qu’on les touche du doigt.</p>" +
           "<p>Les appels de note du texte wallon s’ouvrent de la même façon.</p></div>" +
+        "<div><h3>Licences</h3>" +
+          "<p>Le <b>code</b> de ce livre est sous licence libre MIT, et les <b>quatorze illustrations</b> sous licence libre Creative Commons <b>CC BY-SA 4.0</b> : on peut les reprendre, les modifier et les rediffuser, en citant la source et en gardant la même licence.</p>" +
+          "<p>Les <b>textes</b> n’y sont pas. Le français de Georges Laport est dans le domaine public depuis 2016. La traduction wallonne reste <b>la propriété d’Henri Grandry</b> et ne peut être reprise sans son accord.</p></div>" +
         "<div><h3>Les images</h3>" +
           "<p>Les quatorze planches sont dessinées en SVG, trait et lavis engendrés par le code qui accompagne ce livre. Rien n’est photographié ni emprunté.</p>" +
           "<p>Elles s’animent discrètement — la flamme d’une chandelle, l’œil du serpent, l’éclat des miroirs — et se tiennent tranquilles si votre système demande moins d’animations.</p></div>" +

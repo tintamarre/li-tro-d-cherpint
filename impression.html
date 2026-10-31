@@ -98,6 +98,8 @@ sup{font-size:.62em;color:#A07A4E}
     +'<div><h3>Les notes du texte</h3>'+D.notes.map(function(n){return '<p>'+n.n+'. '+n.texte+'</p>'}).join('')
     +'<p>Dans le bulletin, la liste imprimée intervertit les notes 3 et 4 par rapport aux appels du texte. Elles sont rétablies ici en regard de l’appel auquel elles répondent.</p>'
     +'<h3 style="margin-top:4mm">Les images</h3><p>Les quatorze planches sont dessinées en SVG. Rien n’est photographié ni emprunté. Dans la version en ligne, elles s’animent discrètement et les mots difficiles s’expliquent au survol.</p></div>'
+    +'<div style="grid-column:1/-1;border-top:.3mm solid #D9CDB4;padding-top:3mm"><h3>Licences</h3>'
+    +'<p>Le code de ce livre est sous licence libre MIT et les quatorze illustrations sous licence libre Creative Commons CC BY-SA 4.0 : on peut les reprendre, les modifier et les rediffuser, en citant la source et en gardant la même licence. Les textes n’y sont pas : le français de Georges Laport est dans le domaine public depuis 2016, et la traduction wallonne reste la propriété d’Henri Grandry, qui seul peut en autoriser la reprise.</p></div>'
     +'</div>'+pied('Colophon')+'</section>');
 
   document.body.insertAdjacentHTML('beforeend',out.join(''));

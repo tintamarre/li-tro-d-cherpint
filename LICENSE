@@ -1,12 +1,10 @@
-Licence MIT
+Licence MIT — pour le CODE de ce dépôt uniquement
 
-Portée : cette licence couvre UNIQUEMENT le code de ce dépôt (outils/, assets/,
-index.html) et les illustrations SVG qu'il engendre (illustrations/).
+Portée : outils/, assets/, index.html, impression.html.
 
-Elle ne couvre PAS :
-  — le texte français de Georges Laport (domaine public depuis 2016) ;
-  — la traduction wallonne d'Henri Grandry (2026), dont les droits lui
-    appartiennent et qui ne peut être reprise sans son accord.
+Les illustrations ont leur propre licence libre : voir LICENSE-ILLUSTRATIONS.md.
+Les textes ne sont couverts par aucune des deux : voir la section « Droits »
+du README.
 
 Copyright (c) 2026 Martin Erpicum
 

@@ -48,13 +48,18 @@ Les planches s'animent discrètement — flamme de chandelle, clignement du serp
 
 ## Droits
 
-Trois régimes différents cohabitent ; ils ne se confondent pas.
+Quatre régimes cohabitent ; ils ne se confondent pas.
 
-- **Le texte français** est de **Georges Laport** (Fraiture 1898 – Dachau 1945). Mort en 1945, son œuvre est dans le **domaine public** depuis le 1ᵉʳ janvier 2016.
-- **La traduction wallonne** est d'**Henri Grandry** et date de 2026. Elle **lui appartient** et ne peut être reprise, publiée ni rediffusée sans son accord.
-- **Le code et les illustrations** de ce dépôt sont sous licence MIT (voir `LICENSE`), qui ne couvre évidemment ni l'un ni l'autre des deux textes.
+| Quoi | Régime |
+|---|---|
+| Le **code** (`outils/`, `assets/`, `index.html`, `impression.html`) | Licence libre **MIT** — voir `LICENSE` |
+| Les **illustrations** (`illustrations/`) | Licence libre **CC BY-SA 4.0** — voir `LICENSE-ILLUSTRATIONS.md` |
+| Le **texte français** de **Georges Laport** (Fraiture 1898 – Dachau 1945) | **Domaine public** depuis le 1ᵉʳ janvier 2016 |
+| La **traduction wallonne** d'**Henri Grandry** (2026) | **Tous droits réservés à son auteur** |
 
-Source : *Sprimont Infos*, octobre 2026, p. 24, rubrique « Patrimoine ».
+Les deux licences libres portent sur ce que j'ai fabriqué, et sur cela seulement. Elles ne s'étendent à aucun des deux textes. La traduction wallonne appartient à Henri Grandry et ne peut être reprise, publiée ni rediffusée sans son accord.
+
+Source du texte : *Sprimont Infos*, octobre 2026, p. 24, rubrique « Patrimoine ».
 
 > Ce dépôt est **privé** tant que l'accord d'Henri Grandry n'a pas été obtenu pour la diffusion du texte wallon.
 
