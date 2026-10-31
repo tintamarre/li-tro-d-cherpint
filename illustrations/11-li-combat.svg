@@ -17,6 +17,9 @@
   @keyframes bascule{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
   @keyframes file{to{stroke-dashoffset:-34}}
   @keyframes gigote{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.6deg) translateY(-3px)}}
+  @keyframes estoc{0%,46%,100%{transform:translate(0,0)}
+    66%{transform:translate(var(--dx,-10px),var(--dy,-8px))}
+    82%{transform:translate(calc(var(--dx,-10px)*.35),calc(var(--dy,-8px)*.35))}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -32,9 +35,10 @@
   .bascule{animation:bascule 7.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
   .file{animation:file 2.6s linear infinite}
   .gigote{animation:gigote 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  .estoc{animation:estoc 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){
     .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
-    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote{animation:none}}
+    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote,.estoc{animation:none}}
 </style>
 <defs>
   <filter id="p11-wc" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
@@ -114,6 +118,7 @@
 <circle cx="47" cy="-7" r="1.9" fill="#8C7B66" opacity="0.7"/>
 <path d="M 55 3 Q 74 5 82 -5 M 74 5 Q 82 10 86 19" fill="none" stroke="#9A3F33" stroke-width="2.4" stroke-linecap="round" class="dardille" style="animation-delay:-3.83s"/>
 </g>
+<g class="estoc" style="--dx:-8.5px;--dy:-8.5px;animation-delay:-1.35s;animation-duration:3.8s">
 <path d="M 998.0 437.0 L 994.5 466.8" fill="none" stroke="#8C7B66" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
 <path d="M 997.1 468.5 q -15.8 0 -15.8 -1" fill="none" stroke="#8C7B66" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
 <path d="M 1026.0 437.0 L 1029.5 466.8" fill="none" stroke="#8C7B66" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
@@ -168,6 +173,8 @@
 <g class="scintille" style="animation-delay:-2.76s;animation-duration:4.40s">
 <path d="M 985.6 337.8 Q 987.4 345.8 995.4 347.6 Q 987.4 349.4 985.6 357.4 Q 983.8 349.4 975.8 347.6 Q 983.8 345.8 985.6 337.8 Z" fill="#FFFDF6" opacity="0.95"/>
 </g>
+</g>
+<g class="estoc" style="--dx:-9.4px;--dy:-16.5px;animation-delay:-2.70s;animation-duration:3.3s">
 <path d="M 773.6 399.0 L 769.5 433.9" fill="none" stroke="#8C7B66" stroke-width="6.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
 <path d="M 772.6 435.9 q -18.4 0 -18.4 -1" fill="none" stroke="#8C7B66" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
 <path d="M 806.4 399.0 L 810.5 433.9" fill="none" stroke="#8C7B66" stroke-width="6.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.90" filter="url(#p11-ink)"/>
@@ -247,6 +254,7 @@
 <g transform="translate(825.9,328.1) scale(0.21)" opacity="0.75">
 <path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="#6E7D58"/>
 <circle cx="14" cy="-9" r="10" fill="#F0E0B4"/>
+</g>
 </g>
 <path d="M 652.0 270.0 q 5 9 0 14 q -6 -5 0 -14 Z" fill="#B4634A" opacity="0.8"/>
 <path d="M 647.0 261.0 l 10.0 16.0" fill="none" stroke="#B4634A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.54" filter="url(#p11-ink)"/>

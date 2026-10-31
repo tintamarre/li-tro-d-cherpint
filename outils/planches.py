@@ -500,11 +500,17 @@ def p11_li_combat():
     # le serpent, en gros plan
     pts = [(626, 250), (470, 212), (300, 254), (216, 362), (298, 466), (482, 500), (690, 486), (900, 512)]
     s.serpent(pts, 84, 13, s.C("serpent"), s.C("serpent2"))
-    # les deux chasseurs : celui de derrière d'abord, pour qu'il passe sous l'autre
+    # les deux chasseurs. Chacun fend d'un bloc, homme et épée ensemble :
+    # animer la seule lame la détacherait de la main.
+    s.add('<g class="estoc" style="--dx:%.1fpx;--dy:%.1fpx;animation-delay:-1.35s;animation-duration:3.8s">'
+          % (math.cos(math.radians(225)) * 12, math.sin(math.radians(225)) * 12))
     s.armure_miroirs(1012, 472, 1.75, n=s.n(30), corps_col=s.C("eau"))
-    s.epee(1061, 423, 225, 172, 1.4)                   # l'un brandit la sienne
+    s.epee(1061, 423, 225, 172, 1.4)
+    s.add('</g>')
+    s.add('<g class="estoc" style="--dx:%.1fpx;--dy:%.1fpx;animation-delay:-2.70s;animation-duration:3.3s">'
+          % (math.cos(math.radians(240.5)) * 19, math.sin(math.radians(240.5)) * 19))
     s.armure_miroirs(790, 440, 2.05, n=s.n(42), corps_col=s.C("eau"))
-    s.epee(733, 383, 240.5, 152, 1.5)                  # l'autre l'enfonce
+    s.epee(733, 383, 240.5, 152, 1.5)
     # dans plusieurs facettes, la tête du serpent réfléchie
     for i in range(s.n(9)):
         a = s.rnd.uniform(0, 6.3); rr = s.rnd.uniform(.25, 1) ** .5
@@ -513,6 +519,7 @@ def p11_li_combat():
         s.add('<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="%s"/>' % s.C("serpent2"))
         s.add('<circle cx="14" cy="-9" r="10" fill="%s"/>' % s.C("soleil"))
         s.add("</g>")
+    s.add('</g>')
     # les deux pointes entrent dans la bête, et le sang perle
     for x, y in ((652, 270), (672, 258), (636, 284)):
         s.add('<path d="M %.1f %.1f q 5 9 0 14 q -6 -5 0 -14 Z" fill="%s" opacity="0.8"/>' % (x, y, s.C("accent")))

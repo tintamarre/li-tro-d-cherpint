@@ -17,6 +17,9 @@
   @keyframes bascule{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
   @keyframes file{to{stroke-dashoffset:-34}}
   @keyframes gigote{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.6deg) translateY(-3px)}}
+  @keyframes estoc{0%,46%,100%{transform:translate(0,0)}
+    66%{transform:translate(var(--dx,-10px),var(--dy,-8px))}
+    82%{transform:translate(calc(var(--dx,-10px)*.35),calc(var(--dy,-8px)*.35))}}
   .flamme{animation:flamme 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
   .lueur{animation:lueur 2.8s ease-in-out infinite}
   .oeil{animation:cligne 6.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
@@ -32,9 +35,10 @@
   .bascule{animation:bascule 7.5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
   .file{animation:file 2.6s linear infinite}
   .gigote{animation:gigote 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  .estoc{animation:estoc 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){
     .flamme,.lueur,.oeil,.scintille,.derive,.onde,.respire,
-    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote{animation:none}}
+    .balance,.souffle,.dardille,.glisse,.rayon,.bascule,.file,.gigote,.estoc{animation:none}}
 </style>
 <defs>
   <filter id="p13-wc" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
