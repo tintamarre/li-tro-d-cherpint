@@ -174,5 +174,6 @@ window.LIVRE = {
   "charnier": "Un endroit où s'entassent les ossements des morts.",
   "antique": "Très, très ancienne.",
   "monstrueuse": "Énorme et effrayante, comme un monstre."
- }
+ },
+ "version": "22f9dab32a"
 };

@@ -2,6 +2,7 @@
 (function () {
   "use strict";
   var D = window.LIVRE, M = D.meta, P = D.pages, NOTES = {}, GLOS = D.glossaire || {};
+  var V = D.version ? "?v=" + D.version : "";   // empreinte : force le rechargement des planches
   D.notes.forEach(function (n) { NOTES[String(n.n)] = n.texte; });
 
   var livre = document.getElementById("pages"),
@@ -101,7 +102,7 @@
       '<div class="entete"><span class="titre-page">' + p.titre_wa +
       ' &nbsp;·&nbsp; <span>' + p.titre_fr + '</span></span>' +
       '<span class="folio">' + p.n + " / " + P.length + "</span></div>" +
-      '<div class="planche"><img src="illustrations/' + p.illus + '.svg" alt="" loading="lazy"></div>' +
+      '<div class="planche"><img src="illustrations/' + p.illus + '.svg' + V + '" alt="" loading="lazy"></div>' +
       '<div class="textes">' +
         '<div class="col-wa"><div class="langue">Wallon</div>' +
           '<p class="wa corps" lang="wa">' + p.wa + "</p></div>" +
@@ -119,7 +120,7 @@
       '<div class="serie">' + M.serie + "</div>" +
       '<h1 class="grand-titre" lang="wa">' + M.titre_wa + "</h1>" +
       '<p class="sous-titre" lang="fr">' + M.titre_fr + "</p>" +
-      '<div class="planche"><img src="illustrations/00-couverture.svg" alt=""></div>' +
+      '<div class="planche"><img src="illustrations/00-couverture.svg' + V + '" alt=""></div>' +
       '<p class="credit">Légende recueillie par <b>' + M.auteur_fr + "</b><br>" +
       "Traduction wallonne de <b>" + M.auteur_wa + "</b></p>" +
       '<button class="ouvrir" type="button">Ouvrir le livre</button>';

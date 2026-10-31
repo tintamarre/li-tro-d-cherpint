@@ -38,6 +38,8 @@ python3 outils/site.py       # regénère assets/livre-data.js depuis texte/page
 
 `texte/pages.json` est la seule source du texte : corriger là, puis relancer `site.py`.
 
+`site.py` calcule aussi une empreinte des quatorze planches et l'ajoute en paramètre d'URL aux images. Sans elle, le navigateur continue de servir les planches qu'il a en cache après une régénération, puisque les noms de fichiers ne changent pas — et l'on croit regarder une correction qui n'est pas affichée. **Relancer `site.py` après `planches.py`**, sinon l'empreinte est périmée.
+
 ## Les illustrations
 
 Tout est engendré par du Python qui écrit du SVG — pas d'image matricielle, pas d'emprunt. Le dessin repose sur trois filtres SVG : un déplacement par bruit fractal qui ronge les bords des lavis, un autre plus large pour les fonds, et un troisième, très léger, qui fait trembler le trait.
