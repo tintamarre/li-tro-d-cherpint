@@ -51,11 +51,20 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="43" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="p06-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="69" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="13"/>
+  </filter>
+  <mask id="p06-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
+    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#p06-bord)"/>
+  </mask>
   <filter id="p06-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="69" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
+<g mask="url(#p06-marge)">
 <path d="M 1321.4 216.0 C 1317.1 246.8 1361.5 283.7 1316.8 306.8 C 1272.2 329.9 1124.5 330.7 1053.6 354.4 C 982.7 378.2 974.0 433.2 891.5 449.2 C 808.9 465.2 668.3 453.5 558.3 450.2 C 448.3 446.9 308.2 448.5 231.5 429.2 C 154.9 409.9 137.5 363.2 98.5 334.5 C 59.6 305.9 9.9 283.4 -2.1 257.1 C -14.2 230.8 7.6 202.9 26.3 176.7 C 44.9 150.5 59.3 120.4 109.8 99.9 C 160.3 79.5 254.1 72.2 329.3 53.9 C 404.6 35.5 473.7 -4.4 561.1 -10.3 C 648.4 -16.3 753.0 9.7 853.2 18.3 C 953.3 26.9 1080.4 24.1 1162.0 41.3 C 1243.6 58.5 1316.1 92.6 1342.6 121.7 C 1369.2 150.8 1325.7 185.2 1321.4 216.0 Z" fill="#E0D3BC" opacity="0.16" filter="url(#p06-wc2)" style="mix-blend-mode:multiply"/>
 <path d="M -36.0 38.0 q 64.0 -3 120.0 0 q 3 31.0 0 54.0 q -64.0 3 -120.0 0 q -3 -31.0 0 -54.0 Z" fill="#CBC1AC" opacity="0.22" style="mix-blend-mode:multiply"/>
 <path d="M -36.0 38.0 q 64.0 -3 120.0 0 q 3 31.0 0 54.0 q -64.0 3 -120.0 0 q -3 -31.0 0 -54.0 Z" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.27" filter="url(#p06-ink)"/>
@@ -391,4 +400,5 @@
 <path d="M 1147.2 154.1 L 1144.2 145.3 L 1153.0 141.5 L 1156.7 151.1 Z" fill="none" stroke="#8C7B66" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#p06-ink)"/>
 <path d="M 1150.0 145.0 Q 1150.5 147.5 1153.0 148.0 Q 1150.5 148.5 1150.0 151.0 Q 1149.5 148.5 1147.0 148.0 Q 1149.5 147.5 1150.0 145.0 Z" fill="#FFFDF6" opacity="0.90" class="scintille" style="animation-delay:-3.47s"/>
 <rect width="1280" height="540" filter="url(#p06-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
+</g>
 </svg>

@@ -51,11 +51,20 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="21" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="p09-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="74" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="13"/>
+  </filter>
+  <mask id="p09-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
+    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#p09-bord)"/>
+  </mask>
   <filter id="p09-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="74" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
+<g mask="url(#p09-marge)">
 <path d="M 1321.4 216.0 C 1317.1 246.8 1361.5 283.7 1316.8 306.8 C 1272.2 329.9 1124.5 330.7 1053.6 354.4 C 982.7 378.2 974.0 433.2 891.5 449.2 C 808.9 465.2 668.3 453.5 558.3 450.2 C 448.3 446.9 308.2 448.5 231.5 429.2 C 154.9 409.9 137.5 363.2 98.5 334.5 C 59.6 305.9 9.9 283.4 -2.1 257.1 C -14.2 230.8 7.6 202.9 26.3 176.7 C 44.9 150.5 59.3 120.4 109.8 99.9 C 160.3 79.5 254.1 72.2 329.3 53.9 C 404.6 35.5 473.7 -4.4 561.1 -10.3 C 648.4 -16.3 753.0 9.7 853.2 18.3 C 953.3 26.9 1080.4 24.1 1162.0 41.3 C 1243.6 58.5 1316.1 92.6 1342.6 121.7 C 1369.2 150.8 1325.7 185.2 1321.4 216.0 Z" fill="#E0D3BC" opacity="0.16" filter="url(#p09-wc2)" style="mix-blend-mode:multiply"/>
 <path d="M -36.0 38.0 q 64.0 -3 120.0 0 q 3 31.0 0 54.0 q -64.0 3 -120.0 0 q -3 -31.0 0 -54.0 Z" fill="#CBC1AC" opacity="0.19" style="mix-blend-mode:multiply"/>
 <path d="M -36.0 38.0 q 64.0 -3 120.0 0 q 3 31.0 0 54.0 q -64.0 3 -120.0 0 q -3 -31.0 0 -54.0 Z" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.27" filter="url(#p09-ink)"/>
@@ -386,4 +395,5 @@
 <path d="M 208.9 508.0 C 210.5 511.4 214.5 516.4 211.0 519.6 C 207.5 522.7 196.3 526.2 187.8 527.1 C 179.2 527.9 169.1 525.5 160.0 524.8 C 150.9 524.2 139.4 525.1 133.2 523.2 C 127.0 521.2 123.9 516.4 122.9 513.1 C 121.8 509.8 124.4 506.4 126.9 503.4 C 129.5 500.4 133.0 497.9 138.2 495.2 C 143.5 492.4 150.9 487.5 158.5 487.0 C 166.0 486.6 176.6 490.5 183.7 492.5 C 190.9 494.4 197.3 496.3 201.5 498.9 C 205.7 501.5 207.3 504.6 208.9 508.0 Z" fill="#E0D3BC" opacity="0.6"/>
 <path d="M 208.9 508.0 C 210.5 511.4 214.5 516.4 211.0 519.6 C 207.5 522.7 196.3 526.2 187.8 527.1 C 179.2 527.9 169.1 525.5 160.0 524.8 C 150.9 524.2 139.4 525.1 133.2 523.2 C 127.0 521.2 123.9 516.4 122.9 513.1 C 121.8 509.8 124.4 506.4 126.9 503.4 C 129.5 500.4 133.0 497.9 138.2 495.2 C 143.5 492.4 150.9 487.5 158.5 487.0 C 166.0 486.6 176.6 490.5 183.7 492.5 C 190.9 494.4 197.3 496.3 201.5 498.9 C 205.7 501.5 207.3 504.6 208.9 508.0 Z" fill="none" stroke="#8C7B66" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" opacity="0.72" filter="url(#p09-ink)"/>
 <rect width="1280" height="540" filter="url(#p09-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
+</g>
 </svg>

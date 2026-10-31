@@ -51,11 +51,20 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="48" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="p03-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="13"/>
+  </filter>
+  <mask id="p03-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
+    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#p03-bord)"/>
+  </mask>
   <filter id="p03-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
+<g mask="url(#p03-marge)">
 <path d="M 623.5 75.6 C 634.5 82.3 634.3 92.0 619.7 98.9 C 605.1 105.9 571.4 115.1 535.9 117.1 C 500.5 119.2 442.5 113.3 407.0 111.4 C 371.5 109.5 355.0 107.2 323.1 105.9 C 291.2 104.6 239.5 107.2 215.6 103.8 C 191.8 100.3 198.5 92.0 179.9 85.1 C 161.3 78.2 103.7 69.8 103.9 62.6 C 104.1 55.3 149.7 47.1 181.1 41.7 C 212.6 36.3 253.6 32.3 292.5 30.1 C 331.4 27.9 373.8 27.8 414.3 28.4 C 454.8 29.1 512.3 29.1 535.5 34.2 C 558.7 39.2 538.9 51.9 553.5 58.8 C 568.2 65.7 612.5 68.9 623.5 75.6 Z" fill="#DCE4E6" opacity="0.27" filter="url(#p03-wc2)" style="mix-blend-mode:multiply"/>
 <g class="derive" style="animation-delay:-2.09s;animation-duration:17.00s">
 <path d="M 1258.5 120.0 C 1244.9 140.4 1239.1 158.5 1202.7 177.2 C 1166.3 195.9 1122.5 223.5 1040.2 232.2 C 957.9 241.0 809.3 231.2 708.8 229.7 C 608.4 228.2 532.9 227.3 437.5 223.4 C 342.1 219.5 202.4 218.8 136.5 206.3 C 70.5 193.9 51.9 167.4 41.7 148.5 C 31.5 129.7 49.7 110.5 75.3 93.1 C 100.9 75.6 135.0 56.5 195.2 43.7 C 255.4 30.9 351.8 20.4 436.6 16.2 C 521.4 12.0 607.8 18.4 703.8 18.3 C 799.8 18.2 915.9 9.5 1012.6 15.5 C 1109.3 21.6 1243.1 37.2 1284.1 54.6 C 1325.1 72.0 1272.1 99.6 1258.5 120.0 Z" fill="#464F60" opacity="0.11" filter="url(#p03-wc2)" style="mix-blend-mode:multiply"/>
@@ -256,4 +265,5 @@
 <path d="M 1131.5 168.0 Q 1135.8 162.1 1140.0 166.7 Q 1144.2 162.1 1148.5 168.0" fill="none" stroke="#8C7B66" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.72" filter="url(#p03-ink)"/>
 </g>
 <rect width="1280" height="540" filter="url(#p03-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
+</g>
 </svg>

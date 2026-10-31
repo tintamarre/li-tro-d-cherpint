@@ -51,11 +51,20 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="1" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="couv-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="34" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="13"/>
+  </filter>
+  <mask id="couv-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
+    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#couv-bord)"/>
+  </mask>
   <filter id="couv-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="34" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
+<g mask="url(#couv-marge)">
 <circle cx="140.8" cy="108.0" r="42.0" fill="#F0E0B4" opacity="0.85"/>
 <path d="M 98.8 108.0 a 42 42 0 1 1 84 0 a 42 42 0 1 1 -84 0" fill="none" stroke="#8C7B66" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#couv-ink)"/>
 <path d="M 1263.5 86.4 C 1274.5 93.1 1274.3 102.8 1259.7 109.7 C 1245.1 116.7 1211.4 125.9 1175.9 127.9 C 1140.5 130.0 1082.5 124.1 1047.0 122.2 C 1011.5 120.3 995.0 118.0 963.1 116.7 C 931.2 115.4 879.5 118.0 855.6 114.6 C 831.8 111.1 838.5 102.8 819.9 95.9 C 801.3 89.0 743.7 80.6 743.9 73.4 C 744.1 66.1 789.7 57.9 821.1 52.5 C 852.6 47.1 893.6 43.1 932.5 40.9 C 971.4 38.7 1013.8 38.6 1054.3 39.2 C 1094.8 39.9 1152.3 39.9 1175.5 45.0 C 1198.7 50.0 1178.9 62.7 1193.5 69.6 C 1208.2 76.5 1252.5 79.7 1263.5 86.4 Z" fill="#DCE4E6" opacity="0.27" filter="url(#couv-wc2)" style="mix-blend-mode:multiply"/>
@@ -269,4 +278,5 @@
 <path d="M 428.3 467.8 Q 429.1 471.2 432.5 472.0 Q 429.1 472.7 428.3 476.1 Q 427.6 472.7 424.2 472.0 Q 427.6 471.2 428.3 467.8 Z" fill="#D9A2A2" opacity="0.85"/>
 </g>
 <rect width="1280" height="540" filter="url(#couv-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
+</g>
 </svg>

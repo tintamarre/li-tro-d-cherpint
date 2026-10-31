@@ -51,11 +51,20 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="93" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="p13-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="91" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="13"/>
+  </filter>
+  <mask id="p13-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="540">
+    <rect x="36" y="29" width="1208" height="482" fill="#fff" filter="url(#p13-bord)"/>
+  </mask>
   <filter id="p13-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="91" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
+<g mask="url(#p13-marge)">
 <circle cx="185.6" cy="129.6" r="42.0" fill="#F0E0B4" opacity="0.85"/>
 <path d="M 143.6 129.6 a 42 42 0 1 1 84 0 a 42 42 0 1 1 -84 0" fill="none" stroke="#8C7B66" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" filter="url(#p13-ink)"/>
 <path d="M 1161.1 91.8 C 1172.1 98.5 1171.9 108.2 1157.3 115.1 C 1142.7 122.1 1109.0 131.3 1073.5 133.3 C 1038.1 135.4 980.1 129.5 944.6 127.6 C 909.1 125.7 892.6 123.4 860.7 122.1 C 828.8 120.8 777.1 123.4 753.2 120.0 C 729.4 116.5 736.1 108.2 717.5 101.3 C 698.9 94.4 641.3 86.0 641.5 78.8 C 641.7 71.5 687.3 63.3 718.7 57.9 C 750.2 52.5 791.2 48.5 830.1 46.3 C 869.0 44.1 911.4 44.0 951.9 44.6 C 992.4 45.3 1049.9 45.3 1073.1 50.4 C 1096.3 55.4 1076.5 68.1 1091.1 75.0 C 1105.8 81.9 1150.1 85.1 1161.1 91.8 Z" fill="#DCE4E6" opacity="0.27" filter="url(#p13-wc2)" style="mix-blend-mode:multiply"/>
@@ -505,4 +514,5 @@
 <path d="M 1150.6 486.1 Q 1151.3 489.2 1154.5 489.9 Q 1151.3 490.6 1150.6 493.7 Q 1150.0 490.6 1146.8 489.9 Q 1150.0 489.2 1150.6 486.1 Z" fill="#D9A2A2" opacity="0.85"/>
 </g>
 <rect width="1280" height="540" filter="url(#p13-grain)" opacity="0.05" style="mix-blend-mode:multiply" pointer-events="none"/>
+</g>
 </svg>

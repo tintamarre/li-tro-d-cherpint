@@ -96,10 +96,16 @@ class Scene:
                         couleur="lavis", lavis_op=1.0, lavis_f="wc2", densite=1.0,
                         ciel_plein=True, contour_perso=True, joues=True, pal={})
 
-    def __init__(self, slug, titre, seed=1, w=W, h=H, style=None):
+    # Bord mouillé : le lavis s'arrête où le pinceau s'est levé, plutôt que
+    # net au cadre. (déplacement du bord, flou, retrait) — (0, 26, 40) pour un
+    # estompage droit, (0, 0.01, -2) pour revenir au bord franc.
+    BORD = (46, 13, 36)
+
+    def __init__(self, slug, titre, seed=1, w=W, h=H, style=None, bord=None):
         self.slug, self.titre = slug, titre
         self.w, self.h = w, h
         self.st = dict(self.STYLE_DEFAUT, **(style or {}))
+        self.bord = bord or self.BORD
         self.rnd = random.Random(seed)
         self.body = []
 
@@ -507,17 +513,31 @@ class Scene:
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="%d" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="TREMBLE" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <filter id="S-bord" REG>
+    <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="%d" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="BORD_D" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="BORD_B"/>
+  </filter>
+  <mask id="S-marge" maskUnits="userSpaceOnUse" x="0" y="0" width="MW" height="MH">
+    <rect x="BORD_I" y="BORD_J" width="MW2" height="MH2" fill="#fff" filter="url(#S-bord)"/>
+  </mask>
   <filter id="S-grain" REG>
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="%d" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>""".replace("S-", self.slug + "-").replace("REG", reg) \
-           .replace("TREMBLE", "%.1f" % self.st["tremble"]) % (a, b, c, a)
+           .replace("TREMBLE", "%.1f" % self.st["tremble"]) \
+           .replace("BORD_D", "%.0f" % self.bord[0]).replace("BORD_B", "%.0f" % self.bord[1]) \
+           .replace("BORD_I", "%.0f" % self.bord[2]).replace("BORD_J", "%.0f" % (self.bord[2] * .8)) \
+           .replace("MW2", "%.0f" % (self.w - 2 * self.bord[2])) \
+           .replace("MH2", "%.0f" % (self.h - 1.6 * self.bord[2])) \
+           .replace("MW", str(self.w)).replace("MH", str(self.h)) % (a, b, c, a, a)
 
     def render(self):
         return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" role="img" '
-                'aria-labelledby="%s-t">\n<title id="%s-t">%s</title>\n%s\n%s\n%s\n'
+                'aria-labelledby="%s-t">\n<title id="%s-t">%s</title>\n%s\n%s\n'
+                '<g mask="url(#%s-marge)">\n%s\n'
                 '<rect width="%d" height="%d" filter="url(#%s-grain)" opacity="0.05" '
-                'style="mix-blend-mode:multiply" pointer-events="none"/>\n</svg>\n'
+                'style="mix-blend-mode:multiply" pointer-events="none"/>\n</g>\n</svg>\n'
                 % (self.w, self.h, self.slug, self.slug, self.titre, self.CSS, self.defs(),
-                   "\n".join(self.body), self.w, self.h, self.slug))
+                   self.slug, "\n".join(self.body), self.w, self.h, self.slug))
