@@ -155,29 +155,31 @@ def p02_li_cherpint():
         s.dot(x + 3, 64, 2.4, s.C("accent"), .9)
         s.add('</g>')
     s.ink(smooth(wave(-30, 108, LW + 30, 92, 5, 2.2, 26)), 1.6, None, op=.5)
-    # la caverne
-    cave = blob(640, 352, 584, 186, 55, 19, .11)
+    # la caverne : une seule masse, qui se tient à l'écart du bord pour que le
+    # fondu du cadre ne vienne pas la ronger ; l'auréole de roche reste mince.
+    cave = blob(640, 344, 546, 158, 55, 19, .09)
     s.aplat(cave, s.C("nuit"), .5)
-    s.aplat(blob(640, 356, 540, 162, 56, 17, .1), "#1E2230", .55)
+    # même tirage, rayons réduits : la roche fait un liseré régulier, pas une auréole
+    s.aplat(blob(640, 344, 546 * .962, 158 * .93, 55, 19, .09), "#1E2230", .62)
     s.ink(cave, 2.4)
     # racines qui pendent de la voute
     for i in range(s.n(16)):
         x = 110 + i * 70
         if x > 1180:
             break
-        h = s.rnd.uniform(16, 52)
-        s.ink("M %.1f 186 Q %.1f %.1f %.1f %.1f" % (x, x + s.rnd.uniform(-9, 9), 186 + h * .6,
-                                                    x + s.rnd.uniform(-13, 13), 186 + h), 1.4, s.C("terre"), op=.5)
+        h = s.rnd.uniform(14, 44)
+        s.ink("M %.1f 196 Q %.1f %.1f %.1f %.1f" % (x, x + s.rnd.uniform(-9, 9), 196 + h * .6,
+                                                    x + s.rnd.uniform(-13, 13), 196 + h), 1.4, s.C("terre"), op=.5)
     # le serpent love, en spirale aplatie
-    pts = [(452, 268), (620, 238), (812, 272), (886, 346), (812, 424), (624, 452),
-           (452, 424), (392, 348), (470, 306), (640, 300), (730, 346), (662, 392)]
+    pts = [(466, 266), (620, 240), (800, 270), (868, 340), (800, 410), (624, 436),
+           (466, 410), (412, 342), (482, 302), (640, 298), (722, 340), (660, 382)]
     s.add('<g%s>' % s.cls("respire", 14.0))
     s.serpent(pts, 58, 9, s.C("serpent"), s.C("serpent2"))
     s.add('</g>')
     for i in range(s.n(14)):
-        s.eclat(s.rnd.uniform(120, 1160), s.rnd.uniform(240, 480), s.rnd.uniform(2.4, 4.6),
+        s.eclat(s.rnd.uniform(150, 1130), s.rnd.uniform(240, 450), s.rnd.uniform(2.4, 4.6),
                 0, s.C("soleil"), .4, stroke=False, anim="scintille")
-    for px, py in ((196, 448), (1096, 426), (330, 486), (980, 480)):
+    for px, py in ((230, 436), (1056, 418), (352, 466), (952, 460)):
         s.add('<path d="%s" fill="%s" opacity="0.5"/>' % (blob(px, py, 30, 13, int(px), 9, .3), s.C("pierre")))
     return s
 

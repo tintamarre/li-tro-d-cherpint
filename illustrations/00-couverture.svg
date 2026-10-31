@@ -51,6 +51,17 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="1" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <!-- Variantes en unités de boîte : à l'intérieur d'un groupe transformé, une
+       région en coordonnées utilisateur est tournée et décalée avec lui, et rogne. -->
+  <filter id="couv-wcb" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="34" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.7"/>
+  </filter>
+  <filter id="couv-inkb" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="34" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
   <filter id="couv-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="34" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G" result="d"/>
@@ -60,7 +71,7 @@
     <rect x="9" y="7" width="1262" height="526" fill="#fff" filter="url(#couv-bord)"/>
   </mask>
   <filter id="couv-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="34" result="t"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
@@ -98,8 +109,8 @@
 <path d="M 352.3 113.6 C 371.7 111.2 431.7 93.1 468.7 99.4 C 505.7 105.8 549.4 126.1 574.3 151.5 C 599.2 177.0 617.3 218.1 618.0 252.2 C 618.7 286.3 575.6 325.9 578.5 356.3 C 581.3 386.7 625.7 421.5 635.2 434.5 L 636.8 433.5 C 629.6 420.5 593.3 385.9 593.5 355.7 C 593.7 325.4 638.6 288.3 638.0 251.8 C 637.4 215.3 617.5 165.0 589.7 136.5 C 561.9 107.9 511.0 84.9 471.3 80.6 C 431.6 76.2 371.6 105.4 351.7 110.4 Z" fill="#E8C98A" opacity="0.45" filter="url(#couv-wc)" style="mix-blend-mode:multiply"/>
 <path d="M 352.7 111.9 C 371.7 111.5 431.7 101.8 466.7 109.6 C 501.7 117.4 540.0 135.7 562.7 158.8 C 585.4 182.0 602.3 216.1 603.0 248.5 C 603.8 280.8 562.0 322.4 567.2 352.8 C 572.4 383.3 622.8 418.2 634.0 431.3 L 638.0 428.7 C 632.5 415.8 602.3 381.4 604.8 351.2 C 607.3 321.0 653.6 285.9 653.0 247.5 C 652.4 209.2 631.3 152.0 601.3 121.2 C 571.4 90.3 515.0 65.3 473.3 62.4 C 431.6 59.6 371.6 97.1 351.3 104.1 Z" fill="none" stroke="#8C7B66" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.83" filter="url(#couv-ink)"/>
 <g transform="translate(352.0,108.0) rotate(169.4) scale(0.57)">
-<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="#8D9C70" opacity="0.96" filter="url(#couv-wc)"/>
-<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="none" stroke="#8C7B66" stroke-width="1.8" stroke-linejoin="round" filter="url(#couv-ink)"/>
+<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="#8D9C70" opacity="0.96" filter="url(#couv-wcb)"/>
+<path d="M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 Q 18 25 -44 25 Q -56 0 -44 -25 Z" fill="none" stroke="#8C7B66" stroke-width="1.8" stroke-linejoin="round" filter="url(#couv-inkb)"/>
 <path d="M 52 4 Q 20 15 -26 17" fill="none" stroke="#8C7B66" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
 <path d="M 30 -24 Q 14 -30 -4 -27" fill="none" stroke="#8C7B66" stroke-width="1.0" opacity="0.4" stroke-linecap="round"/>
 <circle cx="14" cy="-9" r="10.5" fill="#DFA94A"/>

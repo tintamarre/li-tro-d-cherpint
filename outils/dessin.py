@@ -428,8 +428,8 @@ class Scene:
         ew = self.st["encre_w"]
         d = ("M -44 -25 Q -4 -32 28 -22 Q 50 -14 55 -3 Q 56 7 46 12 "
              "Q 18 25 -44 25 Q -56 0 -44 -25 Z")
-        self.add('<path d="%s" fill="%s" opacity="0.96" filter="url(#%s-wc)"/>' % (d, couleur, self.slug))
-        self.add('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" stroke-linejoin="round" filter="url(#%s-ink)"/>'
+        self.add('<path d="%s" fill="%s" opacity="0.96" filter="url(#%s-wcb)"/>' % (d, couleur, self.slug))
+        self.add('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" stroke-linejoin="round" filter="url(#%s-inkb)"/>'
                  % (d, enc, 2.6 * ew, self.slug))
         # machoire et arcade
         self.add('<path d="M 52 4 Q 20 15 -26 17" fill="none" stroke="%s" stroke-width="%.1f" opacity="0.55" stroke-linecap="round"/>' % (enc, 1.7 * ew))
@@ -526,6 +526,17 @@ class Scene:
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="%d" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="TREMBLE" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <!-- Variantes en unités de boîte : à l'intérieur d'un groupe transformé, une
+       région en coordonnées utilisateur est tournée et décalée avec lui, et rogne. -->
+  <filter id="S-wcb" x="-30%%" y="-30%%" width="160%%" height="160%%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="%d" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.7"/>
+  </filter>
+  <filter id="S-inkb" x="-25%%" y="-25%%" width="150%%" height="150%%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="%d" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="TREMBLE" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
   <filter id="S-bord" REG>
     <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="%d" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="BORD_D" xChannelSelector="R" yChannelSelector="G" result="d"/>
@@ -544,7 +555,7 @@ class Scene:
            .replace("BORD_I", "%.0f" % self.bord[2]).replace("BORD_J", "%.0f" % (self.bord[2] * .8)) \
            .replace("MW2", "%.0f" % (self.w - 2 * self.bord[2])) \
            .replace("MH2", "%.0f" % (self.h - 1.6 * self.bord[2])) \
-           .replace("MW", str(self.w)).replace("MH", str(self.h)) % (a, b, c, a, a)
+           .replace("MW", str(self.w)).replace("MH", str(self.h)) % (a, b, c, a, a, a, c)
 
     def render(self):
         return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" role="img" '

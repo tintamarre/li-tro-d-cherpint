@@ -51,6 +51,17 @@
     <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="47" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
+  <!-- Variantes en unités de boîte : à l'intérieur d'un groupe transformé, une
+       région en coordonnées utilisateur est tournée et décalée avec lui, et rogne. -->
+  <filter id="p05-wcb" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="28" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.7"/>
+  </filter>
+  <filter id="p05-inkb" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="28" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
   <filter id="p05-bord" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
     <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves="4" seed="28" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G" result="d"/>
@@ -60,7 +71,7 @@
     <rect x="9" y="7" width="1262" height="526" fill="#fff" filter="url(#p05-bord)"/>
   </mask>
   <filter id="p05-grain" filterUnits="userSpaceOnUse" x="-80" y="-80" width="1440" height="700">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="28" result="t"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="47" result="t"/>
     <feColorMatrix in="t" type="saturate" values="0"/>
   </filter>
 </defs>
