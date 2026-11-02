@@ -74,13 +74,7 @@ Les deux licences libres portent sur ce que j'ai fabriqué, et sur cela seulemen
 
 Source du texte : *Sprimont Infos*, octobre 2026, p. 24, rubrique « Patrimoine ».
 
-## Le texte, et sa relecture
-
-Le texte wallon a d'abord été ressaisi depuis une photo du bulletin, ce qui y a introduit des fautes — la plus lourde étant systématique : Henri Grandry écrit le **å** du système Feller, rendu par **â** presque partout. Il nous l'a signalé.
-
-Le texte a donc été **entièrement relu sur un scan à 340 dpi**, colonne par colonne. Trente-huit `å` rétablis, dix-neuf fautes de saisie isolées, deux dans la colonne française. `texte/corrections.md` tient le détail : ce qui est corrigé, ce que le scan a innocenté, et les points qui restent à soumettre à l'auteur.
-
-`texte/pages.json` est la source unique. `texte/transcription.md` en est regénéré par `outils/transcription.py`, pour que les deux ne puissent plus diverger.
+`texte/pages.json` est la source unique ; `texte/transcription.md` en est regénéré par `outils/transcription.py`.
 
 ## Deux écarts avec le bulletin imprimé
 
