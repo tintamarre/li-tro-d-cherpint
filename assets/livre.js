@@ -173,7 +173,8 @@
           "<p>Légende recueillie et mise en français par <b>" + M.auteur_fr + "</b>, " +
           "traduite en wallon par <b>" + M.auteur_wa + "</b>.</p>" +
           "<p>Paru dans <b>" + M.source + "</b>, sous le titre de série « " + M.serie + " ».</p>" +
-          "<p>La légende a sûrement été contée en wallon. Laport l’a fixée en français, comme le faisaient les folkloristes de son temps ; la traduction d’Henri Grandry la ramène, quatre-vingts ans plus tard, dans la langue où on la racontait.</p></div>" +
+          "<p>La légende a sûrement été contée en wallon. Laport l’a fixée en français, comme le faisaient les folkloristes de son temps ; la traduction d’Henri Grandry la ramène, quatre-vingts ans plus tard, dans la langue où on la racontait.</p>" +
+          "<p>Le wallon n’est pas un français abîmé : c’est une langue à part entière, cousine du français, reconnue comme <b>langue régionale endogène</b> par la Fédération Wallonie-Bruxelles et inscrite par l’UNESCO parmi les langues en danger. La lire à voix haute, c’est la garder vivante.</p></div>" +
         "<div><h3>Georges Laport</h3>" +
           "<p>Né à Fraiture en 1898, mort au camp de Dachau en 1945. Homme de lettres, critique d’art et historien des traditions populaires, il fut l’un des pionniers de l’enquête orale en Wallonie et recueillit des récits qui, sans lui, auraient disparu.</p>" +
           "<p>On lui doit notamment <i>Le folklore des paysages de Wallonie</i> (1929) et <i>Les contes populaires wallons</i> (1932). Membre de la Société de littérature wallonne et de la Commission nationale de folklore, il entra en résistance dès le début de la guerre, fut arrêté le 4 juin 1942 et déporté.</p>" +
@@ -201,6 +202,23 @@
   }
 
   /* ------------------------------------------------------------ navigation */
+  /* Le colophon tient d'un seul tenant : pas de scroll sur la dernière page.
+     On réduit son échelle typographique jusqu'à ce qu'il rentre. Le texte se
+     recompose à chaque pas (la grille elle-même suit l'échelle), d'où
+     l'itération plutôt qu'un seul calcul. */
+  function ajusterColophon() {
+    var c = livre.querySelector(".colophon");
+    if (!c || !c.classList.contains("actuelle")) return;
+    var e = 1;
+    c.style.setProperty("--echelle", e);
+    for (var i = 0; i < 8 && e > 0.7; i++) {
+      var debord = c.scrollHeight - c.clientHeight;
+      if (debord <= 1) break;
+      e = Math.max(0.7, e * Math.sqrt(c.clientHeight / c.scrollHeight) - 0.005);
+      c.style.setProperty("--echelle", e.toFixed(3));
+    }
+  }
+
   function va(n, sens) {
     n = Math.max(0, Math.min(total - 1, n));
     if (n === idx && pages.length) return;
