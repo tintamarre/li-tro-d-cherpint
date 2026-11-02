@@ -1,68 +1,74 @@
-# Relevé à soumettre à Henri Grandry
+# Reprise du texte wallon sur le scan du bulletin
 
-Henri Grandry signale, le 2 novembre 2026, « quelques fautes d'orthographe et de typographie » dans la reprise de sa traduction. Le texte wallon de ce livre a été ressaisi à la main depuis la photo de *Sprimont Infos* (octobre 2026, p. 24) : les fautes sont donc les nôtres, pas les siennes.
+Le 2 novembre 2026, Henri Grandry signale « quelques fautes d'orthographe et de typographie » dans la reprise de sa traduction. Le texte avait été ressaisi depuis une photo de *Sprimont Infos* (octobre 2026, p. 24) : les fautes étaient les nôtres.
 
-Ce fichier liste ce qui est **douteux à la relecture interne** — un même mot écrit de deux façons d'une page à l'autre, une accentuation qui saute, une typographie incertaine. Ce n'est pas une liste de corrections : c'est une liste de questions. La réponse d'Henri Grandry fait foi, et lui seul tranche.
-
-Une fois tranché : corriger `texte/pages.json` (source unique), puis `python3 outils/site.py` pour regénérer `assets/livre-data.js`. `texte/transcription.md` est à corriger en parallèle.
+Le texte a été **entièrement relu sur un scan à 340 dpi** et corrigé dans `texte/pages.json`, qui reste la source unique. `texte/transcription.md` en est désormais regénéré par `outils/transcription.py`, pour que les deux ne puissent plus diverger.
 
 ---
 
-## 1. Un mot, deux graphies
+## 1. La faute principale : le å
 
-| Page | Écrit | Ailleurs | Question |
-|---|---|---|---|
-| 02 | `chérpint` (titre et corps) | `chèrpint` (01, 03, 07) | è ou é ? |
-| 12 | `tchèrpint` | `chèrpint` | avec ou sans t initial ? |
-| 13 | `chantwér` | `tchantwér` (01, 02, 10) | idem |
-| 13 | `logis'` | `lodjis'` (02) | dj ou g ? |
-| 09 | `l'îdêye` | `idèye` (06, titre et corps) | quelle forme ? |
-| 12 | `ewèrer` | `èwarèye` (13) | même racine, deux vocalismes |
-| 08 | `tower` | `touwer` (03), `touwerèyes` (05) | ou / o ? |
-| 10 | `epèye` | `èpèyes` (11, 12) | accent manquant ? |
-| 11 | `lêus-z-èpèyes` | `leûs-z-èpèyes` (12) | ê ou eû ? |
-| 13 | `â d' fêt` | `Â-d-fêt` (01) | traits d'union ou apostrophe ? |
-| 13 | `s-trô` | `s' trô` (02) | trait d'union ou apostrophe ? |
+Henri Grandry écrit le **å** (a rond en chef, la « a-ring » du système Feller, qui note le son intermédiaire entre *a* et *o*). Nous l'avions rendu par **â** presque partout, sauf dans un paragraphe. Il y en a **38** dans le texte.
 
-## 2. Accents probablement tombés à la saisie
+Corrigés : `måle`, `målureûs`, `målureûs'mint`, `måleurs`, `åtoû`, `å djins`, `Å-d'-fêt`, `måy`, `qu'on-åvahe`, `rin-n'-våts`, `åvît`, `condånés`, `condånåcion`, `fåtifs`, `cåse`, `å cis`, `ås` (3 fois), `pindårds`, `ahåyan`, `tribunål`, `Mågré`, `gråce`, `d'årmure`, `Å p'tit djoû`, `s'atårdjant`, `Leûs-z-årmures`, `lårdé`, `contrôler å d' fêt`, `s' no å chantwér`, `vårè`, `på`, `drossårt`, `pårt`.
 
-| Page | Écrit | Attendu ailleurs |
+Le bandeau de l'article porte lui aussi `Lédjinde **åtoû** d'Lincé Sprimont` : corrigé dans le titre de série.
+
+Reste un seul `â` dans tout le texte, `l'ocâsion` (page 11), lu tel quel sur le scan — **à confirmer**.
+
+## 2. Les autres fautes de saisie, corrigées
+
+| Page | Nous avions | Le bulletin porte |
 |---|---|---|
-| 13 | `Li pus' esteût vûde` (titre **et** corps) | `èsteût` (02, 12) |
-| 04 | `âvît stu` | `avît` (03) |
-| 06 | `spagnereût deus vèyes` | `deûs` (01, 03, 09, 10, 11) |
-| 06 | `Come coula` | `çoula` (02, 07, 09) |
-| 04 | `so leu fôrfèt` | `leû` (passim) |
-| 04 | `cis dès ban de Sprimont` | `dè` (passim) |
-| 10 | `l' vôye de tchantwér` | `dè` |
-| 04 | `Min n'alons nin trop reû` | `Mins` (03) |
+| 02 | `dès ans èt dès ra-z-ans` | `dès ans et dès ra-z-ans` |
+| 03 | `d' leû tchèsse` | `d'leû tchèsse` |
+| 03 | `d'ine djin` | `d' ine djin` |
+| 03 | `novès` | `novês` |
+| 04 | `al potence` | `al potince` |
+| 04 | `qu'èstît fatifs` | `qu' èstît fåtifs` |
+| 04 | `so leu fôrfèt` | `so leu fôrfêt` |
+| 06 | `Li mèsse djudge` | `Li mêsse djudge` |
+| 08 | `d' trop s'ègadjî` | `d' trop' s'ègadjî` |
+| 09 | `d'acwèrds` | `d'acwérds` |
+| 10 | `ine epèye` | `ine èpèye` |
+| 10 | `l' vôye de tchantwér` | `l' vôye dè tchantwér` |
+| 11 | `lî revoyève` | `lî rèvoyève` |
+| 12 | `Lès djudjes èstît ewèrer` | `Lès djudjes estît ewèrer` |
+| 12 | `leû libèrté` | `leû liberté` |
+| 13 | `di viyèdjes` | `dè viyèdjes` |
+| 13 | `d'Xhignez` | `d' Xhignez` |
+| 13 | `storeye` | `storèye` |
+| 13 | `Lès condånés avît` | `Lès condånés avit` |
 
-## 3. La page 08, à relire en entier
+Côté français, deux fautes seulement : `« li trô â serpint »` → `« li trô å serpint »` (page 1) et `Le « pus' » était désert` → `Le « pus » était désert` (page 13). Le reste de la colonne de Georges Laport était conforme.
 
-C'est le seul paragraphe où apparaît le **å** (`drossårt`, `D'ôte på`, `vårè`), alors que tout le reste du texte emploie **â** (`pâ` en 05). Soit le bulletin change de système à cet endroit, soit nous avons mal lu. Même page : `crèyeû`, `vinit`, `lêu-z-ovrèdje`, `'lzî acwète` sont incertains.
+Note 1 : le bulletin met un **point-virgule**, `Pwèrtéve hisse ; faisait horreur`, et non deux points.
 
-## 4. Passages dont la lecture n'est pas sûre
+## 3. Ce que nous avions cru fautif et qui ne l'est pas
 
-- **05** — « Tavlê pâ ahâyan qui n' donreut rin d' bon tins âs manants. » La phrase ne se laisse pas lire ; `Tavlê` est probablement mal lu.
-- **06** — « i alît so l' pote là qui lès prîzonîrs wêtît leû dièrin.ne heure » : `pote` ou `pôte` (la porte) ?
-- **03** — « on n'èlz' avît mây vèyou rim'ni » contre **13** « on 'lzès libèra » et « èlzès sûvît ». Trois graphies du même pronom.
-- **09** — « lès deûs k'péres » : compères ?
-- **10** — « Leû moussemints djouwa » : singulier ou pluriel ?
+Vérifié sur le scan, et donc laissé tel quel : `coula` (page 6) et `çoula` ailleurs, `deus vèyes` sans accent, `Li pus' esteût vûde` sans accent sur le premier *e*, `Min n'alons nin trop reû`, `chérpint` (page 2) à côté de `chèrpint` et de `tchèrpint` (page 12), `chantwér` (page 13) à côté de `tchantwér`, `logis'` (page 13) à côté de `lodjis'` (page 2), `s-trô`, `so l' pote`, `lès deûs k'péres`, `Tavlè på ahåyan`, `l'îdêye` à côté de `idèye`, `lêus-z-èpèyes` à côté de `leûs-z-èpèyes`, `de Sprimont` sans accent, et la virgule suivie d'une majuscule page 10 (`bin tchèrpèye, I s' ènn' alît`).
 
-## 5. Typographie
+La note 2 s'arrête bien au milieu d'une phrase dans le bulletin — *« gibet à plusieurs potences que les seigneurs des lieux »* — ce n'est pas une coupure de notre fait.
 
-- **07** — guillemets emboîtés : `« Dimin, vos d'vez-t-èsse sitronlé avou l' « hart » come l'a dit… »`. Il faudrait des guillemets intérieurs d'un autre dessin, ou aucun.
-- **01** — `l'loume` : espace manquante après l'élision (`l' loume`), partout ailleurs l'élision est suivie d'une espace.
-- **10** — « ine epèye bin tchèrpèye, I s' ènn' alît » : virgule suivie d'une majuscule, c'est sans doute un point.
-- **03** — `d' leû tchèsse !… ` : point d'exclamation suivi de points de suspension, à confirmer.
-- Les apostrophes sont toutes saisies en apostrophe droite `'`. Faut-il l'apostrophe courbe `’` ?
+Et la liste imprimée des notes intervertit bien 3 et 4 par rapport aux appels du texte.
 
-## 6. Note 2 incomplète
+---
 
-> « Pindârds fotches : fourches patibulaires, gibet à plusieurs potences **que les seigneurs des lieux.** »
+## 4. Ce qui reste à lui demander
 
-La phrase s'arrête net : il manque la fin dans notre saisie (… *avaient le droit d'élever* ?). Et le titre de la page 05, « Lès pindârds fotches », reprend l'ordre des mots de la note — à vérifier.
+**Quatre corrections de composition** que nous avons appliquées parce qu'elles ressemblent à des accidents de mise en page, et qu'il faut lui faire confirmer :
 
-## 7. Le prénom
+1. Les guillemets. Le bulletin écrit `«on pus'»` serré au premier paragraphe et `« li trô d' chèrpint »` espacé trois lignes plus bas. Nous avons mis partout la forme espacée.
+2. Page 7, `qu'on v's-aveût léhou .` — espace avant le point, supprimée.
+3. Page 13, `on 'lzès libèra  rad'mint` — double espace, réduite à une.
+4. Page 10, `i s 'moûssît` — l'apostrophe est collée au mot suivant au lieu du précédent ; rétablie en `i s' moûssît`.
 
-Le bulletin imprime « Henry GRANDRY » en tête d'article et « Henri GRANDRY » sous la colonne wallonne. Nous avons retenu **Henri**, confirmé par l'intéressé. Le colophon le mentionne ; lui demander s'il veut qu'on garde cette mention ou qu'on la retire.
+**Deux questions de fond :**
+
+5. `l'ocâsion` (page 11) est le seul `â` du texte. Faut-il lire `l'ocåsion` ?
+6. Page 7, les guillemets s'emboîtent : `« Dimin, vos d'vez-t-èsse sitronlé avou l' « hart »… »`. Faut-il un autre dessin pour les intérieurs, ou aucun ?
+
+**Et deux choses à lui signaler :**
+
+7. Les apostrophes sont toutes saisies en apostrophe droite `'`. Le livre resserre typographiquement le blanc après les élisions d'une ou deux lettres (`l'`, `d'`, `s'`, `n'`, `qu'`), sans toucher au texte : les apostrophes qui sont des lettres du mot — `pus'`, `song'`, `nut'`, `lodjis'`, `trop'` — gardent leur espace entière.
+8. Les treize titres de page (« Li lodjis' dè chérpint », « Å p'tit djoû », …) **sont de nous** : le bulletin n'en a pas. Ils servent à découper la légende en pages. À relire par lui, et à retirer s'il préfère.
