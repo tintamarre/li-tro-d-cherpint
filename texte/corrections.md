@@ -1,6 +1,6 @@
 # Reprise du texte wallon sur le scan du bulletin
 
-Le 2 novembre 2026, Henri Grandry signale « quelques fautes d'orthographe et de typographie » dans la reprise de sa traduction. Le texte avait été ressaisi depuis une photo de *Sprimont Infos* (octobre 2026, p. 24) : les fautes étaient les nôtres.
+Le 2 novembre 2026, Henri Grandry nous a signalé des fautes d'orthographe et de typographie dans la reprise de sa traduction. Le texte avait été ressaisi depuis une photo de *Sprimont Infos* (octobre 2026, p. 24) : les fautes étaient les nôtres.
 
 Le texte a été **entièrement relu sur un scan à 340 dpi** et corrigé dans `texte/pages.json`, qui reste la source unique. `texte/transcription.md` en est désormais regénéré par `outils/transcription.py`, pour que les deux ne puissent plus diverger.
 

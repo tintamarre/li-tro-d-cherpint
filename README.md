@@ -74,11 +74,17 @@ Les deux licences libres portent sur ce que j'ai fabriqué, et sur cela seulemen
 
 Source du texte : *Sprimont Infos*, octobre 2026, p. 24, rubrique « Patrimoine ».
 
-> Ce dépôt est **privé** tant que l'accord d'Henri Grandry n'a pas été obtenu pour la diffusion du texte wallon.
+## Le texte, et sa relecture
 
-## Deux corrections au bulletin imprimé
+Le texte wallon a d'abord été ressaisi depuis une photo du bulletin, ce qui y a introduit des fautes — la plus lourde étant systématique : Henri Grandry écrit le **å** du système Feller, rendu par **â** presque partout. Il nous l'a signalé.
 
-Signalées ici parce qu'elles écartent la version en ligne de la page imprimée :
+Le texte a donc été **entièrement relu sur un scan à 340 dpi**, colonne par colonne. Trente-huit `å` rétablis, dix-neuf fautes de saisie isolées, deux dans la colonne française. `texte/corrections.md` tient le détail : ce qui est corrigé, ce que le scan a innocenté, et les points qui restent à soumettre à l'auteur.
+
+`texte/pages.json` est la source unique. `texte/transcription.md` en est regénéré par `outils/transcription.py`, pour que les deux ne puissent plus diverger.
+
+## Deux écarts avec le bulletin imprimé
+
+Signalés ici parce qu'ils écartent la version en ligne de la page imprimée :
 
 1. Le bulletin écrit « Henry GRANDRY » dans le chapeau et « Henri GRANDRY » sous la colonne wallonne. La graphie exacte est **Henri** ; elle a été rétablie.
 2. La liste des notes imprimée intervertit les notes 3 et 4 par rapport aux appels du texte (« hart » appelle 3, « volahe » appelle 4). Elles ont été remises en regard de leur appel.
